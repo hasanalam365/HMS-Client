@@ -5,6 +5,7 @@ import Brands from "../Pages/Brands/Brands";
 import Dashboard from "../Dashboard/Dashboard/Dashboard";
 import Profile from "../Dashboard/Profile";
 import DeliveryAddress from "../Pages/DashboardPage/DeliveryAddress";
+import Login from "../Pages/Login/Login";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -22,9 +23,14 @@ const router = createBrowserRouter([
                 element: <Brands></Brands>
             },
 
+            {
+                path: '/login',
+                element: <Login></Login>
+            },
 
         ]
     },
+
     {
         path: '/dashboard',
         element: <Dashboard></Dashboard>,
