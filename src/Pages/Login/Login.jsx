@@ -3,6 +3,7 @@ import { MdKey } from "react-icons/md";
 import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
 
@@ -18,8 +19,8 @@ const Login = () => {
     }
 
     return (
-        <div className=" bg-base-300 min-h-screen">
-            <div className="w-[95%] md:w-3/4 lg:w-1/2 mx-auto ">
+        <div className=" bg-base-300 min-h-screen p-8">
+            <div className="w-[95%] md:w-1/2 lg:w-[40%] mx-auto ">
 
                 <div className="card bg-base-100   ">
                     <h3 className="text-2xl font-semibold text-center mt-2"> Login</h3>
@@ -57,7 +58,16 @@ const Login = () => {
                             <button className="btn btn-primary">Login</button>
                         </div>
                     </form>
+                    <div className="divider">OR</div>
+                    <div className="border-2 w-3/4 md:w-3/4 lg:w-3/4 mx-auto rounded-lg p-2 mb-3">
+                        <div className="flex gap-3 items-center justify-center ">
+                            <FcGoogle className="text-2xl"></FcGoogle>
+                            <h5 className="text-lg">Continue with Google</h5>
+                        </div>
+                    </div>
                 </div>
+
+
             </div>
         </div>
     );
