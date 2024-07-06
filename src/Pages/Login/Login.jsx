@@ -4,6 +4,7 @@ import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 const Login = () => {
 
@@ -55,7 +56,7 @@ const Login = () => {
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn btn-primary">Login</button>
+                            <button className="btn btn-secondary">Login</button>
                         </div>
                     </form>
                     <div className="divider">OR</div>
@@ -65,6 +66,15 @@ const Login = () => {
                             <h5 className="text-lg">Continue with Google</h5>
                         </div>
                     </div>
+                    <div className=" w-3/4 md:w-3/4 lg:w-3/4 mx-auto rounded-lg p-2 mb-3">
+                        <div className="flex gap-1 items-center justify-center ">
+
+                            <h5 className="">Don't have any account ?</h5>
+                            <span> Please</span>
+                            <Link to="/register" className="text-blue-600">Register</Link>
+                        </div>
+                    </div>
+
                 </div>
 
 
