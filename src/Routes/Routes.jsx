@@ -7,6 +7,7 @@ import Profile from "../Dashboard/Profile";
 import DeliveryAddress from "../Pages/DashboardPage/DeliveryAddress";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import PrivateRoute from "./PrivateRoute";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -38,7 +39,9 @@ const router = createBrowserRouter([
 
     {
         path: '/dashboard',
-        element: <Dashboard></Dashboard>,
+        element: <PrivateRoute>
+            <Dashboard></Dashboard>
+        </PrivateRoute>,
         children: [
             {
                 path: '/dashboard/profile',

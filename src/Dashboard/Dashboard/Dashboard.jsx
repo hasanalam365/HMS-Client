@@ -7,8 +7,17 @@ import { AiOutlineLogout } from "react-icons/ai";
 
 import Footer from "../../Shared/Footer/Footer";
 import Navber from "../../Shared/Navber/Navber";
+import useAuth from "../../hooks/useAuth";
 
 const Dashboard = () => {
+
+    const { signOutUser, user } = useAuth()
+    console.log(user)
+
+    const handleLogOut = () => {
+        signOutUser()
+    }
+
 
     const dashNavLinks = <>
         <NavLink to="/dashboard/profile" className={({ isActive }) =>
@@ -34,14 +43,19 @@ const Dashboard = () => {
         </NavLink>
 
         <NavLink className={({ isActive }) =>
-            `flex gap-3 items-center justify-center hover:text-orange-600 ${isActive ? 'text-orange-600' : ''
+            ` hover:text-orange-600 ${isActive ? 'text-orange-600' : ''
             }`
         }>
-            <AiOutlineLogout />
-            <li className="hidden md:hidden lg:block">Logout</li>
+
+            <button onClick={handleLogOut} className="flex gap-3 items-center justify-center">
+                <AiOutlineLogout />
+
+                <li className="hidden md:hidden lg:block">Logout</li>
+            </button>
         </NavLink>
 
     </>
+
 
 
 
