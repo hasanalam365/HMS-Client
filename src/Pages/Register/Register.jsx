@@ -7,19 +7,20 @@ import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
-const Login = () => {
 
-    const { signInUser, loading, googleSignIn } = useAuth()
+const Register = () => {
+
+    const { signUpUser, loading, googleSignIn } = useAuth()
     const [openPassword, setOpenPassword] = useState(false)
 
-    const handleLogin = async (e) => {
+    const handleSignUp = (e) => {
         e.preventDefault()
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
 
         console.log(email, password)
-        signInUser(email, password)
+        signUpUser(email, password)
             .then(result => {
                 console.log(result.user)
             })
@@ -37,8 +38,8 @@ const Login = () => {
             <div className="w-[95%] md:w-1/2 lg:w-[40%] mx-auto ">
 
                 <div className="card bg-base-100   ">
-                    <h3 className="text-2xl font-semibold text-center mt-2"> Login</h3>
-                    <form onSubmit={handleLogin} className="card-body">
+                    <h3 className="text-2xl font-semibold text-center mt-2">Sign Up</h3>
+                    <form onSubmit={handleSignUp} className="card-body">
                         <div className="form-control">
                             <label className="input input-bordered flex items-center gap-2">
                                 <FaUser></FaUser>
@@ -69,7 +70,7 @@ const Login = () => {
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn btn-secondary">Login</button>
+                            <button className="btn btn-secondary">Sign Up</button>
                         </div>
                     </form>
                     <div className="divider">OR</div>
@@ -84,7 +85,7 @@ const Login = () => {
 
                             <h5 className="">Don't have any account ?</h5>
                             <span> Please</span>
-                            <Link to="/register" className="text-blue-600">Register</Link>
+                            <Link to="/login" className="text-blue-600">Login</Link>
                         </div>
                     </div>
 
@@ -96,4 +97,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;
