@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import router from './Routes/Routes.jsx';
 import AuthProvider from './firebase/AuthProvider.jsx';
+import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
 

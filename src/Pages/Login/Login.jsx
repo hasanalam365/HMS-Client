@@ -53,6 +53,11 @@ const Login = () => {
 
     }
 
+    const passwordVisibilityToggle = (e) => {
+        e.preventDefault()
+        setOpenPassword(!openPassword)
+    }
+
     return (
         <div className=" bg-base-300 min-h-screen p-8">
             <div className="w-[95%] md:w-1/2 lg:w-[40%] mx-auto ">
@@ -75,11 +80,11 @@ const Login = () => {
                                 <input type={`${openPassword ? 'text' : 'password'}`} className="grow"
                                     name="password" placeholder="Password" />
                                 {
-                                    !openPassword ? <button onClick={() => setOpenPassword(true)}>
+                                    !openPassword ? <button onClick={passwordVisibilityToggle}>
                                         <FaRegEye></FaRegEye>
                                     </button>
                                         :
-                                        <button onClick={() => setOpenPassword(false)}>
+                                        <button onClick={passwordVisibilityToggle}>
                                             <FaEyeSlash></FaEyeSlash>
                                         </button>
                                 }

@@ -4,15 +4,18 @@ import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 
 
 const Register = () => {
 
-    const { signUpUser, loading, googleSignIn } = useAuth()
+    const { signUpUser, signOutUser, googleSignIn, user } = useAuth()
     const [openPassword, setOpenPassword] = useState(false)
+    const navigate = useNavigate()
+    const location = useLocation()
+    console.log(user)
 
     const handleSignUp = (e) => {
         e.preventDefault()
@@ -25,20 +28,26 @@ const Register = () => {
             .then(result => {
                 if (result.user) {
 
-                    toast("Register Successfully!")
+                    toast("Sign Up Successfully!")
+                    signOutUser()
 
                 }
+
+                navigate("/login")
+            })
+            .catch(() => {
+                toast.error("Invalid Email/Password!")
             })
     }
 
     const handleGoogleLogin = () => {
         googleSignIn()
             .then(result => {
-                if (result.user) {
-
-                    toast("Login Successfully!")
-
-                }
+                toast("Login Successfully!")
+                navigate(location?.state || "/")
+            })
+            .catch(error => {
+                console.log(error.message)
             })
     }
 
