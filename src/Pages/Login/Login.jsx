@@ -4,16 +4,20 @@ import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 
 const Login = () => {
 
-    const { signInUser, loading, googleSignIn, user } = useAuth()
+    const { signInUser, googleSignIn, user } = useAuth()
     const [openPassword, setOpenPassword] = useState(false)
+    const navigate = useNavigate()
+    const location = useLocation()
 
     console.log(user)
+    console.log(navigate)
+    console.log(location)
 
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -29,6 +33,11 @@ const Login = () => {
                     toast("Login Successfully!")
 
                 }
+
+                navigate(location?.state || "/")
+            })
+            .catch(() => {
+                toast.error("Invalid Email/Password!")
             })
     }
 
@@ -36,7 +45,12 @@ const Login = () => {
         googleSignIn()
             .then(result => {
                 console.log(result.user)
+                navigate(location?.state || "/")
             })
+            .catch(error => {
+                console.log(error.message)
+            })
+
     }
 
     return (
