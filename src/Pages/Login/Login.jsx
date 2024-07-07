@@ -6,11 +6,14 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Login = () => {
 
-    const { signInUser, loading, googleSignIn } = useAuth()
+    const { signInUser, loading, googleSignIn, user } = useAuth()
     const [openPassword, setOpenPassword] = useState(false)
+
+    console.log(user)
 
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -21,7 +24,11 @@ const Login = () => {
         console.log(email, password)
         signInUser(email, password)
             .then(result => {
-                console.log(result.user)
+                if (result.user) {
+
+                    toast("Login Successfully!")
+
+                }
             })
     }
 

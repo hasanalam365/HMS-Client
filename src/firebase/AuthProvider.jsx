@@ -1,6 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import app from "./firebase.cofig";
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 
 const auth = getAuth(app)
@@ -11,6 +11,8 @@ export const AuthContext = createContext(null)
 const AuthProvider = ({ children }) => {
 
     const [loading, setLoading] = useState(true)
+    const [user, setUser] = useState([])
+
 
     //sign up user
     const signUpUser = (email, password) => {
@@ -31,11 +33,23 @@ const AuthProvider = ({ children }) => {
     }
 
 
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, currentUser => {
+
+            setUser(currentUser)
+            setLoading(false)
+        }
+
+        )
+        return () => unSubscribe()
+    }, [])
+
     const allValues = {
         loading,
         signUpUser,
         signInUser,
         googleSignIn,
+        user
     }
 
     return (

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 
 const Register = () => {
@@ -22,14 +23,22 @@ const Register = () => {
         console.log(email, password)
         signUpUser(email, password)
             .then(result => {
-                console.log(result.user)
+                if (result.user) {
+
+                    toast("Register Successfully!")
+
+                }
             })
     }
 
     const handleGoogleLogin = () => {
         googleSignIn()
             .then(result => {
-                console.log(result.user)
+                if (result.user) {
+
+                    toast("Login Successfully!")
+
+                }
             })
     }
 
