@@ -1,6 +1,7 @@
 import { FaRegHeart, FaStar } from "react-icons/fa";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import useProductsData from "../../../hooks/useProductsData";
+import { Link } from "react-router-dom";
 
 const PopularProducts = () => {
 
@@ -15,7 +16,7 @@ const PopularProducts = () => {
                 <div className="divider mt-0"></div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
                     {
-                        populars.map(popular => <div key={popular._id} className="card card-compact bg-base-100 shadow-xl mt-5 hover:scale-105">
+                        populars.map(popular => <Link to={`/product/${popular._id}`} key={popular._id} className="card card-compact bg-base-100 shadow-xl mt-5 hover:scale-105">
                             <figure>
 
                                 <img className='w-full h-[150px]' src={popular.imgUrl} alt="" />
@@ -32,7 +33,7 @@ const PopularProducts = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>)
+                        </Link>)
                     }
 
                 </div>

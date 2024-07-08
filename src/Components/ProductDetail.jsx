@@ -20,7 +20,7 @@ const ProductDetail = () => {
                     <div className="flex-1">
                         <img
                             src={imgUrl}
-                            className=" rounded-lg shadow-2xl  " />
+                            className=" rounded-lg shadow-2xl w-full h-[250px] md:h-[320px] lg:h-[360px]" />
                     </div>
                     <div className="flex-1 space-y-2 p-2">
                         <h1 className="text-5xl font-bold">{title}</h1>
