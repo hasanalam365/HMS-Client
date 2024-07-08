@@ -4,6 +4,7 @@ import { FaStar } from "react-icons/fa";
 
 
 import useProductsData from "../../../hooks/useProductsData";
+import { Link } from "react-router-dom";
 
 const NewArrival = () => {
 
@@ -21,7 +22,7 @@ const NewArrival = () => {
                 <div className="divider mt-0"></div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
                     {
-                        newArrivals.map(product => <div key={product._id} className="card card-compact bg-base-100 shadow-xl mt-5">
+                        newArrivals.map(product => <Link to={`/product/${product._id}`} key={product._id} className="card card-compact bg-base-100 shadow-xl mt-5 hover:scale-105">
                             <figure>
 
                                 <img className='w-full h-[150px]' src={product.imgUrl} alt="" />
@@ -38,10 +39,12 @@ const NewArrival = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>)
+                        </Link>)
                     }
 
                 </div>
+
+
             </div>
         </div>
     );

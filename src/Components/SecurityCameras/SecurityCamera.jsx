@@ -22,7 +22,7 @@ const SecurityCamera = () => {
                 <div className="divider mt-0"></div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
                     {
-                        securityCameras.map(securityCamera => <div key={securityCamera._id} className="card card-compact bg-base-100 shadow-xl mt-5">
+                        securityCameras.map(securityCamera => <div key={securityCamera._id} className="card card-compact bg-base-100 shadow-xl mt-5 hover:scale-105">
                             <figure>
 
                                 <img className='w-full h-[150px]' src={securityCamera.imgUrl} alt="" />

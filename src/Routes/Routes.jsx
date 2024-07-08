@@ -8,6 +8,7 @@ import DeliveryAddress from "../Pages/DashboardPage/DeliveryAddress";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
+import ProductDetail from "../Components/ProductDetail";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -33,6 +34,11 @@ const router = createBrowserRouter([
                 path: '/register',
                 element: <Register></Register>
             },
+            {
+                path: '/product/:id',
+                element: <ProductDetail></ProductDetail>,
+                loader: ({ params }) => fetch(`http://localhost:5000/product/${params.id}`)
+            }
 
         ]
     },

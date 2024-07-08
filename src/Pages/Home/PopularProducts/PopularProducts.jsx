@@ -15,7 +15,7 @@ const PopularProducts = () => {
                 <div className="divider mt-0"></div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
                     {
-                        populars.map(popular => <div key={popular._id} className="card card-compact bg-base-100 shadow-xl mt-5">
+                        populars.map(popular => <div key={popular._id} className="card card-compact bg-base-100 shadow-xl mt-5 hover:scale-105">
                             <figure>
 
                                 <img className='w-full h-[150px]' src={popular.imgUrl} alt="" />
