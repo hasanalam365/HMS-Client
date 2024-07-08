@@ -29,9 +29,7 @@ const Login = () => {
         signInUser(email, password)
             .then(result => {
                 if (result.user) {
-
                     toast("Login Successfully!")
-
                 }
 
                 navigate(location?.state || "/")
@@ -44,7 +42,11 @@ const Login = () => {
     const handleGoogleLogin = () => {
         googleSignIn()
             .then(result => {
-                console.log(result.user)
+                if (result.user) {
+
+                    toast("Login Successfully!")
+
+                }
                 navigate(location?.state || "/")
             })
             .catch(error => {

@@ -42,7 +42,7 @@ const Register = () => {
 
     const handleGoogleLogin = () => {
         googleSignIn()
-            .then(result => {
+            .then(() => {
                 toast("Login Successfully!")
                 navigate(location?.state || "/")
             })
