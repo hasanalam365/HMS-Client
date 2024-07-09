@@ -7,8 +7,7 @@ import '@smastrom/react-rating/style.css'
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
-import { useQuery } from "@tanstack/react-query";
-import useWishlist from "../hooks/useWishlist";
+
 
 const ProductDetail = () => {
 
@@ -16,33 +15,38 @@ const ProductDetail = () => {
     const axiosPublic = useAxiosPublic()
     const { user } = useAuth()
 
-    // const [isPresent, setIsPresent] = useState(false)
-    const [wishlistData, refetch] = useWishlist()
+
+
     const { imgUrl, title, price, rating, stock, features, productId, _id } = productData
 
     const [isPresent, setIsPresent] = useState(false)
-    console.log('isPresent', isPresent)
+    // console.log('isPresent', isPresent)
 
     const handleWishlistAdd = async (id) => {
+
+
 
         const wishlistAddInfo = {
             email: user?.email,
 
             wishlistId: id
         }
-
         const res = await axiosPublic.put('/wishlist', wishlistAddInfo)
         if (res.data.modifiedCount === 1) {
             toast('added wishlist')
         }
-        refetch()
-    }
-    useEffect(() => {
-        if (wishlistData.mywishList) {
-            // Check if the current wishlist ID is in the list of wishlist IDs
-            setIsPresent(wishlistData.mywishList.includes(_id));
+        else {
+            toast.error('Already added wishlist')
         }
-    }, [wishlistData]);
+
+    }
+
+    // useEffect(() => {
+    //     if (wishlistData.mywishList) {
+    //         // Check if the current wishlist ID is in the list of wishlist IDs
+    //         setIsPresent(wishlistData.mywishList.includes(_id));
+    //     }
+    // }, []);
 
 
     return (

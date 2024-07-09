@@ -107,7 +107,7 @@ const Login = () => {
                             <h5 className="text-lg">Continue with Google</h5>
                         </div>
                     </button>
-                    <div className=" w-3/4 md:w-3/4 lg:w-3/4 mx-auto rounded-lg p-2 mb-3">
+                    <div className=" w-full md:w-full lg:w-3/4 mx-auto rounded-lg p-2 mb-3">
                         <div className="flex gap-1 items-center justify-center ">
 
                             <h5 className="">Don't have any account ?</h5>

@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { MdOutlinePersonalInjury } from "react-icons/md";
-
+import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingBag } from "react-icons/fi";
 import { TiHomeOutline } from "react-icons/ti";
 import { AiOutlineLogout } from "react-icons/ai";
@@ -21,29 +21,36 @@ const Dashboard = () => {
 
     const dashNavLinks = <>
         <NavLink to="/dashboard/profile" className={({ isActive }) =>
-            `flex gap-3 items-center justify-center hover:text-orange-600 ${isActive ? 'text-orange-600' : ''
+            `flex gap-3 items-center justify-center hover:text-orange-600 ${isActive ? 'text-green-600' : ''
             }`
         }>
             <MdOutlinePersonalInjury />
             <li className="hidden md:hidden lg:block">Personal Info</li>
         </NavLink>
         <NavLink className={({ isActive }) =>
-            `flex gap-3 items-center justify-center hover:text-orange-600 ${isActive ? 'text-orange-600' : ''
+            `flex gap-3 items-center justify-center hover:text-orange-600 ${isActive ? 'text-green-600' : ''
             }`
         }>
             <FiShoppingBag />
             <li className="hidden md:hidden lg:block">My Orders</li>
         </NavLink>
         <NavLink to="/dashboard/address" className={({ isActive }) =>
-            `flex gap-3 items-center justify-center hover:text-orange-600 ${isActive ? 'text-orange-600' : ''
+            `flex gap-3 items-center justify-center hover:text-orange-600 ${isActive ? 'text-green-600' : ''
             }`
         }>
             <TiHomeOutline />
             <li className="hidden md:hidden lg:block">Address</li>
         </NavLink>
+        <NavLink to="/dashboard/wishlist" className={({ isActive }) =>
+            `flex gap-3 items-center justify-center hover:text-orange-600 ${isActive ? 'text-green-600' : ''
+            }`
+        }>
+            <FaRegHeart />
+            <li className="hidden md:hidden lg:block">Wishlist</li>
+        </NavLink>
 
         <NavLink className={({ isActive }) =>
-            ` hover:text-orange-600 ${isActive ? 'text-orange-600' : ''
+            ` hover:text-orange-600 ${isActive ? 'text-green-600' : ''
             }`
         }>
 
@@ -71,8 +78,8 @@ const Dashboard = () => {
                     </ul>
                 </div>
 
-                <div className=" fixed w-full ms-auto bg-gray-400 p-2 bottom-0 lg:hidden ">
-                    <ul className="flex flex-row items-start justify-center gap-5 text-3xl font-medium w-3/4 mx-auto">
+                <div className=" fixed w-full ms-auto p-2 bottom-0 lg:hidden ">
+                    <ul className="flex flex-row items-start justify-center gap-5 text-3xl border-2 border-green-600 bg-orange-6000 text-green-600 rounded-full pl-5 pr-5 pt-2 pb-2 font-medium max-w-min mx-auto">
                         {dashNavLinks}
 
                     </ul>
