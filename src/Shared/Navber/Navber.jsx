@@ -3,10 +3,31 @@ import { FaRegHeart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { useState } from "react";
+import useCartList from "../../hooks/useCartList";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAuth from "../../hooks/useAuth";
+
 
 const Navber = () => {
 
     const [isOpenProfile, setIsOpenProfile] = useState(false)
+    const [data] = useCartList()
+    // const axiosPublic = useAxiosPublic()
+    // const { user } = useAuth()
+
+    // const { data = [] } = useQuery({
+    //     queryKey: ['cardList'],
+    //     queryFn: async () => {
+    //         const res = await axiosPublic(`/addToCart/${user.email}`)
+    //         return res.data
+    //     }
+    // })
+
+    // console.log(data.length)
+    // // if (data.length === 0) {
+    // //     return <span>Loading................</span>
+    // // }
 
     const navLinks = <>
         <NavLink>
@@ -109,7 +130,12 @@ const Navber = () => {
 
                             <HiOutlineShoppingCart className="text-xl"></HiOutlineShoppingCart>
                             <div className="absolute -right-4 bottom-2 bg-secondary rounded-full text-white">
-                                <p className="p-1">0</p>
+
+                                {
+                                    !data.length > 0 ? <p className="p-1">0</p>
+                                        :
+                                        <p className="p-1">{data.length}</p>
+                                }
                             </div>
                         </div>
                     </div>

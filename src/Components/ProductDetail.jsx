@@ -2,11 +2,12 @@ import { Rating } from "@smastrom/react-rating";
 import { useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import '@smastrom/react-rating/style.css'
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
+import useCartList from "../hooks/useCartList";
 
 
 const ProductDetail = () => {
@@ -14,17 +15,15 @@ const ProductDetail = () => {
     const productData = useLoaderData()
     const axiosPublic = useAxiosPublic()
     const { user } = useAuth()
-
-
+    const navigate = useNavigate()
+    const [, refetch] = useCartList()
 
     const { imgUrl, title, price, rating, stock, features, productId, _id } = productData
 
     const [isPresent, setIsPresent] = useState(false)
-    // console.log('isPresent', isPresent)
+
 
     const handleWishlistAdd = async (id) => {
-
-
 
         const wishlistAddInfo = {
             email: user?.email,
@@ -40,13 +39,24 @@ const ProductDetail = () => {
         }
 
     }
+    const handleAddtoCart = async (productData) => {
 
-    // useEffect(() => {
-    //     if (wishlistData.mywishList) {
-    //         // Check if the current wishlist ID is in the list of wishlist IDs
-    //         setIsPresent(wishlistData.mywishList.includes(_id));
-    //     }
-    // }, []);
+        const addCartInfo = {
+            email: user?.email,
+            productData: productData
+        }
+        const res = await axiosPublic.post('/addToCart', addCartInfo)
+        if (res.data.insertedId) {
+            toast('added cart')
+            refetch()
+
+        }
+        else {
+            toast.error('Already added cart')
+        }
+
+    }
+
 
 
     return (
@@ -107,7 +117,7 @@ const ProductDetail = () => {
                             </p> */}
                         </div>
                         <div className="flex gap-5 items-center ">
-                            <button className="btn text-white bg-[#F29120] hover:bg-[#d68324] mt-3">Add to Cart</button>
+                            <button onClick={() => handleAddtoCart(productData)} className="btn text-white bg-[#F29120] hover:bg-[#d68324] mt-3">Add to Cart</button>
                             <button className="btn text-white bg-[#FF5722] hover:bg-[#ec5527] mt-3">Buy Now</button>
                         </div>
                     </div>

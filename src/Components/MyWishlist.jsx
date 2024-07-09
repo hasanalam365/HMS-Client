@@ -5,7 +5,7 @@ import { FiShoppingCart } from "react-icons/fi";
 const MyWishlist = () => {
 
     const [wishlistData, refetch] = useWishlist()
-    // const myWishlists = wishlistData.mywishList
+
 
 
     return (

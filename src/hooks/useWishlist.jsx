@@ -14,7 +14,7 @@ const useWishlist = () => {
             return res.data
         }
     })
-    console.log(wishlistData)
+
     return [wishlistData, refetch]
 };
 
