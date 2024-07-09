@@ -41,8 +41,10 @@ const ProductDetail = () => {
     }
     const handleAddtoCart = async (productData) => {
 
+
         const addCartInfo = {
             email: user?.email,
+            productId: productData._id,
             productData: productData
         }
         const res = await axiosPublic.post('/addToCart', addCartInfo)
@@ -106,16 +108,16 @@ const ProductDetail = () => {
 
                         </div>
 
-                        <div className="flex gap-5">
+                        {/* <div className="flex gap-5">
                             <p className="font-medium">
                                 Availabe:    <span className="text-[#FF5722]">{stock} pieces</span>
 
                             </p>
-                            {/* <p className="font-medium">
+                            <p className="font-medium">
                                 ProductId: <span className="text-[#FF5722]">{productId}</span>
 
-                            </p> */}
-                        </div>
+                            </p>
+                        </div> */}
                         <div className="flex gap-5 items-center ">
                             <button onClick={() => handleAddtoCart(productData)} className="btn text-white bg-[#F29120] hover:bg-[#d68324] mt-3">Add to Cart</button>
                             <button className="btn text-white bg-[#FF5722] hover:bg-[#ec5527] mt-3">Buy Now</button>

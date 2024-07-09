@@ -1,7 +1,7 @@
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { FaRegHeart } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
-
+import { FaArrowRight } from "react-icons/fa";
 
 import useProductsData from "../../../hooks/useProductsData";
 import { Link } from "react-router-dom";
@@ -34,8 +34,9 @@ const NewArrival = () => {
                                 <div className="flex justify-between">
                                     <p className="font-medium flex gap-1 items-center text-orange-600"> <span> <FaStar></FaStar> </span> {product.rating}</p>
                                     <div className="flex gap-4">
-                                        <FaRegHeart className="text-lg text-orange-600"></FaRegHeart>
-                                        <HiOutlineShoppingCart className="text-lg text-orange-600"></HiOutlineShoppingCart>
+                                        {/* <FaRegHeart className="text-lg text-orange-600"></FaRegHeart>
+                                        <HiOutlineShoppingCart className="text-lg text-orange-600"></HiOutlineShoppingCart> */}
+                                        <FaArrowRight className="text-lg text-orange-600"></FaArrowRight>
                                     </div>
                                 </div>
                             </div>

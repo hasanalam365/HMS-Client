@@ -9,10 +9,13 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 
 
-const Navber = () => {
+const Navber = ({ setOpenCart, openCart }) => {
 
     const [isOpenProfile, setIsOpenProfile] = useState(false)
     const [data] = useCartList()
+    // const [openCart, setOpenCart] = useState(false)
+
+
     // const axiosPublic = useAxiosPublic()
     // const { user } = useAuth()
 
@@ -54,9 +57,13 @@ const Navber = () => {
         <NavLink>
             <li>Security Cameras</li>
         </NavLink>
-
-
     </>
+
+
+    // const handleCartShowModal = () => {
+    //     setOpenCart(!openCart)
+    // }
+
 
     return (
         <div className="navbar bg-base-100">
@@ -78,8 +85,12 @@ const Navber = () => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-64 p-2 shadow text-lg space-y-2">
+                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-64 p-2 shadow text-lg space-y-2  font-medium">
                         {navLinks}
+                        <div className="divider"></div>
+                        <NavLink to='/dashboard/profile'>
+                            <li>Dashboard</li>
+                        </NavLink>
 
                     </ul>
                 </div>
@@ -126,18 +137,20 @@ const Navber = () => {
                         <button onClick={() => setIsOpenProfile(!isOpenProfile)}>
                             <CgProfile className="text-xl"></CgProfile>
                         </button>
-                        <div className="relative flex">
+                        <button onClick={() => setOpenCart(!openCart)} className="relative flex">
 
                             <HiOutlineShoppingCart className="text-xl"></HiOutlineShoppingCart>
                             <div className="absolute -right-4 bottom-2 bg-secondary rounded-full text-white">
 
-                                {
-                                    !data.length > 0 ? <p className="p-1">0</p>
-                                        :
-                                        <p className="p-1">{data.length}</p>
-                                }
+                                <button>
+                                    {
+                                        !data.length > 0 ? <p className="p-1">0</p>
+                                            :
+                                            <p className="p-1">{data.length}</p>
+                                    }
+                                </button>
                             </div>
-                        </div>
+                        </button>
                     </div>
 
                     {
