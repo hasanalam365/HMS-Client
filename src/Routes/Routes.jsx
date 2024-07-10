@@ -10,6 +10,7 @@ import Register from "../Pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import ProductDetail from "../Components/ProductDetail";
 import MyWishlist from "../Components/MyWishlist";
+import CheckoutPage from "../Components/CheckoutPage";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
                 path: '/product/:id',
                 element: <ProductDetail></ProductDetail>,
                 loader: ({ params }) => fetch(`http://localhost:5000/product/${params.id}`)
+            },
+            {
+                path: '/checkout',
+                element: <CheckoutPage></CheckoutPage>
             },
 
         ]

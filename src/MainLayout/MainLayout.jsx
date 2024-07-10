@@ -1,12 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import Navber from "../Shared/Navber/Navber";
 import Footer from "../Shared/Footer/Footer";
 import { useState } from "react";
-import { Animated } from "react-animated-css";
 import 'animate.css/animate.css'
 import useCartList from "../hooks/useCartList";
 import { FaTrash } from "react-icons/fa";
-
+import { FaCircleArrowLeft } from "react-icons/fa6";
 
 const MainLayout = () => {
 
@@ -21,14 +20,18 @@ const MainLayout = () => {
 
     return (
         <div>
-            <div className="container mx-auto">
-                <Navber setOpenCart={setOpenCart} openCart={openCart}></Navber>
+            <div className="container mx-auto relative">
+                <div className="">
+                    <Navber setOpenCart={setOpenCart} openCart={openCart}></Navber>
+                </div>
 
-                <div className="relative  ">
+                <div className="  ">
                     {openCart && <div className={`absolute right-0 top-0 animate__animated  ${openCart && " animate__fadeInRight"} z-30 w-full `}>
                         <div className="flex  flex-col  p-3 lg:w-[42%] bg-white  ">
-                            <div className="flex items-center justify-end">
-                                <button onClick={() => setOpenCart(false)} className="btn">Close</button>
+                            <div className="flex items-center justify-start">
+                                <button onClick={() => setOpenCart(false)} className="btn">
+                                    <FaCircleArrowLeft />
+                                </button>
                             </div>
                             <div className="font-medium text-lg flex items-center justify-between">
                                 <h5>Shopping Cart</h5>
@@ -69,17 +72,21 @@ const MainLayout = () => {
                             <div className="text-center font-semibold boder border-2 mt-1 mb-1 border-dashed p-2">
                                 <h4>Total: $ {totalPrices} </h4>
                             </div>
-                            <div>
-                                <button className="text-white bg-orange-600 p-4 w-full font-semibold rounded-lg">Checkout</button>
-                            </div>
+                            <Link to="/checkout">
+                                <button onClick={() => setOpenCart(false)} className="text-white bg-orange-600 p-4 w-full font-semibold rounded-lg">Checkout</button>
+                            </Link>
                         </div>
                     </div>}
                 </div>
 
-                <Outlet></Outlet>
+                <div className="min-h-[calc(100vh-334px)]">
+                    <Outlet></Outlet>
+                </div>
 
             </div>
-            <Footer></Footer>
+            <div className="h-[268px]">
+                <Footer></Footer>
+            </div>
         </div>
     );
 };

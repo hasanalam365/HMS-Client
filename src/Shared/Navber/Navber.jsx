@@ -66,7 +66,7 @@ const Navber = ({ setOpenCart, openCart }) => {
 
 
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-base-100 container mx-auto h-[66px] z-10 fixed">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -133,7 +133,7 @@ const Navber = ({ setOpenCart, openCart }) => {
                 </label>
                 <div className="hidden md:block lg:block">
                     <div className="flex gap-4 ml-5 mr-5">
-                        <FaRegHeart className="text-xl"></FaRegHeart>
+
                         <button onClick={() => setIsOpenProfile(!isOpenProfile)}>
                             <CgProfile className="text-xl"></CgProfile>
                         </button>
@@ -160,7 +160,7 @@ const Navber = ({ setOpenCart, openCart }) => {
                                     <Link to="/dashboard/profile">My Profile</Link>
                                 </li>
                                 <li className="hover:text-orange-600">
-                                    <Link>My Orders</Link>
+                                    <Link>Logout</Link>
                                 </li>
                             </ul>
                         </div>
