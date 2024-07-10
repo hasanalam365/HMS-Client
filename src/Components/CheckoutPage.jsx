@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 
 const CheckoutPage = () => {
 
+    const [selectedCheckbox, setSelectedCheckbox] = useState(null);
     const [orderId, setOrderId] = useState('');
     const [data] = useCartList()
-
-    console.log(orderId)
 
     const totalPrices = data.reduce((total, product) => total + product.productData.price, 0)
 
@@ -29,10 +28,19 @@ const CheckoutPage = () => {
         setOrderId(createId);
     }, []);
 
+
+
+    const handleCheckboxChange = (index) => {
+        setSelectedCheckbox(index);
+    };
+
+
+
+
     return (
         <div className="p-8 md:p-10 lg:p-16 flex flex-col md:flex-row lg:flex-row gap-5">
 
-            <div className="w-full md:w-3/4 lg:w-3/4">
+            <div className="w-full md:w-[65%] lg:w-3/4">
                 <div className="bg-orange-600 text-center rounded-xl mt-10 md:mt-10 lg:mt-7">
                     <h3 className="text-lg font-semibold text-white p-2">Shopping Cart</h3>
                 </div>
@@ -78,29 +86,76 @@ const CheckoutPage = () => {
                         </tbody>
                     </table>
                 </div>
-                {/* <div className="divider divide-dashed"></div> */}
-                <div className="text-center font-semibold boder border-2 mt-1 mb-1 border-dashed p-2">
-                    <h4>Total: $ {totalPrices} </h4>
-                </div>
-                {/* <Link to="/checkout">
-                    <button onClick={() => setOpenCart(false)} className="text-white bg-orange-600 p-4 w-full font-semibold rounded-lg">Checkout</button>
-                </Link> */}
+
             </div>
-            <div className="w-full md:w-1/4 lg:w-1/4 mt-5 md:mt-10 lg:mt-6 bg-gray-200 p-4">
+            <div className="w-full md:w-[35%] lg:w-1/4 mt-5 md:mt-10 lg:mt-6 bg-gray-200 p-4">
                 <div className="bg-orange-600 text-center  ">
-                    <h3 className="text-lg font-semibold text-white p-2">Order Summery</h3>
+                    <h3 className="text-lg font-semibold text-white p-2 flex items-center justify-center gap-2">OrderId <span>- {orderId}</span> </h3>
+
                 </div>
-                <div className="flex items-center justify-between">
-                    <p>Date:</p>
+
+
+                <div className="flex items-center justify-between mt-2">
+                    <p className=" font-medium">Date:</p>
                     <p>{date}</p>
                 </div>
-                <div className="flex items-center justify-between">
-                    <p>Time:</p>
+                <div className="flex items-center justify-between mt-1">
+                    <p className=" font-medium">Time:</p>
                     <p>{time}</p>
                 </div>
-                <h3>{orderId}</h3>
-                <h3>Shopping Cart</h3>
-                <h3>Shopping Cart</h3>
+                <div className="divider"></div>
+                <div>
+                    <div>
+
+                        <div className="form-control">
+                            <label className="flex items-center gap-5 mb-2">
+
+                                <input
+                                    type="checkbox"
+                                    checked={selectedCheckbox === 'bkash'}
+                                    onChange={() => handleCheckboxChange('bkash')}
+                                    className="checkbox checkbox-info"
+                                />
+
+                                <img className="h-[60px] w-[35%] md:w-3/4 lg:w-3/4" src="https://i.ibb.co/Wnqn0QP/bkash-payment-logo-removebg-preview.png" alt="bkash logo" />
+                            </label>
+                        </div>
+                        <div className="form-control">
+                            <label className="flex items-center gap-5 mb-2">
+
+                                <input
+                                    type="checkbox"
+                                    checked={selectedCheckbox === 'nagad'}
+                                    onChange={() => handleCheckboxChange('nagad')}
+                                    className="checkbox checkbox-info"
+                                />
+
+                                <img className="h-[60px] w-[35%]" src="https://i.ibb.co/kyMbzf0/Nagad-Logo-2024-removebg-preview.png" alt="nagad logo" />
+                            </label>
+                        </div>
+                        <div className="form-control">
+                            <label className="flex items-center gap-5 mb-2">
+
+                                <input
+                                    type="checkbox"
+                                    checked={selectedCheckbox === 'stripe'}
+                                    onChange={() => handleCheckboxChange('stripe')}
+                                    className="checkbox checkbox-info"
+                                />
+
+                                <img className="h-[60px] w-[35%]" src="https://i.ibb.co/MgNmKRQ/stripe-removebg-preview.png" alt="stripe logo" />
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                <div className="text-center font-semibold boder border-2 border-white mt-1 mb-1 border-dashed p-2">
+                    <h4>Total: $ {totalPrices} </h4>
+                </div>
+                <div className="mt-4 text-center bg-orange-600 p-2 rounded-xl">
+                    <button className=" w-full text-white font-medium hover:scale-110">Confirm Order</button>
+                </div>
+
             </div>
         </div>
 
