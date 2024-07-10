@@ -25,8 +25,11 @@ const MainLayout = () => {
                 <Navber setOpenCart={setOpenCart} openCart={openCart}></Navber>
 
                 <div className="relative  ">
-                    {openCart && <div className={`absolute right-0 animate__animated  ${openCart && " animate__fadeInRight"} z-30`}>
-                        <div className="flex  flex-col h-full p-3 w-96 bg-white  ">
+                    {openCart && <div className={`absolute right-0 top-0 animate__animated  ${openCart && " animate__fadeInRight"} z-30 w-full `}>
+                        <div className="flex  flex-col  p-3 lg:w-[42%] bg-white  ">
+                            <div className="flex items-center justify-end">
+                                <button onClick={() => setOpenCart(false)} className="btn">Close</button>
+                            </div>
                             <div className="font-medium text-lg flex items-center justify-between">
                                 <h5>Shopping Cart</h5>
                                 <h5 className="text-orange-500">Items: {data.length}</h5>
@@ -67,7 +70,7 @@ const MainLayout = () => {
                                 <h4>Total: $ {totalPrices} </h4>
                             </div>
                             <div>
-                                <button className="text-white bg-orange-600 p-4 w-full font-semibold">Checkout</button>
+                                <button className="text-white bg-orange-600 p-4 w-full font-semibold rounded-lg">Checkout</button>
                             </div>
                         </div>
                     </div>}
