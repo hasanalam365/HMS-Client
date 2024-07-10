@@ -1,18 +1,20 @@
 import { FaTrash } from "react-icons/fa";
 import useCartList from "../hooks/useCartList";
 import { useEffect, useState } from "react";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import { toast } from "react-toastify";
 
 const CheckoutPage = () => {
 
     const [selectedCheckbox, setSelectedCheckbox] = useState(null);
     const [orderId, setOrderId] = useState('');
-    const [data] = useCartList()
+    const [data, refetch] = useCartList()
 
     const totalPrices = data.reduce((total, product) => total + product.productData.price, 0)
 
     const date = new Date().toLocaleDateString()
     const time = new Date().toLocaleTimeString()
-
+    const axiosPublic = useAxiosPublic()
 
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let createId = ''
@@ -35,7 +37,15 @@ const CheckoutPage = () => {
     };
 
 
+    const handleDelete = async (_id) => {
 
+        const res = await axiosPublic.delete(`/addToCart/${_id}`)
+        if (res.data.deletedCount === 1) {
+            toast('This item has been deleted')
+            refetch()
+        }
+
+    }
 
     return (
         <div className="p-8 md:p-10 lg:p-16 flex flex-col md:flex-row lg:flex-row gap-5">
@@ -73,7 +83,10 @@ const CheckoutPage = () => {
                                         <td>{product.productData.title}</td>
                                         <td>$ {product.productData.price}</td>
                                         <td>
-                                            <FaTrash className="text-orange-600 hover:scale-125"></FaTrash>
+                                            <button onClick={() => handleDelete(product._id)}>
+                                                <FaTrash className="text-red-600 hover:scale-125"></FaTrash>
+                                            </button>
+
                                         </td>
                                     </tr>
                                     <hr />
