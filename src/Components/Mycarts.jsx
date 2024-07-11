@@ -25,7 +25,7 @@ const Mycarts = () => {
     return (
         <div>
             <div className="w-full">
-                <div className="bg-orange-600 text-center rounded-xl mt-2 md:mt-10 lg:mt-7">
+                <div className="bg-orange-600 text-center rounded-xl ">
                     <h3 className="text-lg font-semibold text-white p-2">Shopping Cart</h3>
                 </div>
                 <div className="overflow-x-auto">

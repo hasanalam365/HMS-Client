@@ -90,7 +90,7 @@ const Dashboard = () => {
                 <div className="  ">
                     {openCart && <CheckOutBOxCart setOpenCart={setOpenCart} openCart={openCart}></CheckOutBOxCart>}
                 </div>
-                <div className="  mb-5 p-2 md:p-2 lg:p-16 flex ">
+                <div className="  gap-5 p-2 md:p-2 lg:p-16 flex ">
                     {/* navItems */}
                     <div className="w-1/4 hidden md:mt-10 lg:mt-0 md:block lg:block">
                         <ul className="flex flex-col items-start space-y-2 font-medium">
@@ -106,7 +106,7 @@ const Dashboard = () => {
                         </ul>
                     </div>
                     {/* Info Items */}
-                    <div className="min-h-[calc(100vh-334px)] w-full  lg:w-3/4 mt-16 md:mt-10 lg:mt-0" >
+                    <div className="min-h-[calc(100vh-334px)] w-full  lg:w-3/4 mt-16 md:mt-2 lg:mt-0" >
 
                         <Outlet></Outlet>
                     </div>
