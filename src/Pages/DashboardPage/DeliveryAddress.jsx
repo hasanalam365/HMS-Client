@@ -45,6 +45,10 @@ const DeliveryAddress = () => {
         const res = await axiosPublic.put(`/orders/${orderId}`, allAddress)
         if (res.data.modifiedCount === 1) {
             toast('Order Confirmed')
+
+            const res = await axiosPublic.delete(`/mycarts-delete/${user.email}`)
+            console.log(res.data)
+
             navigate('/')
         }
 
