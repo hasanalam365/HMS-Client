@@ -130,7 +130,7 @@ const Navber = ({ setOpenCart, openCart }) => {
                         </button>
                         <button onClick={() => setOpenCart(!openCart)} className="relative flex">
 
-                            <HiOutlineShoppingCart className="text-4xl"></HiOutlineShoppingCart>
+                            <HiOutlineShoppingCart className="text-2xl"></HiOutlineShoppingCart>
                             <div className="absolute -right-3 bottom-5 bg-secondary rounded-full text-white">
 
 
@@ -150,9 +150,13 @@ const Navber = ({ setOpenCart, openCart }) => {
                                 <li className="hover:text-orange-600">
                                     <Link to="/dashboard/profile">My Profile</Link>
                                 </li>
-                                <li className="hover:text-orange-600">
+                                {user?.email ? <li className="hover:text-orange-600">
                                     <button onClick={hangleLogOut}>Logout</button>
                                 </li>
+                                    :
+                                    <li className="hover:text-orange-600">
+                                        <Link to="/login" >Login</Link>
+                                    </li>}
                             </ul>
                         </div>
                     }

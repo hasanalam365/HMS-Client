@@ -12,7 +12,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Register = () => {
 
-    const { signUpUser, signOutUser, googleSignIn, user } = useAuth()
+    const { signUpUser, signOutUser, user } = useAuth()
     const [openPassword, setOpenPassword] = useState(false)
     const navigate = useNavigate()
     const location = useLocation()

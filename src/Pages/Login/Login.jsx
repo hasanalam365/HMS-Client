@@ -16,25 +16,41 @@ const Login = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const axiosPublic = useAxiosPublic()
+    const role = 'user'
 
-    const handleLogin = async (e) => {
+
+    const handleLogin = (e) => {
         e.preventDefault()
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
 
-        console.log(email, password)
+
+
+
         signInUser(email, password)
-            .then(result => {
+            .then(async (result) => {
                 if (result.user) {
                     toast("Login Successfully!")
+                    const userInfo = {
+                        email: email,
+                        role: role
+                    }
+
+                    const res = await axiosPublic.post(`/users`, userInfo)
+                    console.log('user data:', res.data)
                 }
 
                 navigate(location?.state || "/")
+
             })
             .catch(() => {
                 toast.error("Invalid Email/Password!")
             })
+
+
+
+
     }
 
     const handleGoogleLogin = () => {
@@ -44,15 +60,16 @@ const Login = () => {
 
                 if (result.user) {
                     const userInfo = {
-                        email: result?.user?.email,
-                        userName: result?.user?.displayName,
-                        photoURL: result?.user?.photoURL
+                        email: result.user.email,
+                        role: role
                     }
                     toast("Login Successfully!")
-
-                    const res = await axiosPublic.post('/users', userInfo)
+                    const res = await axiosPublic.post(`/users`, userInfo)
                     console.log('user data:', res.data)
+
                 }
+
+
                 navigate(location?.state || "/")
             })
             .catch(error => {
