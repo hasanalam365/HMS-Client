@@ -23,7 +23,7 @@ const Mycarts = () => {
     }
 
     return (
-        <div>
+        <div className="md:mt-8 lg:mt-0">
             <div className="w-full">
                 <div className="bg-orange-600 text-center rounded-xl ">
                     <h3 className="text-lg font-semibold text-white p-2">Shopping Cart</h3>
