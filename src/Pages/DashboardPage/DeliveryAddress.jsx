@@ -2,12 +2,17 @@ import { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const DeliveryAddress = () => {
 
     const [select, setSelect] = useState(1)
     const axiosPublic = useAxiosPublic()
     const { user } = useAuth()
+    const location = useLocation()
+    const { orderId } = location.state || {}
+    const navigate = useNavigate()
 
     const { data: userData = [] } = useQuery({
         queryKey: ['user'],
@@ -21,17 +26,27 @@ const DeliveryAddress = () => {
     const handleAddress = async (e) => {
         e.preventDefault()
 
+
+
         const form = e.target;
         const name = form.name.value;
         const phone = form.phone.value;
-        const secondNumber = form.secondNumber.value;
+        const email = form.email.value;
+        const secondPhone = form.secondNumber.value;
         const division = form.division.value;
         const district = form.district.value;
         const thana = form.thana.value;
         const address = form.address.value;
+        const currentLocation = select === 1 ? 'Home' : 'Office'
 
-        const allAddress = { name, phone, secondNumber, division, district, thana, address }
-        console.table(allAddress)
+        const allAddress = { name, phone, email, secondPhone, division, district, thana, address, currentLocation, orderId }
+
+
+        const res = await axiosPublic.put(`/orders/${orderId}`, allAddress)
+        if (res.data.modifiedCount === 1) {
+            toast('Order Confirmed')
+            navigate('/')
+        }
 
     }
 
