@@ -22,6 +22,26 @@ const MyWishlist = () => {
 
     }
 
+    const handleAddtoCart = async (productData) => {
+
+        const addCartInfo = {
+            email: user?.email,
+            productId: productData._id,
+            productData: productData
+        }
+
+        const res = await axiosPublic.post('/addToCart', addCartInfo)
+        if (res.data.insertedId) {
+            toast('added cart')
+            await axiosPublic.delete(`/wishlist/${user.email}/${productData._id}`)
+            refetch()
+
+        }
+
+
+
+
+    }
 
     return (
         <div>
@@ -58,7 +78,9 @@ const MyWishlist = () => {
                                     $ {data.price}
                                 </td>
                                 <th className="flex gap-2 mt-4">
-                                    <FiShoppingCart className="text-lg hover:scale-125 hover:text-[#FF5722]"></FiShoppingCart>
+                                    <button onClick={() => handleAddtoCart(data)}>
+                                        <FiShoppingCart className="text-lg hover:scale-125 hover:text-[#FF5722]"></FiShoppingCart>
+                                    </button>
                                     <button onClick={() => handleDeleteWishlist(data._id)}>
                                         <MdDeleteForever className="text-lg hover:scale-125 hover:text-[#FF5722]" />
                                     </button>

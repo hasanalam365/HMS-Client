@@ -76,7 +76,7 @@ const CheckoutPage = () => {
                         <tbody className="mb-1">
                             {/* row 1 */}
                             {
-                                data.map((product, idx) => <>
+                                data.map((product, idx) =>
                                     <tr key={idx} className="bg-base-200">
                                         <th>{idx + 1}</th>
                                         <td>
@@ -95,8 +95,8 @@ const CheckoutPage = () => {
 
                                         </td>
                                     </tr>
-                                    <hr />
-                                </>)
+
+                                )
 
 
                             }

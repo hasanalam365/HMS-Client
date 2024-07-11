@@ -53,9 +53,7 @@ const ProductDetail = () => {
             refetch()
 
         }
-        else {
-            toast.error('Already added cart')
-        }
+
 
     }
 
