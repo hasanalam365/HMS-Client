@@ -13,6 +13,7 @@ import MyWishlist from "../Components/MyWishlist";
 import CheckoutPage from "../Components/CheckoutPage";
 // import CheckOutBOxCart from "../Shared/CheckOutBOxCart";
 import Mycarts from "../Components/Mycarts";
+import UpdatedProfile from "../Components/UpdatedProfile";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -72,7 +73,11 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/mycarts',
                 element: <Mycarts></Mycarts>
-            }
+            },
+            {
+                path: '/dashboard/updatedProfile',
+                element: <UpdatedProfile></UpdatedProfile>
+            },
 
         ]
     }

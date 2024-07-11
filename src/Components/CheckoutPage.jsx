@@ -78,51 +78,55 @@ const CheckoutPage = () => {
                 <div className="bg-orange-600 text-center rounded-xl mt-10 md:mt-10 lg:mt-7">
                     <h3 className="text-lg font-semibold text-white p-2">Shopping Cart</h3>
                 </div>
-                <div className="overflow-x-auto">
-                    <table className="table">
-                        {/* head */}
-                        <thead>
-                            <tr>
+                {
+                    data.length === 0 ? <div className="mt-10 text-center text-2xl font-medium">Your Cart is Empty!!!!!</div>
+                        :
+                        <div className="overflow-x-auto">
+                            <table className="table">
+                                {/* head */}
+                                <thead>
+                                    <tr>
 
-                                <th>No.</th>
-                                <th>Photo</th>
-                                <th>Product Title</th>
-                                <th>Price</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="mb-1">
-                            {/* row 1 */}
-                            {
-                                data.map((product, idx) =>
-                                    <tr key={idx} className="bg-base-200">
-                                        <th>{idx + 1}</th>
-                                        <td>
-                                            <div className="mask mask-squircle h-12 w-12">
-                                                <img
-                                                    src={product.productData.imgUrl}
-                                                    alt="Avatar Tailwind CSS Component" />
-                                            </div>
-                                        </td>
-                                        <td>{product.productData.title}</td>
-                                        <td>$ {product.productData.price}</td>
-                                        <td>
-                                            <button onClick={() => handleDelete(product._id)}>
-                                                <FaTrash className="text-red-600 hover:scale-125"></FaTrash>
-                                            </button>
-
-                                        </td>
+                                        <th>No.</th>
+                                        <th>Photo</th>
+                                        <th>Product Title</th>
+                                        <th>Price</th>
+                                        <th>Actions</th>
                                     </tr>
+                                </thead>
+                                <tbody className="mb-1">
+                                    {/* row 1 */}
+                                    {
+                                        data.map((product, idx) =>
+                                            <tr key={idx} className="bg-base-200">
+                                                <th>{idx + 1}</th>
+                                                <td>
+                                                    <div className="mask mask-squircle h-12 w-12">
+                                                        <img
+                                                            src={product.productData.imgUrl}
+                                                            alt="Avatar Tailwind CSS Component" />
+                                                    </div>
+                                                </td>
+                                                <td>{product.productData.title}</td>
+                                                <td>$ {product.productData.price}</td>
+                                                <td>
+                                                    <button onClick={() => handleDelete(product._id)}>
+                                                        <FaTrash className="text-red-600 hover:scale-125"></FaTrash>
+                                                    </button>
 
-                                )
+                                                </td>
+                                            </tr>
+
+                                        )
 
 
-                            }
+                                    }
 
 
-                        </tbody>
-                    </table>
-                </div>
+                                </tbody>
+                            </table>
+                        </div>
+                }
 
             </div>
             <div className="w-full md:w-[35%] lg:w-1/4 mt-5 md:mt-10 lg:mt-6 bg-gray-200 p-4">

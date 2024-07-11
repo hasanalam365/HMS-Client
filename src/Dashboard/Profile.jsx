@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../hooks/useAuth";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import { FaEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
 
@@ -17,7 +19,12 @@ const Profile = () => {
 
     return (
         <div className="bg-base-200 shadow-xl p-2 md:p-8 mt-2 md:mt-5 lg:mt-0 w-[98%]  mx-auto">
-            <h3 className=" text-xl ">Personal Information</h3>
+            <div className="flex items-center justify-between">
+                <h3 className=" text-xl ">Personal Information</h3>
+                <Link to='/dashboard/updatedProfile'>
+                    <FaEdit className="text-xl md:text-2xl hover:text-orange-500 hover:scale-110"></FaEdit>
+                </Link>
+            </div>
             <div className="flex gap-3 md:gap-8 lg:gap-10 w-[98%] mx-auto mt-5">
 
                 <figure>

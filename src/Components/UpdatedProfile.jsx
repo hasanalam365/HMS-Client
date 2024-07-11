@@ -1,18 +1,12 @@
 import { useState } from "react";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import useAuth from "../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../hooks/useAuth";
-import { useLocation, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
-const DeliveryAddress = () => {
+const UpdatedProfile = () => {
 
-    const [select, setSelect] = useState(1)
     const axiosPublic = useAxiosPublic()
     const { user } = useAuth()
-    const location = useLocation()
-    const { orderId } = location.state || {}
-    const navigate = useNavigate()
 
     const { data: userData = [] } = useQuery({
         queryKey: ['user'],
@@ -24,9 +18,8 @@ const DeliveryAddress = () => {
 
 
     const handleAddress = async (e) => {
+
         e.preventDefault()
-
-
 
         const form = e.target;
         const name = form.name.value;
@@ -39,21 +32,20 @@ const DeliveryAddress = () => {
         const address = form.address.value;
         const currentLocation = select === 1 ? 'Home' : 'Office'
 
-        const allAddress = { name, phone, email, secondPhone, division, district, thana, address, currentLocation, orderId }
+        const updatedAddress = { name, phone, email, secondPhone, division, district, thana, address, currentLocation }
+        console.log(updatedAddress)
 
+        // const res = await axiosPublic.put(`/orders/${orderId}`, allAddress)
+        // if (res.data.modifiedCount === 1) {
+        //     toast('Order Confirmed')
 
-        const res = await axiosPublic.put(`/orders/${orderId}`, allAddress)
-        if (res.data.modifiedCount === 1) {
-            toast('Order Confirmed')
+        //     const res = await axiosPublic.delete(`/mycarts-delete/${user.email}`)
+        //     console.log(res.data)
 
-            const res = await axiosPublic.delete(`/mycarts-delete/${user.email}`)
-            console.log(res.data)
-
-            navigate('/')
-        }
+        //     navigate('/')
+        // }
 
     }
-
 
     return (
         <div>
@@ -66,16 +58,15 @@ const DeliveryAddress = () => {
                                 <label htmlFor="fullname" className="font-medium">Full Name</label>
                                 <input id="fullName" name="name" type="text" placeholder="Full Name" defaultValue={userData?.displayName} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
                             </div>
-
+                            <div className="col-span-full  sm:col-span-3">
+                                <label htmlFor="fullname" className="font-medium">Email</label>
+                                <input id="fullName" name="email" type="text" value={userData.email} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
+                            </div>
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="phone" className="font-medium">Phone</label>
                                 <input id="phone" type="text" name="phone" placeholder="Phone Number" defaultValue={userData?.phone} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
                             </div>
-                            <div className="col-span-full sm:col-span-3">
-                                <label htmlFor="alternative phone number" className="font-medium">Alternative Phone</label>
-                                <input id="secondNumber" type="text"
-                                    name="secondNumber" defaultValue={userData?.alterPhone} placeholder="Alternative Phone" className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
-                            </div>
+
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="Division" className="font-medium">Division</label>
                                 <input id="division" type="text"
@@ -91,10 +82,11 @@ const DeliveryAddress = () => {
                                 <input id="thana" type="text"
                                     name="thana" placeholder="Thana" defaultValue={userData?.thana} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
                             </div>
-                            <div className="col-span-full ">
-                                <label htmlFor="fullname" className="font-medium">Email</label>
-                                <input id="fullName" name="email" type="text" value={userData.email} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
+                            <div className="col-span-full sm:col-span-3">
+                                <label htmlFor="Thana" className="font-medium">Photo</label>
+                                <input type="file" className="file-input file-input-bordered file-input-info w-full max-w-xs" />
                             </div>
+
                             <div className="col-span-full">
                                 <label htmlFor="address" className="font-medium">Address</label>
                                 <input id="address" type="text"
@@ -102,14 +94,7 @@ const DeliveryAddress = () => {
                             </div>
 
                         </div>
-                        <div className="flex gap-1 mt-4">
-                            <div onClick={() => setSelect(1)} className={`border-2  p-4 max-w-max rounded-lg ${select === 1 ? 'border-green-400 font-medium' : 'border-gray-300'}`}>
-                                Home
-                            </div>
-                            <div onClick={() => setSelect(2)} className={`border-2 p-4  max-w-max rounded-lg ${select === 2 ? 'border-green-400 font-medium' : 'border-gray-300 '}`}>
-                                Office
-                            </div>
-                        </div>
+
                         <div className="mt-2">
                             <button className="btn btn-secondary w-full">Confirm</button>
                         </div>
@@ -121,4 +106,4 @@ const DeliveryAddress = () => {
     );
 };
 
-export default DeliveryAddress;
+export default UpdatedProfile;
