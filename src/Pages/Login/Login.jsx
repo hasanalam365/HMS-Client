@@ -61,6 +61,8 @@ const Login = () => {
                 if (result.user) {
                     const userInfo = {
                         email: result.user.email,
+                        photoURL: result.user.photoURL,
+                        displayName: result.user.displayName,
                         role: role
                     }
                     toast("Login Successfully!")

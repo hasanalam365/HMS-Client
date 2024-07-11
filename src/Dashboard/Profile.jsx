@@ -1,5 +1,20 @@
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "../hooks/useAuth";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Profile = () => {
+
+    const axiosPublic = useAxiosPublic()
+    const { user } = useAuth()
+
+    const { data: userData = [] } = useQuery({
+        queryKey: ['user'],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/user/${user.email}`)
+            return res.data
+        }
+    })
+
     return (
         <div className="bg-base-200 shadow-xl p-2 md:p-8 mt-2 md:mt-5 lg:mt-0 w-[98%]  mx-auto">
             <h3 className=" text-xl ">Personal Information</h3>
@@ -7,7 +22,7 @@ const Profile = () => {
 
                 <figure>
                     <img className="w-[100px] h-[100px] rounded-full"
-                        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg"
+                        src={userData.photoURL}
                         alt="Movie" />
                 </figure>
                 <div className="w-full flex flex-row gap-3 md:gap-10 lg:gap-16 ">
@@ -24,10 +39,18 @@ const Profile = () => {
                         <h2 className="">: </h2>
                     </div>
                     <div className="flex flex-col justify-between font-medium opacity-95 ">
-                        <h2 className="">Hasan </h2>
-                        <h2 className="">hasanalam365@gmail.com </h2>
-                        <h2 className="">019000000 </h2>
-                        <h2 className="">Male </h2>
+                        <h2 className="">{userData.displayName}</h2>
+                        <h2 className="">{userData.email}</h2>
+                        {
+                            userData?.phone ? <h2 className="">{userData.phone}</h2>
+                                :
+                                <h2 className="">Undefined</h2>
+                        }
+                        {
+                            userData?.gender ? <h2 className="">{userData.gender} </h2>
+                                :
+                                <h2 className="">Undefined </h2>
+                        }
                     </div>
 
 
