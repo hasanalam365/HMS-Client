@@ -41,7 +41,7 @@ const CheckoutPage = () => {
 
         const res = await axiosPublic.delete(`/addToCart/${_id}`)
         if (res.data.deletedCount === 1) {
-            toast('This item has been deleted')
+            toast.error('This item has been deleted')
             refetch()
         }
 
@@ -126,6 +126,19 @@ const CheckoutPage = () => {
                 <div>
                     <div>
 
+                        <div className="form-control">
+                            <label className="flex items-center gap-5 mb-2">
+
+                                <input
+                                    type="checkbox"
+                                    checked={selectedCheckbox === 'cashOnDelivery'}
+                                    onChange={() => handleCheckboxChange('cashOnDelivery')}
+                                    className="checkbox checkbox-info"
+                                />
+
+                                <span className="font-medium">Cash On Delivery</span>
+                            </label>
+                        </div>
                         <div className="form-control">
                             <label className="flex items-center gap-5 mb-2">
 

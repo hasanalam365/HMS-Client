@@ -13,24 +13,6 @@ const Navber = ({ setOpenCart, openCart }) => {
 
     const [isOpenProfile, setIsOpenProfile] = useState(false)
     const [data] = useCartList()
-    // const [openCart, setOpenCart] = useState(false)
-
-
-    // const axiosPublic = useAxiosPublic()
-    // const { user } = useAuth()
-
-    // const { data = [] } = useQuery({
-    //     queryKey: ['cardList'],
-    //     queryFn: async () => {
-    //         const res = await axiosPublic(`/addToCart/${user.email}`)
-    //         return res.data
-    //     }
-    // })
-
-    // console.log(data.length)
-    // // if (data.length === 0) {
-    // //     return <span>Loading................</span>
-    // // }
 
     const navLinks = <>
         <NavLink>
@@ -60,13 +42,10 @@ const Navber = ({ setOpenCart, openCart }) => {
     </>
 
 
-    // const handleCartShowModal = () => {
-    //     setOpenCart(!openCart)
-    // }
 
 
     return (
-        <div className="navbar bg-base-100 container mx-auto h-[66px] z-10 fixed">
+        <div className="navbar bg-base-100 container mx-auto h-[66px] z-40 md:z-10 lg:z-10 fixed">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

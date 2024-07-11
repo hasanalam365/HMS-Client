@@ -11,6 +11,8 @@ import PrivateRoute from "./PrivateRoute";
 import ProductDetail from "../Components/ProductDetail";
 import MyWishlist from "../Components/MyWishlist";
 import CheckoutPage from "../Components/CheckoutPage";
+// import CheckOutBOxCart from "../Shared/CheckOutBOxCart";
+import Mycarts from "../Components/Mycarts";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -67,6 +69,11 @@ const router = createBrowserRouter([
                 path: '/dashboard/wishlist',
                 element: <MyWishlist></MyWishlist>
             },
+            {
+                path: '/dashboard/mycarts',
+                element: <Mycarts></Mycarts>
+            }
+
         ]
     }
 

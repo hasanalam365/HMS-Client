@@ -1,7 +1,7 @@
 
 const Profile = () => {
     return (
-        <div className="bg-base-200 shadow-xl p-8 w-[98%] md:w-3/4 mx-auto">
+        <div className="bg-base-200 shadow-xl p-4 w-[98%] md:w-3/4 mx-auto">
             <h3 className="text-center  text-xl ">Personal Information</h3>
             <div className="flex gap-10 mt-5">
 
