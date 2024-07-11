@@ -47,6 +47,12 @@ const CheckoutPage = () => {
 
     }
 
+
+    const handleConfirm = () => {
+        console.log('confirm')
+    }
+
+
     return (
         <div className="p-8 md:p-10 lg:p-16 flex flex-col md:flex-row lg:flex-row gap-5">
 
@@ -165,7 +171,7 @@ const CheckoutPage = () => {
                 <div className="text-center font-semibold boder border-2 border-white mt-1 mb-1 border-dashed p-2">
                     <h4>Total: $ {totalPrices} </h4>
                 </div>
-                <div className="mt-4 text-center bg-orange-600 p-2 rounded-xl">
+                <div onClick={handleConfirm} className="mt-4 text-center bg-orange-600 p-2 rounded-xl">
                     <button className=" w-full text-white font-medium hover:scale-110">Confirm Order</button>
                 </div>
 

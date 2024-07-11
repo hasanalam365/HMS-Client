@@ -10,7 +10,7 @@ const useWishlist = () => {
     const { data: wishlistData = [], refetch } = useQuery({
         queryKey: ['wishlistData'],
         queryFn: async () => {
-            const res = await axiosPublic(`/wishlist/${user?.email}`)
+            const res = await axiosPublic(`/wishlist/${user.email}`)
             return res.data
         }
     })

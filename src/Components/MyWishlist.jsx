@@ -1,11 +1,26 @@
 import { MdDeleteForever } from "react-icons/md";
 import useWishlist from "../hooks/useWishlist";
 import { FiShoppingCart } from "react-icons/fi";
+import useAuth from "../hooks/useAuth";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import { toast } from "react-toastify";
 
 const MyWishlist = () => {
 
     const [wishlistData, refetch] = useWishlist()
+    const { user } = useAuth()
+    const axiosPublic = useAxiosPublic()
 
+    const handleDeleteWishlist = async (_id) => {
+
+        const res = await axiosPublic.delete(`/wishlist/${user.email}/${_id}`)
+
+        if (res.data.modifiedCount === 1) {
+            toast('This item has been delete from wishlist')
+            refetch()
+        }
+
+    }
 
 
     return (
@@ -44,7 +59,9 @@ const MyWishlist = () => {
                                 </td>
                                 <th className="flex gap-2 mt-4">
                                     <FiShoppingCart className="text-lg hover:scale-125 hover:text-[#FF5722]"></FiShoppingCart>
-                                    <MdDeleteForever className="text-lg hover:scale-125 hover:text-[#FF5722]" />
+                                    <button onClick={() => handleDeleteWishlist(data._id)}>
+                                        <MdDeleteForever className="text-lg hover:scale-125 hover:text-[#FF5722]" />
+                                    </button>
                                 </th>
                             </tr>)
                         }
