@@ -1,4 +1,4 @@
-import { FaCircleArrowLeft } from "react-icons/fa6";
+import { FaCircleArrowRight } from "react-icons/fa6";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import useCartList from "../hooks/useCartList";
 import { toast } from "react-toastify";
@@ -26,11 +26,11 @@ const CheckOutBOxCart = ({ setOpenCart, openCart }) => {
     }
 
     return (
-        <div className={`absolute right-0 top-0 animate__animated  ${openCart && " animate__fadeInRight"} z-30 w-full `}>
-            <div className="flex  flex-col  p-3 lg:w-[42%] bg-white  ">
-                <div className="flex items-center justify-start">
+        <div className={`absolute right-0 top-0  z-30  `}>
+            <div className="flex  flex-col  p-3  bg-white h-[550px] w-[425px]">
+                <div className="flex items-center justify-end ">
                     <button onClick={() => setOpenCart(false)} className="btn">
-                        <FaCircleArrowLeft />
+                        <FaCircleArrowRight />
                     </button>
                 </div>
                 <div className="font-medium text-lg flex items-center justify-between">

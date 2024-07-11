@@ -1,11 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
-import { FaRegHeart } from "react-icons/fa";
+// import { FaRegHeart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { useState } from "react";
 import useCartList from "../../hooks/useCartList";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
+// import { useQuery } from "@tanstack/react-query";
+// import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 
 
@@ -46,7 +46,7 @@ const Navber = ({ setOpenCart, openCart }) => {
     const hangleLogOut = () => {
         signOutUser()
     }
-
+    console.log(openCart)
 
 
     return (
@@ -117,8 +117,8 @@ const Navber = ({ setOpenCart, openCart }) => {
 
             <div className="navbar-end">
 
-                <div className="hidden md:block lg:block">
-                    <div className="flex gap-4 ml-5 mr-5">
+                <div className="">
+                    <div className="flex items-center justify-center gap-4 ml-5 mr-5">
 
                         <button onClick={() => setIsOpenProfile(!isOpenProfile)}>
                             {
