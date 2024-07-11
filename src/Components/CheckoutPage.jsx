@@ -50,21 +50,24 @@ const CheckoutPage = () => {
     }
 
 
-    const handleConfirm = () => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You Want to order!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Confirm!"
-        }).then((result) => {
-            if (result.isConfirmed) {
+    const handleConfirm = async () => {
+        const allProduct = data.map(product => product.productData)
+        console.log('totalPrices', allProduct)
 
-                navigate('/dashboard/address')
-            }
-        });
+        const orderInfo = {
+            paymentType: selectedCheckbox,
+            orderId: orderId,
+            totalPrices: totalPrices,
+            date: date,
+            time: time,
+            allProducts: allProduct
+        }
+        await axiosPublic.post('/orders', orderInfo)
+
+
+        navigate('/dashboard/address')
+
+
     }
 
 
@@ -146,8 +149,8 @@ const CheckoutPage = () => {
 
                                 <input
                                     type="checkbox"
-                                    checked={selectedCheckbox === 'cashOnDelivery'}
-                                    onChange={() => handleCheckboxChange('cashOnDelivery')}
+                                    checked={selectedCheckbox === 'Cash On Delivery'}
+                                    onChange={() => handleCheckboxChange('Cash On Delivery')}
                                     className="checkbox checkbox-info"
                                 />
 

@@ -1,9 +1,21 @@
 import { useState } from "react";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../hooks/useAuth";
 
 const DeliveryAddress = () => {
 
     const [select, setSelect] = useState(1)
+    const axiosPublic = useAxiosPublic()
+    const { user } = useAuth()
 
+    const { data: userData = [] } = useQuery({
+        queryKey: ['user'],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/user/${user.email}`)
+            return res.data
+        }
+    })
 
 
     const handleAddress = async (e) => {
@@ -17,8 +29,6 @@ const DeliveryAddress = () => {
         const district = form.district.value;
         const thana = form.thana.value;
         const address = form.address.value;
-
-
 
         const allAddress = { name, phone, secondNumber, division, district, thana, address }
         console.table(allAddress)
@@ -35,36 +45,41 @@ const DeliveryAddress = () => {
                         <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="fullname" className="font-medium">Full Name</label>
-                                <input id="fullName" name="name" type="text" placeholder="Full Name" className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
+                                <input id="fullName" name="name" type="text" placeholder="Full Name" value={userData?.displayName} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
                             </div>
+
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="phone" className="font-medium">Phone</label>
-                                <input id="phone" type="text" name="phone" placeholder="Phone Number" className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
+                                <input id="phone" type="text" name="phone" placeholder="Phone Number" defaultValue={userData?.phone} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
                             </div>
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="alternative phone number" className="font-medium">Alternative Phone</label>
                                 <input id="secondNumber" type="text"
-                                    name="secondNumber" placeholder="Alternative Phone" className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
+                                    name="secondNumber" defaultValue={userData?.alterPhone} placeholder="Alternative Phone" className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
                             </div>
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="Division" className="font-medium">Division</label>
                                 <input id="division" type="text"
-                                    name="division" placeholder="Division" className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
+                                    name="division" placeholder="Division" defaultValue={userData?.division} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
                             </div>
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="District" className="font-medium">District</label>
                                 <input id="district" type="text"
-                                    name="district" placeholder="District" className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
+                                    name="district" placeholder="District" defaultValue={userData?.district} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
                             </div>
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="Thana" className="font-medium">Thana</label>
                                 <input id="thana" type="text"
-                                    name="thana" placeholder="Thana" className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
+                                    name="thana" placeholder="Thana" defaultValue={userData?.thana} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
+                            </div>
+                            <div className="col-span-full ">
+                                <label htmlFor="fullname" className="font-medium">Email</label>
+                                <input id="fullName" name="email" type="text" value={userData.email} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
                             </div>
                             <div className="col-span-full">
                                 <label htmlFor="address" className="font-medium">Address</label>
                                 <input id="address" type="text"
-                                    name="address" placeholder="Building/House/Street" className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300  p-2" />
+                                    name="address" placeholder="Building/House/Street" defaultValue={userData?.address} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300  p-2" />
                             </div>
 
                         </div>
