@@ -38,14 +38,14 @@ const Dashboard = () => {
             <FiShoppingBag />
             <li className="hidden md:block lg:block">My Orders</li>
         </NavLink>
-
+        {/* 
         <NavLink to="/dashboard/address" className={({ isActive }) =>
             `flex gap-3 items-center justify-center hover:text-orange-600 ${isActive ? 'text-orange-600' : 'text-black'
             }`
         }>
             <TiHomeOutline />
             <li className="hidden md:block lg:block">Address</li>
-        </NavLink>
+        </NavLink> */}
 
         <NavLink to="/dashboard/wishlist" className={({ isActive }) =>
             `flex gap-3 items-center justify-center hover:text-orange-600 ${isActive ? 'text-orange-600' : ''
@@ -99,7 +99,7 @@ const Dashboard = () => {
                         </ul>
                     </div>
 
-                    <div className="z-30 fixed w-full mx-auto bottom-0 md:hidden lg:hidden ">
+                    <div className="z-30  fixed w-full mx-auto bottom-0 md:hidden lg:hidden bg-orange-100 -ml-2">
                         <ul className="flex flex-row items-start justify-center gap-5 text-3xl border-2 border-green-600 bg-orange-6000  rounded-full pl-5 pr-5 pt-2 pb-2 font-medium max-w-min mx-auto">
                             {dashNavLinks}
 

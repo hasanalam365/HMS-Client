@@ -39,8 +39,8 @@ const ProductDetail = () => {
         }
 
     }
-    const handleAddtoCart = async (productData) => {
 
+    const handleAddtoCart = async (productData) => {
 
         const addCartInfo = {
             email: user?.email,
@@ -51,6 +51,22 @@ const ProductDetail = () => {
         if (res.data.insertedId) {
             toast('added cart')
             refetch()
+
+        }
+
+
+    }
+    const handleBuyAddtoCart = async (productData) => {
+
+        const addCartInfo = {
+            email: user?.email,
+            productId: productData._id,
+            productData: productData
+        }
+        const res = await axiosPublic.post('/addToCart', addCartInfo)
+        if (res.data.insertedId) {
+            navigate('/checkout')
+
 
         }
 
@@ -118,7 +134,7 @@ const ProductDetail = () => {
                         </div> */}
                         <div className="flex gap-5 items-center ">
                             <button onClick={() => handleAddtoCart(productData)} className="btn text-white bg-[#F29120] hover:bg-[#d68324] mt-3">Add to Cart</button>
-                            <button className="btn text-white bg-[#FF5722] hover:bg-[#ec5527] mt-3">Buy Now</button>
+                            <button onClick={() => handleBuyAddtoCart(productData)} className="btn text-white bg-[#FF5722] hover:bg-[#ec5527] mt-3">Buy Now</button>
                         </div>
                     </div>
                 </div>

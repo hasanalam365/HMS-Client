@@ -14,25 +14,25 @@ const MainLayout = () => {
 
 
     return (
-        <div>
-            <div className="container mx-auto relative">
-                <div className="">
-                    <Navber setOpenCart={setOpenCart} openCart={openCart}></Navber>
-                </div>
 
-                <div className="  ">
-                    {openCart && <CheckOutBOxCart setOpenCart={setOpenCart} openCart={openCart}></CheckOutBOxCart>}
-                </div>
+        <div className="container mx-auto relative">
+            <div className="">
+                <Navber setOpenCart={setOpenCart} openCart={openCart}></Navber>
+            </div>
 
-                <div className="min-h-[calc(100vh-334px)]">
-                    <Outlet></Outlet>
-                </div>
+            <div className="  ">
+                {openCart && <CheckOutBOxCart setOpenCart={setOpenCart} openCart={openCart}></CheckOutBOxCart>}
+            </div>
 
+            <div className="min-h-[calc(100vh-334px)]">
+                <Outlet></Outlet>
             </div>
             <div className="h-[268px]">
                 <Footer></Footer>
             </div>
         </div>
+
+
     );
 };
 

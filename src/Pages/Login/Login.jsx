@@ -7,6 +7,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Login = () => {
 
@@ -14,10 +15,7 @@ const Login = () => {
     const [openPassword, setOpenPassword] = useState(false)
     const navigate = useNavigate()
     const location = useLocation()
-
-    console.log(user)
-    console.log(navigate)
-    console.log(location)
+    const axiosPublic = useAxiosPublic()
 
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -41,11 +39,19 @@ const Login = () => {
 
     const handleGoogleLogin = () => {
         googleSignIn()
-            .then(result => {
-                if (result.user) {
+            .then(async (result) => {
 
+
+                if (result.user) {
+                    const userInfo = {
+                        email: result?.user?.email,
+                        userName: result?.user?.displayName,
+                        photoURL: result?.user?.photoURL
+                    }
                     toast("Login Successfully!")
 
+                    const res = await axiosPublic.post('/users', userInfo)
+                    console.log('user data:', res.data)
                 }
                 navigate(location?.state || "/")
             })

@@ -14,6 +14,8 @@ const Navber = ({ setOpenCart, openCart }) => {
     const [isOpenProfile, setIsOpenProfile] = useState(false)
     const [data] = useCartList()
 
+    const { signOutUser, user } = useAuth()
+
     const navLinks = <>
         <NavLink>
             <li>Smart Watches</li>
@@ -41,11 +43,14 @@ const Navber = ({ setOpenCart, openCart }) => {
         </NavLink>
     </>
 
+    const hangleLogOut = () => {
+        signOutUser()
+    }
 
 
 
     return (
-        <div className="navbar bg-base-100 container mx-auto h-[66px] z-40 md:z-10 lg:z-10 fixed">
+        <div className="navbar bg-base-100 container mx-auto h-[66px] z-40 md:z-10 lg:z-10 fixed ">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -64,8 +69,9 @@ const Navber = ({ setOpenCart, openCart }) => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-64 p-2 shadow text-lg space-y-2  font-medium">
+                        className="menu  dropdown-content bg-base-100 rounded-box z-10 mt-3 w-80 p-2 shadow text-lg space-y-2  font-medium ">
                         {navLinks}
+
                         <div className="divider"></div>
                         <NavLink to='/dashboard/profile'>
                             <li>Dashboard</li>
@@ -94,10 +100,7 @@ const Navber = ({ setOpenCart, openCart }) => {
                         <li>Blogs</li>
                     </NavLink>
                 </ul>
-            </div>
-
-            <div className="navbar-end">
-                <label className="input input-bordered flex items-center gap-2">
+                <label className="input input-bordered flex items-center gap-2 ml-5">
                     <input type="text" className="grow" placeholder="Search Products" />
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -110,24 +113,33 @@ const Navber = ({ setOpenCart, openCart }) => {
                             clipRule="evenodd" />
                     </svg>
                 </label>
+            </div>
+
+            <div className="navbar-end">
+
                 <div className="hidden md:block lg:block">
                     <div className="flex gap-4 ml-5 mr-5">
 
                         <button onClick={() => setIsOpenProfile(!isOpenProfile)}>
-                            <CgProfile className="text-xl"></CgProfile>
+                            {
+                                user?.email ? <img className="w-[40px] h-[40px] rounded-full" src={user.photoURL} alt="user profile photo" />
+                                    :
+                                    <CgProfile className="text-xl"></CgProfile>
+                            }
+
                         </button>
                         <button onClick={() => setOpenCart(!openCart)} className="relative flex">
 
-                            <HiOutlineShoppingCart className="text-xl"></HiOutlineShoppingCart>
-                            <div className="absolute -right-4 bottom-2 bg-secondary rounded-full text-white">
+                            <HiOutlineShoppingCart className="text-4xl"></HiOutlineShoppingCart>
+                            <div className="absolute -right-3 bottom-5 bg-secondary rounded-full text-white">
 
-                                <button>
-                                    {
-                                        !data.length > 0 ? <p className="p-1">0</p>
-                                            :
-                                            <p className="p-1">{data.length}</p>
-                                    }
-                                </button>
+
+                                {
+                                    !data.length > 0 ? <p className="p-1">0</p>
+                                        :
+                                        <p className="p-1">{data.length}</p>
+                                }
+
                             </div>
                         </button>
                     </div>
@@ -139,7 +151,7 @@ const Navber = ({ setOpenCart, openCart }) => {
                                     <Link to="/dashboard/profile">My Profile</Link>
                                 </li>
                                 <li className="hover:text-orange-600">
-                                    <Link>Logout</Link>
+                                    <button onClick={hangleLogOut}>Logout</button>
                                 </li>
                             </ul>
                         </div>

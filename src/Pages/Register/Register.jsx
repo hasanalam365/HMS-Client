@@ -7,6 +7,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 
 const Register = () => {
@@ -17,39 +18,34 @@ const Register = () => {
     const location = useLocation()
     console.log(user)
 
+    const axiosPublic = useAxiosPublic()
+
     const handleSignUp = (e) => {
         e.preventDefault()
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
 
-        console.log(email, password)
+
         signUpUser(email, password)
-            .then(result => {
+            .then(async (result) => {
+
                 if (result.user) {
 
-                    toast("Sign Up Successfully!")
-                    signOutUser()
+                    toast("Register Successfully!")
+
 
                 }
 
+                signOutUser()
                 navigate("/login")
             })
             .catch(() => {
-                toast.error("Invalid Email/Password!")
+                toast.error("User already exists")
             })
     }
 
-    const handleGoogleLogin = () => {
-        googleSignIn()
-            .then(() => {
-                toast("Login Successfully!")
-                navigate(location?.state || "/")
-            })
-            .catch(error => {
-                console.log(error.message)
-            })
-    }
+
 
     return (
         <div className=" bg-base-300 min-h-screen p-8">
@@ -92,12 +88,12 @@ const Register = () => {
                         </div>
                     </form>
                     <div className="divider">OR</div>
-                    <button onClick={handleGoogleLogin} className="border-2 w-3/4 md:w-3/4 lg:w-3/4 mx-auto rounded-lg p-2 mb-3">
+                    {/* <button onClick={handleGoogleLogin} className="border-2 w-3/4 md:w-3/4 lg:w-3/4 mx-auto rounded-lg p-2 mb-3">
                         <div className="flex gap-3 items-center justify-center ">
                             <FcGoogle className="text-2xl"></FcGoogle>
                             <h5 className="text-lg">Continue with Google</h5>
                         </div>
-                    </button>
+                    </button> */}
                     <div className=" w-3/4 md:w-3/4 lg:w-3/4 mx-auto rounded-lg p-2 mb-3">
                         <div className="flex gap-1 items-center justify-center ">
 

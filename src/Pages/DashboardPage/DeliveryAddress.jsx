@@ -77,7 +77,7 @@ const DeliveryAddress = () => {
                             </div>
                         </div>
                         <div className="mt-2">
-                            <button className="btn btn-secondary w-full">Save</button>
+                            <button className="btn btn-secondary w-full">Confirm</button>
                         </div>
                     </fieldset>
 

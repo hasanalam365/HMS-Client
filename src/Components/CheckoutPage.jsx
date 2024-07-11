@@ -3,13 +3,15 @@ import useCartList from "../hooks/useCartList";
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
 
     const [selectedCheckbox, setSelectedCheckbox] = useState(null);
     const [orderId, setOrderId] = useState('');
     const [data, refetch] = useCartList()
-
+    const navigate = useNavigate()
     const totalPrices = data.reduce((total, product) => total + product.productData.price, 0)
 
     const date = new Date().toLocaleDateString()
@@ -49,7 +51,20 @@ const CheckoutPage = () => {
 
 
     const handleConfirm = () => {
-        console.log('confirm')
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You Want to order!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Confirm!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                navigate('/dashboard/address')
+            }
+        });
     }
 
 
@@ -184,8 +199,8 @@ const CheckoutPage = () => {
                 <div className="text-center font-semibold boder border-2 border-white mt-1 mb-1 border-dashed p-2">
                     <h4>Total: $ {totalPrices} </h4>
                 </div>
-                <div onClick={handleConfirm} className="mt-4 text-center bg-orange-600 p-2 rounded-xl">
-                    <button className=" w-full text-white font-medium hover:scale-110">Confirm Order</button>
+                <div onClick={handleConfirm} className="mt-4 text-center ">
+                    <button className="btn bg-orange-600 p-2 rounded-xl w-full text-white font-medium ">Confirm Order</button>
                 </div>
 
             </div>
