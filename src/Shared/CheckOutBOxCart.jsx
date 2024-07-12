@@ -75,7 +75,7 @@ const CheckOutBOxCart = ({ setOpenCart, openCart }) => {
                 <div className="text-center font-semibold boder border-2 mt-1 mb-1 border-dashed p-2">
                     <h4>Total: $ {totalPrices} </h4>
                 </div>
-                <Link to="/checkout">
+                <Link to="/dashboard/checkout">
                     <button onClick={() => setOpenCart(false)} className="text-white bg-orange-600 p-4 w-full font-semibold rounded-lg">Checkout</button>
                 </Link>
             </div>

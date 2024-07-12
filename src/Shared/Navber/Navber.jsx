@@ -90,7 +90,7 @@ const Navber = ({ setOpenCart, openCart }) => {
                     </ul>
                 </div>
                 <Link to='/' className="hover:scale-105">
-                    <img src="logo.png" className="w-[60px] h-[50px]" alt="" />
+                    <img src="https://i.ibb.co/1LSTmBy/logo.png" className="w-[60px] h-[50px]" alt="" />
 
                 </Link>
 

@@ -14,6 +14,7 @@ import CheckoutPage from "../Components/CheckoutPage";
 // import CheckOutBOxCart from "../Shared/CheckOutBOxCart";
 import Mycarts from "../Components/Mycarts";
 import UpdatedProfile from "../Components/UpdatedProfile";
+import DashboardLayout from "../MainLayout/DashboardLayout";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -44,10 +45,10 @@ const router = createBrowserRouter([
                 element: <ProductDetail></ProductDetail>,
                 loader: ({ params }) => fetch(`http://localhost:5000/product/${params.id}`)
             },
-            {
-                path: '/checkout',
-                element: <CheckoutPage></CheckoutPage>
-            },
+            // {
+            //     path: '/checkout',
+            //     element: <CheckoutPage></CheckoutPage>
+            // },
 
         ]
     },
@@ -55,7 +56,8 @@ const router = createBrowserRouter([
     {
         path: '/dashboard',
         element: <PrivateRoute>
-            <Dashboard></Dashboard>
+            {/* <Dashboard></Dashboard> */}
+            <DashboardLayout></DashboardLayout>
         </PrivateRoute>,
         children: [
             {
@@ -77,6 +79,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/updatedProfile',
                 element: <UpdatedProfile></UpdatedProfile>
+            },
+            {
+                path: '/dashboard/checkout',
+                element: <CheckoutPage></CheckoutPage>
             },
 
         ]

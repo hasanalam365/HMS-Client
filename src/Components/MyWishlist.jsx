@@ -11,37 +11,37 @@ const MyWishlist = () => {
     const { user } = useAuth()
     const axiosPublic = useAxiosPublic()
 
-    const handleDeleteWishlist = async (_id) => {
+    // const handleDeleteWishlist = async (_id) => {
 
-        const res = await axiosPublic.delete(`/wishlist/${user.email}/${_id}`)
+    //     const res = await axiosPublic.delete(`/wishlist/${user.email}/${_id}`)
 
-        if (res.data.modifiedCount === 1) {
-            toast('This item has been delete from wishlist')
-            refetch()
-        }
+    //     if (res.data.modifiedCount === 1) {
+    //         toast('This item has been delete from wishlist')
+    //         refetch()
+    //     }
 
-    }
+    // }
 
-    const handleAddtoCart = async (productData) => {
+    // const handleAddtoCart = async (productData) => {
 
-        const addCartInfo = {
-            email: user?.email,
-            productId: productData._id,
-            productData: productData
-        }
+    //     const addCartInfo = {
+    //         email: user?.email,
+    //         productId: productData._id,
+    //         productData: productData
+    //     }
 
-        const res = await axiosPublic.post('/addToCart', addCartInfo)
-        if (res.data.insertedId) {
-            toast('added cart')
-            await axiosPublic.delete(`/wishlist/${user.email}/${productData._id}`)
-            refetch()
+    //     const res = await axiosPublic.post('/addToCart', addCartInfo)
+    //     if (res.data.insertedId) {
+    //         toast('added cart')
+    //         await axiosPublic.delete(`/wishlist/${user.email}/${productData._id}`)
+    //         refetch()
 
-        }
-
-
+    //     }
 
 
-    }
+
+
+    // }
 
     return (
         <div className="md:mt-8 lg:mt-0">
@@ -78,10 +78,10 @@ const MyWishlist = () => {
                                     $ {data.price}
                                 </td>
                                 <th className="flex gap-2 mt-4">
-                                    <button onClick={() => handleAddtoCart(data)}>
+                                    <button >
                                         <FiShoppingCart className="text-lg hover:scale-125 hover:text-[#FF5722]"></FiShoppingCart>
                                     </button>
-                                    <button onClick={() => handleDeleteWishlist(data._id)}>
+                                    <button>
                                         <MdDeleteForever className="text-lg hover:scale-125 hover:text-[#FF5722]" />
                                     </button>
                                 </th>
