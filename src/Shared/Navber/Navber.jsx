@@ -7,14 +7,24 @@ import useCartList from "../../hooks/useCartList";
 // import { useQuery } from "@tanstack/react-query";
 // import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 
 const Navber = ({ setOpenCart, openCart }) => {
 
     const [isOpenProfile, setIsOpenProfile] = useState(false)
     const [data] = useCartList()
-
+    const axiosPublic = useAxiosPublic()
     const { signOutUser, user } = useAuth()
+
+    const { data: userData = [] } = useQuery({
+        queryKey: ['user'],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/user/${user.email}`)
+            return res.data
+        }
+    })
 
     const navLinks = <>
         <NavLink>
@@ -46,7 +56,7 @@ const Navber = ({ setOpenCart, openCart }) => {
     const hangleLogOut = () => {
         signOutUser()
     }
-    console.log(openCart)
+
 
 
     return (
@@ -122,7 +132,7 @@ const Navber = ({ setOpenCart, openCart }) => {
 
                         <button onClick={() => setIsOpenProfile(!isOpenProfile)}>
                             {
-                                user?.email ? <img className="w-[40px] h-[40px] rounded-full" src={user.photoURL} alt="user profile photo" />
+                                user?.email ? <img className="w-[40px] h-[40px] rounded-full" src={userData.photoURL} alt="user profile photo" />
                                     :
                                     <CgProfile className="text-xl"></CgProfile>
                             }
