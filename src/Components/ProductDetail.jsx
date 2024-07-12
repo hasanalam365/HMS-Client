@@ -9,6 +9,7 @@ import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
 import useCartList from "../hooks/useCartList";
 import useWishlist from "../hooks/useWishlist";
+import { useQuery } from "@tanstack/react-query";
 
 
 const ProductDetail = () => {
@@ -17,23 +18,11 @@ const ProductDetail = () => {
     const axiosPublic = useAxiosPublic()
     const { user } = useAuth()
     const navigate = useNavigate()
-    const [checkList, setCheckList] = useState()
-    const [wishlistData, refetch] = useWishlist()
+
+    const [data, refetch] = useCartList()
     const { imgUrl, title, price, rating, stock, features, productId, _id } = productData
 
-    const [isPresent, setIsPresent] = useState(false)
 
-
-    console.log('isPresent:', isPresent)
-
-    // useEffect(() => {
-    //     const check = wishlistData.map(product => setCheckList(product._id))
-
-    // }, [wishlistData])
-
-    // const check = wishlistData.map(product => setCheckList(product._id))
-    // console.log('check', check)
-    // console.log('checkList', checkList)
 
 
 
@@ -56,17 +45,10 @@ const ProductDetail = () => {
 
     }
 
-    //delete route
-    // else {
-    //     const resDelete = await axiosPublic.delete(`/wishlist/${user.email}/${productData._id}`)
-    //     console.log(resDelete.data)
-    // }
-    // if (res.data.modifiedCount === 1) {
-    //     toast('This item has been delete from wishlist')
-    //     refetch()
-    //     setIsPresent(false)
-    // }
-    // toast.error('Already added wishlist')
+
+
+
+
 
     const handleAddtoCart = async (productData) => {
 
@@ -136,30 +118,29 @@ const ProductDetail = () => {
                                 readOnly
 
                             />
+                            <button
+                                onClick={() =>
+                                    handleWishlistAdd(productData)
+
+                                }
+                                className="hover:scale-110 tooltip tooltip-right"
+                                data-tip="add to wishlist"
+                            >
+                                <FaHeart className="text-[#FF5722] text-xl "></FaHeart>
+                            </button>
 
 
-                            {
-                                isPresent ? <button
-                                    onClick={() =>
-                                        handleWishlistAdd(productData)
+                            {/* <button
+                                onClick={() =>
+                                    handleWishlistDelete(productData._id)
 
-                                    }
-                                    className="hover:scale-110 tooltip tooltip-right"
-                                    data-tip="add to wishlist"
-                                >
-                                    <FaHeart className="text-[#FF5722] text-xl "></FaHeart>
-                                </button> :
-                                    <button
-                                        onClick={() =>
-                                            handleWishlistAdd(productData)
+                                }
+                                className="hover:scale-110 tooltip tooltip-right"
+                                data-tip="add to wishlist"
+                            >Delete */}
+                            {/* <FaRegHeart className="text-[#FF5722] text-xl "></FaRegHeart> */}
+                            {/* </button> */}
 
-                                        }
-                                        className="hover:scale-110 tooltip tooltip-right"
-                                        data-tip="add to wishlist"
-                                    >
-                                        <FaRegHeart className="text-[#FF5722] text-xl "></FaRegHeart>
-                                    </button>
-                            }
 
                         </div>
 

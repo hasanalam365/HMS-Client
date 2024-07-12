@@ -11,37 +11,39 @@ const MyWishlist = () => {
     const { user } = useAuth()
     const axiosPublic = useAxiosPublic()
 
-    // const handleDeleteWishlist = async (_id) => {
-
-    //     const res = await axiosPublic.delete(`/wishlist/${user.email}/${_id}`)
-
-    //     if (res.data.modifiedCount === 1) {
-    //         toast('This item has been delete from wishlist')
-    //         refetch()
-    //     }
-
-    // }
-
-    // const handleAddtoCart = async (productData) => {
-
-    //     const addCartInfo = {
-    //         email: user?.email,
-    //         productId: productData._id,
-    //         productData: productData
-    //     }
-
-    //     const res = await axiosPublic.post('/addToCart', addCartInfo)
-    //     if (res.data.insertedId) {
-    //         toast('added cart')
-    //         await axiosPublic.delete(`/wishlist/${user.email}/${productData._id}`)
-    //         refetch()
-
-    //     }
 
 
+    const handleDeleteWishlist = async (id) => {
+
+        const res = await axiosPublic.delete(`/wishlist/${user.email}/${id}`)
+
+        if (res.data.deletedCount === 1) {
+            toast.error('This item has been delete from wishlist')
+            refetch()
+        }
+
+    }
+
+    const handleAddCart = async (productData) => {
+
+        const addCartInfo = {
+            email: user?.email,
+            productId: productData._id,
+            productData: productData
+        }
+
+        const res = await axiosPublic.post('/addToCart', addCartInfo)
+        if (res.data.insertedId) {
+            toast('added cart')
+            await axiosPublic.delete(`/wishlist/${user.email}/${productData._id}`)
+            refetch()
+
+        }
 
 
-    // }
+
+
+    }
 
     return (
         <div className="md:mt-8 lg:mt-0">
@@ -60,28 +62,28 @@ const MyWishlist = () => {
                     <tbody>
                         {/* row 1 */}
                         {
-                            wishlistData.map((data, idx) => <tr key={data._id}>
+                            wishlistData.map((product, idx) => <tr key={idx}>
                                 <td>{idx + 1}</td>
                                 <td>
 
                                     <div className="avatar">
                                         <div className="mask mask-squircle h-12 w-12">
                                             <img
-                                                src={data.imgUrl} />
+                                                src={product.product.imgUrl} />
                                         </div>
                                     </div>
 
 
                                 </td>
-                                <td>{data.title}</td>
+                                <td>{product.product.title}</td>
                                 <td>
-                                    $ {data.price}
+                                    $ {product.product.price}
                                 </td>
                                 <th className="flex gap-2 mt-4">
-                                    <button >
+                                    <button onClick={() => handleAddCart(product.product)}>
                                         <FiShoppingCart className="text-lg hover:scale-125 hover:text-[#FF5722]"></FiShoppingCart>
                                     </button>
-                                    <button>
+                                    <button onClick={() => handleDeleteWishlist(product.product._id)}>
                                         <MdDeleteForever className="text-lg hover:scale-125 hover:text-[#FF5722]" />
                                     </button>
                                 </th>
