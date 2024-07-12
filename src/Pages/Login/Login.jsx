@@ -86,7 +86,7 @@ const Login = () => {
     }
 
     return (
-        <div className=" bg-base-300 min-h-screen p-8">
+        <div className=" bg-base-300 min-h-screen p-8 pt-20">
             <div className="w-[95%] md:w-1/2 lg:w-[40%] mx-auto ">
 
                 <div className="card bg-base-100   ">
@@ -132,7 +132,7 @@ const Login = () => {
                             <h5 className="text-lg">Continue with Google</h5>
                         </div>
                     </button>
-                    <div className=" w-full md:w-full lg:w-3/4 mx-auto rounded-lg p-2 mb-3">
+                    <div className=" w-full mx-auto rounded-lg p-2 mb-3">
                         <div className="flex gap-1 items-center justify-center ">
 
                             <h5 className="">Don't have any account ?</h5>
