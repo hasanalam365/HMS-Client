@@ -18,7 +18,7 @@ const Profile = () => {
     })
 
     return (
-        <div className="bg-base-200 shadow-xl p-2 md:p-8 mt-2 md:mt-5 lg:mt-0 w-[98%]  mx-auto">
+        <div className="bg-base-200 shadow-xl p-2 md:p-4 mt-2 md:mt-5 lg:mt-5 w-[98%]  mx-auto">
             <div className="flex items-center justify-between">
                 <h3 className=" text-xl ">Personal Information</h3>
                 <Link to='/dashboard/updatedProfile'>

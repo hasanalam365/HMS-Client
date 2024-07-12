@@ -105,10 +105,7 @@ const UpdatedProfile = () => {
                                 <input id="thana" type="text"
                                     name="thana" placeholder="Thana" defaultValue={userData?.thana} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" required />
                             </div>
-                            {/* <div className="col-span-full sm:col-span-3">
-                                <label htmlFor="Thana" className="font-medium">Photo</label>
-                                <input type="file" name="photo" className="file-input file-input-bordered file-input-info w-full max-w-xs" />
-                            </div> */}
+
                             <div className=' col-span-full sm:col-span-3 text-center'>
                                 <label>
                                     <input onChange={handleImg} className='text-sm cursor-pointer w-36 hidden'
@@ -129,7 +126,7 @@ const UpdatedProfile = () => {
                             {imgPrev ? <div className="col-span-full sm:col-span-3 flex items-center ">
                                 {imgPrev}
                             </div> :
-                                <div className="col-span-full sm:col-span-3 flex items-center ">
+                                <div className="col-span-full sm:col-span-3 flex items-center text-red-600">
                                     No file Select
                                 </div>
                             }

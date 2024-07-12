@@ -72,10 +72,10 @@ const CheckoutPage = () => {
 
 
     return (
-        <div className="p-8 md:p-10 lg:p-16 flex flex-col md:flex-row lg:flex-row gap-5">
+        <div className=" flex flex-col md:flex-row lg:flex-row gap-5 mt-3">
 
-            <div className="w-full md:w-[65%] lg:w-3/4">
-                <div className="bg-orange-600 text-center rounded-xl mt-10 md:mt-10 lg:mt-7">
+            <div className="w-full md:w-[60%] lg:w-[60%]  ">
+                <div className="bg-orange-600 text-center rounded-xl ">
                     <h3 className="text-lg font-semibold text-white p-2">Shopping Cart</h3>
                 </div>
                 {
@@ -129,9 +129,9 @@ const CheckoutPage = () => {
                 }
 
             </div>
-            <div className="w-full md:w-[35%] lg:w-1/4 mt-5 md:mt-10 lg:mt-6 bg-gray-200 p-4">
+            <div className="w-full md:w-[40%] lg:w-[40%]  bg-gray-200 mt-4 md:mt-0 p-4">
                 <div className="bg-orange-600 text-center  ">
-                    <h3 className="text-lg font-semibold text-white p-2 flex items-center justify-center gap-2">OrderId <span>- {orderId}</span> </h3>
+                    <h3 className="text-lg font-semibold md:font-medium text-white p-2 flex items-center justify-center ">OrderId <span>- {orderId}</span> </h3>
 
                 </div>
 
