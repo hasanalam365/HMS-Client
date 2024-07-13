@@ -2,7 +2,7 @@ import { Rating } from "@smastrom/react-rating";
 import { useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import '@smastrom/react-rating/style.css'
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import useAuth from "../hooks/useAuth";
@@ -10,14 +10,18 @@ import { toast } from "react-toastify";
 import useCartList from "../hooks/useCartList";
 import useWishlist from "../hooks/useWishlist";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const ProductDetail = () => {
 
     const productData = useLoaderData()
     const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
     const navigate = useNavigate()
+    const location = useLocation()
 
     const [data, refetch] = useCartList()
     const { imgUrl, title, price, rating, stock, features, productId, _id } = productData
@@ -28,17 +32,39 @@ const ProductDetail = () => {
 
     const handleWishlistAdd = async (productData) => {
 
-        const wishlistAddInfo = {
-            email: user?.email,
-            productId: productData._id,
-            product: productData
+        if (user && user.email) {
+            const wishlistAddInfo = {
+                email: user?.email,
+                productId: productData._id,
+                product: productData
+            }
+
+            const res = await axiosSecure.put('/wishlist', wishlistAddInfo)
+            console.log(res.data)
+            if (res.data.upsertedCount === 1) {
+                toast('added wishlist')
+
+            }
+        }
+        else {
+            Swal.fire({
+                title: "You are not Logged In!!",
+                text: "Please login after additing to the wishlist",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Login!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    navigate('/login', { state: location?.pathname })
+                    refetch()
+                }
+            });
         }
 
-        const res = await axiosPublic.put('/wishlist', wishlistAddInfo)
-        console.log(res.data)
-        if (res.data.upsertedCount === 1) {
-            toast('added wishlist')
-        }
+
 
 
 
@@ -52,33 +78,75 @@ const ProductDetail = () => {
 
     const handleAddtoCart = async (productData) => {
 
-        const addCartInfo = {
-            email: user?.email,
-            productId: productData._id,
-            productData: productData
-        }
-        const res = await axiosPublic.post('/addToCart', addCartInfo)
-        if (res.data.insertedId) {
-            toast('added cart')
-            refetch()
+        if (user && user.email) {
+            const addCartInfo = {
+                email: user?.email,
+                productId: productData._id,
+                productData: productData
+            }
+            const res = await axiosSecure.post('/addToCart', addCartInfo)
+            if (res.data.insertedId) {
+                toast('added cart')
+                refetch()
 
+            }
         }
+        else {
+            Swal.fire({
+                title: "You are not Logged In!!",
+                text: "Please login after additing to the wishlist",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Login!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    navigate('/login', { state: location?.pathname })
+                    refetch()
+                }
+            });
+        }
+
+
 
 
     }
     const handleBuyAddtoCart = async (productData) => {
 
-        const addCartInfo = {
-            email: user?.email,
-            productId: productData._id,
-            productData: productData
-        }
-        const res = await axiosPublic.post('/addToCart', addCartInfo)
-        if (res.data.insertedId) {
-            navigate('/dashboard/checkout')
+        if (user && user.email) {
+            const addCartInfo = {
+                email: user?.email,
+                productId: productData._id,
+                productData: productData
+            }
+            const res = await axiosSecure.post('/addToCart', addCartInfo)
+            if (res.data.insertedId) {
+                navigate('/dashboard/checkout')
 
 
+            }
         }
+        else {
+            Swal.fire({
+                title: "You are not Logged In!!",
+                text: "Please login after additing to the wishlist",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Login!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    navigate('/login', { state: location?.pathname })
+
+                }
+            });
+        }
+
+
 
 
     }

@@ -15,6 +15,7 @@ import CheckoutPage from "../Components/CheckoutPage";
 import Mycarts from "../Components/Mycarts";
 import UpdatedProfile from "../Components/UpdatedProfile";
 import DashboardLayout from "../MainLayout/DashboardLayout";
+import AllUsers from "../Dashboard/Dashboard/AllUsers";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/checkout',
                 element: <CheckoutPage></CheckoutPage>
+            },
+            {
+                path: '/dashboard/allusers',
+                element: <AllUsers></AllUsers>
             },
 
         ]
