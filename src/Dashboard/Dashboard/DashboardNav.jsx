@@ -8,11 +8,13 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import useAuth from "../../hooks/useAuth";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaUsers } from "react-icons/fa";
+import useAdmin from "../../hooks/useAdmin";
 
 const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
 
     const [userData, refetch] = useUser()
     const { signOutUser } = useAuth()
+    const [isAdmin] = useAdmin()
 
     const handleLogOut = () => {
         signOutUser()
@@ -81,13 +83,13 @@ const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
                                     <span>Wishlist</span>
                                 </Link>
                             </li>
-                            <li>
+                            {isAdmin && <li>
                                 <Link onClick={() => setIsOpenNav(false)} to='/dashboard/allusers' className="flex items-center p-2 space-x-3 rounded-md">
 
                                     <FaUsers className="text-xl"></FaUsers >
                                     <span>All Users</span>
                                 </Link>
-                            </li>
+                            </li>}
                         </ul>
                         <ul className="pt-4 pb-2 space-y-1 text-sm">
                             <li>

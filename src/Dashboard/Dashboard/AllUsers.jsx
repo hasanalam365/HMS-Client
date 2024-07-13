@@ -18,6 +18,7 @@ const AllUsers = () => {
 
 
     const handleChangeRole = (user) => {
+
         Swal.fire({
             title: "Do you want to change user role?",
             showDenyButton: true,
@@ -28,15 +29,16 @@ const AllUsers = () => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 const role = 'admin'
-                const res = await axiosSecure.patch(`/users/admin/${user.email}`, { role })
-
+                const res = await axiosSecure.patch(`/users/admin/${user._id}`, { role })
+                console.log(res.data)
                 if (res.data.modifiedCount === 1) {
                     toast('Make Admin successfully')
                     refetch()
                 }
             } else if (result.isDenied) {
                 const role = 'user'
-                const res = await axiosSecure.patch(`/users/admin/${user.email}`, { role })
+                console.log(role)
+                const res = await axiosSecure.patch(`/users/admin/${user._id}`, { role })
 
                 if (res.data.modifiedCount === 1) {
                     toast('Make user successfully')
