@@ -19,6 +19,7 @@ import AllUsers from "../Dashboard/Dashboard/AllUsers";
 import AdminRoute from "./AdminRoute";
 import Dashboard from "../Dashboard/Dashboard";
 import AllOrders from "../Dashboard/AdminDashboard.jsx/AllOrders";
+import ViewOrderDetails from "../Components/ViewOrderDetails";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -103,6 +104,14 @@ const router = createBrowserRouter([
                 element: <AdminRoute>
                     <AllOrders></AllOrders>
                 </AdminRoute>
+            },
+            {
+                path: '/dashboard/view-order/:id',
+                element: <AdminRoute>
+                    <ViewOrderDetails></ViewOrderDetails>
+                </AdminRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/view-order/${params.id}`)
+
             },
 
         ]
