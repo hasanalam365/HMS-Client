@@ -10,10 +10,10 @@ const DashboardLayout = () => {
             <div className=" ">
                 <DashboardNav isOpenNav={isOpenNav} setIsOpenNav={setIsOpenNav}></DashboardNav>
             </div>
-
-            <div className={`${isOpenNav && 'hidden'}  w-full px-0 md:px-12`}>
-                <Outlet></Outlet>
-            </div>
+            <Outlet></Outlet>
+            {/* <div className={`${isOpenNav && 'hidden'}  w-full px-0 md:px-12`}>
+              
+            </div> */}
 
         </div>
     );

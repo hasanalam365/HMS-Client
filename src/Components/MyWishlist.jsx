@@ -46,7 +46,7 @@ const MyWishlist = () => {
     }
 
     return (
-        <div className="md:w-full mx-auto ">
+        <div className="md:w-full mx-auto mt-8">
             <div className="overflow-x-auto">
                 <table className="table ">
                     {/* head */}

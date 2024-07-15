@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../MainLayout/MainLayout";
 import Home from "../Pages/Home/Home/Home";
 import Brands from "../Pages/Brands/Brands";
-import Dashboard from "../Dashboard/Dashboard/Dashboard";
+// import Dashboard from "../Dashboard/Dashboard/Dashboard";
 import Profile from "../Dashboard/Profile";
 import DeliveryAddress from "../Pages/DashboardPage/DeliveryAddress";
 import Login from "../Pages/Login/Login";
@@ -16,6 +16,9 @@ import Mycarts from "../Components/Mycarts";
 import UpdatedProfile from "../Components/UpdatedProfile";
 import DashboardLayout from "../MainLayout/DashboardLayout";
 import AllUsers from "../Dashboard/Dashboard/AllUsers";
+import AdminRoute from "./AdminRoute";
+import Dashboard from "../Dashboard/Dashboard";
+import AllOrders from "../Dashboard/AdminDashboard.jsx/AllOrders";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -62,6 +65,10 @@ const router = createBrowserRouter([
         </PrivateRoute>,
         children: [
             {
+                path: '/dashboard',
+                element: <Dashboard></Dashboard>
+            },
+            {
                 path: '/dashboard/profile',
                 element: <Profile></Profile>
             },
@@ -87,7 +94,15 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/allusers',
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute>
+                    <AllUsers></AllUsers>
+                </AdminRoute>
+            },
+            {
+                path: '/dashboard/all-orders',
+                element: <AdminRoute>
+                    <AllOrders></AllOrders>
+                </AdminRoute>
             },
 
         ]

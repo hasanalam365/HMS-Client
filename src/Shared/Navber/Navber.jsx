@@ -83,7 +83,7 @@ const Navber = ({ setOpenCart, openCart }) => {
                         {navLinks}
 
                         <div className="divider"></div>
-                        <NavLink to='/dashboard/profile'>
+                        <NavLink to='/dashboard'>
                             <li>Dashboard</li>
                         </NavLink>
 
@@ -158,7 +158,7 @@ const Navber = ({ setOpenCart, openCart }) => {
                         isOpenProfile && <div className="absolute z-10 p-4 bg-green-100 top-16 right-16 rounded-lg">
                             <ul className="font-medium space-y-1">
                                 <li className="hover:text-orange-600">
-                                    <Link to="/dashboard/profile">My Profile</Link>
+                                    <Link to="/dashboard">My Profile</Link>
                                 </li>
                                 {user?.email ? <li className="hover:text-orange-600">
                                     <button onClick={hangleLogOut}>Logout</button>
