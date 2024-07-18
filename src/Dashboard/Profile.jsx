@@ -18,7 +18,7 @@ const Profile = () => {
     })
 
     return (
-        <div className="bg-base-200 shadow-xl p-2 md:p-4 mt-2 md:mt-5 lg:mt-5 w-[98%]  mx-auto">
+        <div className="bg-base-200 shadow-xl p-2 md:p-4 mt-16 md:mt-5 lg:mt-5 w-[98%]  mx-auto">
             <div className="flex items-center justify-between">
                 <h3 className=" text-xl ">Personal Information</h3>
                 <Link to='/dashboard/updatedProfile'>
@@ -29,7 +29,7 @@ const Profile = () => {
 
                 <figure>
                     <img className="w-[100px] h-[100px] rounded-full"
-                        src={userData.photoURL}
+                        src={user.photoURL ? user.photoURL : userData.photoURL}
                         alt="Movie" />
                 </figure>
                 <div className="w-full flex flex-row gap-3 md:gap-10 lg:gap-16 ">

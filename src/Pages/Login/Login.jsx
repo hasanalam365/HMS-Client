@@ -9,6 +9,8 @@ import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
+
+
 const Login = () => {
 
     const { signInUser, googleSignIn, user } = useAuth()
@@ -31,6 +33,7 @@ const Login = () => {
         signInUser(email, password)
             .then(async (result) => {
                 if (result.user) {
+
                     toast("Login Successfully!")
                     const userInfo = {
                         email: email,
@@ -38,7 +41,7 @@ const Login = () => {
                     }
 
                     const res = await axiosPublic.post(`/users`, userInfo)
-                    console.log('user data:', res.data)
+                    // console.log('user data:', res.data)
                 }
 
                 navigate(location?.state || "/")
@@ -59,6 +62,7 @@ const Login = () => {
 
 
                 if (result.user) {
+                    console.log(result.user)
                     const userInfo = {
                         email: result.user.email,
                         photoURL: result.user.photoURL,
@@ -67,7 +71,7 @@ const Login = () => {
                     }
                     toast("Login Successfully!")
                     const res = await axiosPublic.post(`/users`, userInfo)
-                    console.log('user data:', res.data)
+                    // console.log('user data:', res.data)
 
                 }
 
