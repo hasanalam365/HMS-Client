@@ -3,6 +3,8 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const AllOrders = () => {
 
@@ -12,7 +14,7 @@ const AllOrders = () => {
     const navigate = useNavigate()
 
 
-    const { data: allOrders = [] } = useQuery({
+    const { data: allOrders = [], refetch } = useQuery({
         queryKey: ['all-orders'],
         queryFn: async () => {
             const res = await axiosSecure.get('/all-orders')
@@ -26,27 +28,28 @@ const AllOrders = () => {
     }
 
 
-    const handleDelete = (email) => {
+    const handleOrderDelete = (id) => {
 
+        console.log(id)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to delete this user!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const res = await axiosSecure.delete(`/order-delete/${id}`)
 
-        // Swal.fire({
-        //     title: "Are you sure?",
-        //     text: "You want to delete this user!",
-        //     icon: "warning",
-        //     showCancelButton: true,
-        //     confirmButtonColor: "#3085d6",
-        //     cancelButtonColor: "#d33",
-        //     confirmButtonText: "Yes, delete it!"
-        // }).then(async (result) => {
-        //     if (result.isConfirmed) {
-        //         const res = await axiosSecure.delete(`/users/${email}`)
+                if (res.data.deletedCount === 1) {
+                    toast('Order has been deleted')
+                    refetch()
+                }
 
-        //         if (res.data.deletedCount === 1) {
-        //             toast('User has been deleted')
-        //             refetch()
-        //         }
-        //     }
-        // });
+            }
+        });
 
 
     }
@@ -81,7 +84,9 @@ const AllOrders = () => {
 
                                     <td>{order.name}</td>
                                     <td>{order.orderId}</td>
-                                    <td>{order.date}</td>
+                                    <td>{order.time}
+                                        <span> {order.date}</span>
+                                    </td>
                                     <td>
                                         <Link to={`/dashboard/view-order/${order._id}`}>
                                             View
@@ -92,7 +97,7 @@ const AllOrders = () => {
                                         <Link to={`/dashboard/view-order/${order._id}`}>View</Link>
                                     </td> */}
                                     <td>
-                                        <button className="btn btn-ghost btn-xs text-white bg-red-600 ">Delete</button>
+                                        <button onClick={() => handleOrderDelete(order._id)} className="btn btn-ghost btn-xs text-white bg-red-600 ">Delete</button>
                                     </td>
                                     {/* <td>
                                         {user.role === 'admin' ? <button onClick={() => handleChangeRole(user)}>

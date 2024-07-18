@@ -133,7 +133,7 @@ const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
             {/* medium and larger device */}
             <div className="hidden md:block lg:block h-full p-3 space-y-2 w-60 dark:bg-gray-50 dark:text-gray-800">
                 <div className="flex items-center p-2 space-x-4">
-                    <img src={userData.photo} alt="" className="w-12 h-12 rounded-full dark:bg-gray-500" />
+                    <img src={user.photoURL ? user.photoURL : userData.photoURL} alt="" className="w-12 h-12 rounded-full dark:bg-gray-500" />
                     <div>
                         <h2 className="text-lg font-semibold">{userData.displayName}</h2>
                         <span className="flex items-center space-x-1">
