@@ -132,7 +132,7 @@ const Navber = ({ setOpenCart, openCart }) => {
 
                         <button onClick={() => setIsOpenProfile(!isOpenProfile)}>
                             {
-                                user?.email ? <img className="w-[40px] h-[40px] rounded-full" src={userData.photoURL} alt="user profile photo" />
+                                user?.email ? <img className="w-[40px] h-[40px] rounded-full" src={user.photoURL || userData.photoURL} alt="user profile photo" />
                                     :
                                     <CgProfile className="text-xl"></CgProfile>
                             }

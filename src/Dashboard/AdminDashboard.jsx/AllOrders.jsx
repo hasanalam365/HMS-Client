@@ -30,10 +30,10 @@ const AllOrders = () => {
 
     const handleOrderDelete = (id) => {
 
-        console.log(id)
+
         Swal.fire({
             title: "Are you sure?",
-            text: "You want to delete this user!",
+            text: "You want to delete this orders!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -88,8 +88,8 @@ const AllOrders = () => {
                                         <span> {order.date}</span>
                                     </td>
                                     <td>
-                                        <Link to={`/dashboard/view-order/${order._id}`}>
-                                            View
+                                        <Link to={`/dashboard/view-order/${order._id}`} className="bg-green-600 p-1 text-white rounded-lg hover:text-orange-600">
+                                            pending
                                         </Link>
 
                                     </td>
