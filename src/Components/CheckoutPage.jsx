@@ -60,7 +60,8 @@ const CheckoutPage = () => {
             totalPrices: totalPrices,
             date: date,
             time: time,
-            allProducts: allProduct
+            allProducts: allProduct,
+            orderStatus: 'pending'
         }
         await axiosPublic.post('/orders', orderInfo)
 

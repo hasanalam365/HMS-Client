@@ -59,7 +59,7 @@ const AllOrders = () => {
         <div className="flex flex-col mt-4 px-4 md:p-8">
             <div className="flex items-center justify-between mb-2">
                 <h4 className="text-lg font-semibold">All Orders</h4>
-                <h4 className="text-lg font-semibold">Total Users: <span>{allOrders.length}</span></h4>
+                <h4 className="text-lg font-semibold">Total Orders: <span>{allOrders.length}</span></h4>
             </div>
             <div className="overflow-x-auto">
                 <table className="table">
