@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const ViewOrderDetails = () => {
 
-
+    const [productIds, setProductIds] = useState([]);
     const LoaderData = useLoaderData()
     const axiosSecure = useAxiosSecure()
     const [data, setData] = useState(LoaderData);
@@ -19,7 +19,22 @@ const ViewOrderDetails = () => {
         setData(LoaderData);
     }, [LoaderData]);
 
-    // const totalProductPrices = data.allProducts.reduce((total, product) => total + product.price, 0)
+    useEffect(() => {
+        if (data?.allProducts) {
+            const ids = data.allProducts.map(product => product.productId);
+            setProductIds(ids);
+        }
+    }, [data]);
+
+
+
+    const { data: stockCount } = useQuery({
+        queryKey: ['stock-count'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/stockProductCount/${productIds}`)
+            return res.data
+        }
+    })
 
 
     const { data: confirmProduct, refetch } = useQuery({
@@ -31,7 +46,7 @@ const ViewOrderDetails = () => {
     })
     const totalPrice = confirmProduct?.reduce((sum, product) => sum + product.price, 0);
 
-    console.log('Total Price:', totalPrice);
+
 
 
     const handleOrderConfirm = async (e) => {
@@ -93,10 +108,11 @@ const ViewOrderDetails = () => {
                         allProducts: prevData.allProducts.filter((_, idx) => idx !== index),
                     }));
                 }
-                console.log(res.data)
+
             }
         });
     }
+
 
     return (
         <div>
@@ -150,7 +166,7 @@ const ViewOrderDetails = () => {
                                                     ${product.price}
                                                 </td>
 
-                                                <th>
+                                                <th >
                                                     {product.stock}
                                                 </th>
                                                 <th className="flex items-center justify-center gap-1 mt-3">
