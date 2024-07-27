@@ -134,6 +134,10 @@ const ProductDetail = () => {
 
 
             }
+            else {
+
+                navigate('/dashboard/checkout')
+            }
         }
         else {
             Swal.fire({

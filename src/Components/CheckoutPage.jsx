@@ -39,6 +39,14 @@ const CheckoutPage = () => {
     };
 
 
+    const handleIncrease = (productId) => {
+        console.log(productId)
+    }
+    const handleDiscrease = (productId) => {
+        console.log(productId)
+    }
+
+
     const handleDelete = async (_id) => {
 
         const res = await axiosPublic.delete(`/addToCart/${_id}`)
@@ -51,8 +59,10 @@ const CheckoutPage = () => {
 
 
     const handleConfirm = async () => {
-        const allProduct = data.map(product => product.productData)
-        console.log('totalPrices', allProduct)
+        const allProduct = data.map(product => ({
+            ...product.productData,
+            quantity: product.quantity,
+        }));
 
         const orderInfo = {
             paymentType: selectedCheckbox,
@@ -112,7 +122,15 @@ const CheckoutPage = () => {
                                                 </td>
                                                 <td>{product.productData.title}</td>
                                                 <td>{product.productData.price}</td>
-                                                <td>{product.quantity}</td>
+                                                <td className="flex items-center justify-center gap-2 h-[49px]">
+                                                    <p onClick={() => handleDiscrease(product.
+                                                        productId
+                                                    )} className="hover:text-white p-1 hover:bg-orange-600 rounded-xl">-</p>
+                                                    <input type="text" value={product.quantity} className="w-[30px] pl-1" />
+                                                    <p onClick={() => handleIncrease(product.
+                                                        productId
+                                                    )} className="hover:text-white p-1 hover:bg-orange-600 rounded-xl">+</p>
+                                                </td>
                                                 <td>$ {product.productData.price * product.quantity}</td>
                                                 <td>
                                                     <button onClick={() => handleDelete(product._id)}>

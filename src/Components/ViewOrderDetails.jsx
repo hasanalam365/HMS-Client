@@ -35,7 +35,7 @@ const ViewOrderDetails = () => {
             return res.data
         }
     })
-
+    console.log(stockCount)
 
     const { data: confirmProduct, refetch } = useQuery({
         queryKey: ['confirm-product'],
@@ -135,6 +135,8 @@ const ViewOrderDetails = () => {
                                             <th>Name</th>
                                             <th>ProductId</th>
                                             <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total Price</th>
                                             <th>Stock</th>
                                             <th>Action</th>
                                         </tr>
@@ -165,10 +167,20 @@ const ViewOrderDetails = () => {
                                                 <td>
                                                     ${product.price}
                                                 </td>
+                                                <td>
+                                                    {product.quantity}
+                                                </td>
+                                                <td>
+                                                    {product.price * product.quantity}
+                                                </td>
+                                                <td>
+                                                    {stockCount ? (
+                                                        stockCount.find(stock => stock.productId === product.productId)?.stock ?? 'N/A'
+                                                    ) : (
+                                                        'Loading...'
+                                                    )}
+                                                </td>
 
-                                                <th >
-                                                    {product.stock}
-                                                </th>
                                                 <th className="flex items-center justify-center gap-1 mt-3">
                                                     <button onClick={() => handleConfirm(product, idx)} className="">
                                                         <GiConfirmed className="text-xl text-green-600 hover:scale-110" />
