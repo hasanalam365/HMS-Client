@@ -1,5 +1,5 @@
 
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
@@ -14,6 +14,8 @@ const ViewOrderDetails = () => {
     const LoaderData = useLoaderData()
     const axiosSecure = useAxiosSecure()
     const [data, setData] = useState(LoaderData);
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         setData(LoaderData);
@@ -35,40 +37,34 @@ const ViewOrderDetails = () => {
             return res.data
         }
     })
-    console.log(stockCount)
 
-    const { data: confirmProduct, refetch } = useQuery({
-        queryKey: ['confirm-product'],
+
+    const { data: selectedOrders, refetch } = useQuery({
+        queryKey: ['selectedOrder'],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/confirmOrder/${LoaderData.orderId}`)
+            const res = await axiosSecure.get(`/selectedOrder/${LoaderData.orderId}`)
             return res.data
         }
     })
-    const totalPrice = confirmProduct?.reduce((sum, product) => sum + product.price, 0);
+    const totalPrice = selectedOrders?.reduce((sum, product) => sum + product.price, 0);
 
 
 
 
-    const handleOrderConfirm = async (e) => {
-        e.preventDefault()
-        const form = e.target
-        const name = form.name.value
 
 
-    }
 
+    const handleSelectOrder = async (product, index) => {
 
-    const handleConfirm = async (product, index) => {
-
-        const confirmProducts = {
+        const selectedOrders = {
             orderId: LoaderData.orderId,
             product: product,
-            price: product.price
+            price: product.price * product.quantity
 
         }
 
 
-        const res = await axiosSecure.post('/confirmOrder', confirmProducts)
+        const res = await axiosSecure.post('/selectedOrder', selectedOrders)
         if (res.data.insertedId) {
 
             const res = await axiosSecure.delete(`/view-order-delete/${LoaderData.
@@ -80,9 +76,11 @@ const ViewOrderDetails = () => {
                     ...prevData,
                     allProducts: prevData.allProducts.filter((_, idx) => idx !== index),
                 }));
+                refetch()
+                toast('selected this product')
             }
-            toast('confirm this product')
-            refetch()
+
+
         }
     }
 
@@ -100,9 +98,9 @@ const ViewOrderDetails = () => {
             if (result.isConfirmed) {
                 const res = await axiosSecure.delete(`/view-order-delete/${LoaderData.
                     orderId}/${index}`)
-
+                console.log('delete Count', res.data)
                 if (res.data.modifiedCount === 1) {
-                    toast('Order has been deleted')
+                    toast.error('Order has been deleted')
                     setData((prevData) => ({
                         ...prevData,
                         allProducts: prevData.allProducts.filter((_, idx) => idx !== index),
@@ -113,12 +111,63 @@ const ViewOrderDetails = () => {
         });
     }
 
+    const handleOrderConfirm = async (e) => {
+        e.preventDefault()
+        const orderProducts = selectedOrders?.map(order => order)
+
+        const form = e.target;
+        const name = form.name.value;
+        const orderId = form.orderId.value;
+        const email = form.email.value;
+        const phone = form.phone.value;
+        const secondPhone = form.secondPhone.value;
+        const division = form.division.value;
+        const district = form.district.value;
+        const thana = form.thana.value;
+        const fullAddress = form.fullAddress.value;
+        const currentDelivery = form.currentDelivery.value;
+        const orderTimeDate = form.orderTimeDate.value;
+        const paymentType = form.paymentType.value;
+        const totalPrices = form.totalPrices.value;
+
+        const status = 'Confirmed'
+
+        const customerInfo = { name, orderId, email, phone, secondPhone, division, district, thana, fullAddress, currentDelivery, orderTimeDate, paymentType }
+
+        const orderAllDetails = {
+            orderProducts,
+            customerInfo,
+            totalPrices,
+            status
+        }
+
+        try {
+            const res = await axiosSecure.post('/confirmOrder', orderAllDetails)
+            if (res.data.insertedId) {
+
+                await axiosSecure.delete(`/pendingOrders/${LoaderData._id}`)
+                await axiosSecure.delete(`/selectedOrders/${orderId}`)
+                toast('Order Confirmed')
+
+
+                navigate('/dashboard/all-orders')
+
+            }
+        }
+        catch (error) {
+            console.log(error.message)
+        }
+
+
+    }
+
+
 
     return (
         <div>
 
             <section className=" mt-2 md:mt-10">
-                <form onSubmit={handleOrderConfirm} action="" className="container flex flex-col md:flex-row gap-7 mx-auto ">
+                <div action="" className="container flex flex-col md:flex-row gap-7 mx-auto ">
                     <div>
                         <div className="text-center">
                             <h4 className="text-3xl font-semibold mb-5">Order  Information</h4>
@@ -144,7 +193,7 @@ const ViewOrderDetails = () => {
                                     <tbody>
                                         {/* row 1 */}
                                         {
-                                            data.allProducts.map((product, idx) => <tr key={idx}>
+                                            data?.allProducts?.map((product, idx) => <tr key={idx}>
                                                 <td>
                                                     {idx + 1}
 
@@ -182,7 +231,7 @@ const ViewOrderDetails = () => {
                                                 </td>
 
                                                 <th className="flex items-center justify-center gap-1 mt-3">
-                                                    <button onClick={() => handleConfirm(product, idx)} className="">
+                                                    <button onClick={() => handleSelectOrder(product, idx)} className="">
                                                         <GiConfirmed className="text-xl text-green-600 hover:scale-110" />
                                                     </button>
                                                     <button onClick={() => handleOrderDelete(idx)} className="">
@@ -202,9 +251,9 @@ const ViewOrderDetails = () => {
 
                         <div className="divider"></div>
 
-                        {confirmProduct && <div >
+                        {selectedOrders && <div >
                             <div className="text-center">
-                                <h4 className="text-3xl font-semibold mb-5">Confirm Order</h4>
+                                <h4 className="text-3xl font-semibold mb-5">Selected Order</h4>
 
                                 <div className="overflow-x-auto">
                                     <table className="table">
@@ -218,14 +267,16 @@ const ViewOrderDetails = () => {
                                                 <th>Name</th>
                                                 <th>ProductId</th>
                                                 <th>Price</th>
-                                                <th>Stock</th>
+                                                <th>Quantity</th>
+                                                <th>Total Price</th>
+
 
                                             </tr>
                                         </thead>
                                         <tbody>
 
                                             {
-                                                confirmProduct.map((product, idx) => <tr key={idx}>
+                                                selectedOrders.map((product, idx) => <tr key={idx}>
                                                     <td>
                                                         {idx + 1}
 
@@ -248,10 +299,14 @@ const ViewOrderDetails = () => {
                                                     <td>
                                                         ${product.product.price}
                                                     </td>
+                                                    <td>
+                                                        {product.product.quantity}
+                                                    </td>
+                                                    <td>
+                                                        {product.price}
+                                                    </td>
 
-                                                    <th>
-                                                        {product.product.stock}
-                                                    </th>
+
 
                                                 </tr>)
 
@@ -265,7 +320,7 @@ const ViewOrderDetails = () => {
                             </div>
                         </div>}
                     </div>
-                    <div>
+                    <form onSubmit={handleOrderConfirm}>
                         <div className="text-center mb-5">
                             <h4 className="text-3xl font-semibold">Customer Information</h4>
                         </div>
@@ -298,42 +353,42 @@ const ViewOrderDetails = () => {
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="firstname" className="font-medium">Division</label>
-                                <input id="firstname" type="text"
+                                <input id="firstname" name="division" type="text"
                                     value={LoaderData.division} placeholder="Division" className="w-full rounded-md p-[6px]" />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="firstname" className="font-medium">District</label>
-                                <input id="firstname" type="text"
+                                <input id="firstname" name="district" type="text"
                                     value={LoaderData.district} placeholder="District" className="w-full rounded-md p-[6px]" />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="firstname" className="font-medium">Thana</label>
-                                <input id="firstname" type="text"
+                                <input id="firstname" name="thana" type="text"
                                     value={LoaderData.thana} placeholder="Thana" className="w-full rounded-md p-[6px]" />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="firstname" className="font-medium">Full Address</label>
-                                <input id="firstname" type="text"
+                                <input id="fullAddress" name="fullAddress" type="text"
                                     value={LoaderData.address} placeholder="Thana" className="w-full rounded-md p-[6px]" />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="firstname" className="font-medium">Current Delivery</label>
-                                <input id="firstname" type="text"
+                                <input id="firstname" name="currentDelivery" type="text"
                                     value={LoaderData.currentLocation} placeholder="Current" className="w-full rounded-md p-[6px]" />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
-                                <label htmlFor="firstname" className="font-medium">Time & Date</label>
-                                <input id="firstname" type="text"
+                                <label htmlFor="orderTimeDate" className="font-medium">Time & Date</label>
+                                <input id="orderTimeDate" name="orderTimeDate" type="text"
                                     value={LoaderData.time + ' ,  ' + LoaderData.date} placeholder="Date & Time" className="w-full rounded-md p-[6px]" />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
-                                <label htmlFor="firstname" className="font-medium">Payment Type</label>
-                                <input id="firstname" type="text"
+                                <label htmlFor="paymentType" className="font-medium">Payment Type</label>
+                                <input id="paymentType" name="paymentType" type="text"
                                     value={LoaderData.paymentType} placeholder="Payment Type" className="w-full rounded-md p-[6px]" />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
-                                <label htmlFor="firstname" className="font-medium">Total Price</label>
-                                <input id="firstname" type="text"
+                                <label htmlFor="totalPrices" className="font-medium">Total Price</label>
+                                <input id="totalPrices" name="totalPrices" type="text"
                                     value={totalPrice} placeholder="Total Price" className="w-full rounded-md p-[6px]" />
                             </div>
 
@@ -341,10 +396,10 @@ const ViewOrderDetails = () => {
                         <div className="mb-5 ">
                             <button className="btn btn-secondary w-full">Confirm Order</button>
                         </div>
-                    </div>
+                    </form>
 
 
-                </form>
+                </div>
             </section>
 
         </div>
