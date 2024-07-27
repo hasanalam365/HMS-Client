@@ -22,6 +22,8 @@ const ProductDetail = () => {
     const { user } = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
+    const [quantity, setQuantity] = useState(1)
+
 
     const [data, refetch] = useCartList()
     const { imgUrl, title, price, rating, stock, features, productId, _id } = productData
@@ -82,13 +84,17 @@ const ProductDetail = () => {
             const addCartInfo = {
                 email: user?.email,
                 productId: productData._id,
-                productData: productData
+                productData: productData,
+                quantity: quantity
             }
             const res = await axiosSecure.post('/addToCart', addCartInfo)
             if (res.data.insertedId) {
                 toast('added cart')
                 refetch()
 
+            }
+            else {
+                toast('added cart')
             }
         }
         else {
@@ -119,7 +125,8 @@ const ProductDetail = () => {
             const addCartInfo = {
                 email: user?.email,
                 productId: productData._id,
-                productData: productData
+                productData: productData,
+                quantity: quantity
             }
             const res = await axiosSecure.post('/addToCart', addCartInfo)
             if (res.data.insertedId) {
@@ -147,6 +154,19 @@ const ProductDetail = () => {
         }
 
 
+
+
+    }
+
+    const handleIncrease = () => {
+        setQuantity(quantity + 1)
+
+    }
+    const handleDiscrease = () => {
+        if (quantity === 1) {
+            return
+        }
+        setQuantity(quantity - 1)
 
 
     }
@@ -196,7 +216,13 @@ const ProductDetail = () => {
                             >
                                 <FaHeart className="text-[#FF5722] text-xl "></FaHeart>
                             </button>
-
+                            <div className="flex items-center justify-center">
+                                <button onClick={handleDiscrease} className="text-xl font-bold btn btn-sm bg-[#FF5722] text-white">-</button>
+                                <input value={quantity} type="text"
+                                    id="quantity"
+                                    name="quantity" className="w-[60px] p-[2px]" />
+                                <button onClick={handleIncrease} className="text-xl font-bold btn btn-sm bg-[#F29120] text-white">+</button>
+                            </div>
 
                             {/* <button
                                 onClick={() =>

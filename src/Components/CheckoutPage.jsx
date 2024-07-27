@@ -12,7 +12,7 @@ const CheckoutPage = () => {
     const [orderId, setOrderId] = useState('');
     const [data, refetch] = useCartList()
     const navigate = useNavigate()
-    const totalPrices = data.reduce((total, product) => total + product.productData.price, 0)
+    const totalPrices = data.reduce((total, product) => total + (product.productData.price * product.quantity), 0)
 
     const date = new Date().toLocaleDateString()
     const time = new Date().toLocaleTimeString()
@@ -92,6 +92,8 @@ const CheckoutPage = () => {
                                         <th>Photo</th>
                                         <th>Product Title</th>
                                         <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total Price</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -109,7 +111,9 @@ const CheckoutPage = () => {
                                                     </div>
                                                 </td>
                                                 <td>{product.productData.title}</td>
-                                                <td>$ {product.productData.price}</td>
+                                                <td>{product.productData.price}</td>
+                                                <td>{product.quantity}</td>
+                                                <td>$ {product.productData.price * product.quantity}</td>
                                                 <td>
                                                     <button onClick={() => handleDelete(product._id)}>
                                                         <FaTrash className="text-red-600 hover:scale-125"></FaTrash>
@@ -205,7 +209,7 @@ const CheckoutPage = () => {
 
                 </div>
                 <div className="text-center font-semibold boder border-2 border-white mt-1 mb-1 border-dashed p-2">
-                    <h4>Total: $ {totalPrices} </h4>
+                    <h4>Total Orders: $ {totalPrices} </h4>
                 </div>
                 <div onClick={handleConfirm} className="mt-4 text-center ">
                     <button className="btn bg-orange-600 p-2 rounded-xl w-full text-white font-medium ">Confirm Order</button>
