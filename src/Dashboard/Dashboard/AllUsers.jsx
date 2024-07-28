@@ -3,18 +3,22 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { FaUsers } from "react-icons/fa";
+import { useState } from "react";
 
 const AllUsers = () => {
 
     const axiosSecure = useAxiosSecure()
+    const [search, setSearch] = useState('')
 
     const { data: users = [], refetch } = useQuery({
-        queryKey: ['users'],
+        queryKey: ['users', search],
         queryFn: async () => {
-            const res = await axiosSecure.get('/users')
+            const res = await axiosSecure.get(`/users?search=${search}`)
             return res.data
-        }
+        },
+        enabled: !!search || search === '',
     })
+
 
 
     const handleChangeRole = (user) => {
@@ -74,12 +78,25 @@ const AllUsers = () => {
 
     }
 
+    const inputText = (e) => {
+        setSearch(e.target.value)
+        refetch()
+    }
+
 
     return (
         <div className="flex flex-col mt-4 px-4 md:p-8">
             <div className="flex items-center justify-between mb-2">
-                <h4 className="text-lg font-semibold">All Users</h4>
+
                 <h4 className="text-lg font-semibold">Total Users: <span>{users.length}</span></h4>
+                <div className="join mr-5">
+                    <div>
+
+                        <input onChange={inputText} className="input input-bordered join-item " placeholder="Search by email" />
+
+                    </div>
+
+                </div>
             </div>
             <div className="overflow-x-auto">
                 <table className="table">

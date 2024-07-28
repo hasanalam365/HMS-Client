@@ -76,7 +76,6 @@ const AllOrders = () => {
                         <input onChange={inputText} className="input input-bordered join-item " placeholder="Search by order id" />
 
                     </div>
-                    {/* <button className="btn join-item bg-orange-600 text-white">Search</button> */}
 
                 </div>
             </div>
