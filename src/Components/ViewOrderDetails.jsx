@@ -147,6 +147,7 @@ const ViewOrderDetails = () => {
 
                 await axiosSecure.delete(`/pendingOrders/${LoaderData._id}`)
                 await axiosSecure.delete(`/selectedOrders/${orderId}`)
+                await axiosSecure.patch(`/orderStatus/${orderId}`)
                 toast('Order Confirmed')
 
 
