@@ -20,6 +20,7 @@ import AdminRoute from "./AdminRoute";
 import Dashboard from "../Dashboard/Dashboard";
 import AllOrders from "../Dashboard/AdminDashboard.jsx/AllOrders";
 import ViewOrderDetails from "../Components/ViewOrderDetails";
+import OrderStatus from "../Components/OrderStatus";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/checkout',
                 element: <CheckoutPage></CheckoutPage>
+            },
+            {
+                path: '/dashboard/orderTrack',
+                element: <OrderStatus></OrderStatus>
             },
             {
                 path: '/dashboard/allusers',

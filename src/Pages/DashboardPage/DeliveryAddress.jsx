@@ -40,14 +40,20 @@ const DeliveryAddress = () => {
         const currentLocation = select === 1 ? 'Home' : 'Office'
 
         const allAddress = { name, phone, email, secondPhone, division, district, thana, address, currentLocation, orderId }
-
+        const orderStatus = {
+            orderId: orderId,
+            email: userData.email,
+            status: 'pending',
+            orderDate: new Date().toLocaleDateString(),
+            orderTime: new Date().toLocaleTimeString()
+        }
 
         const res = await axiosPublic.put(`/orders/${orderId}`, allAddress)
         if (res.data.modifiedCount === 1) {
             toast('Order Confirmed')
 
-            const res = await axiosPublic.delete(`/mycarts-delete/${user.email}`)
-            console.log(res.data)
+            await axiosPublic.post('/orderStatus', orderStatus)
+            await axiosPublic.delete(`/mycarts-delete/${user.email}`)
 
             navigate('/')
         }

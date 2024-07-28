@@ -64,6 +64,8 @@ const CheckoutPage = () => {
             quantity: product.quantity,
         }));
 
+
+
         const orderInfo = {
             paymentType: selectedCheckbox,
             orderId: orderId,
@@ -71,12 +73,21 @@ const CheckoutPage = () => {
             date: date,
             time: time,
             allProducts: allProduct,
-            orderStatus: 'pending'
+
         }
-        await axiosPublic.post('/orders', orderInfo)
+        const res = await axiosPublic.post('/orders', orderInfo)
+        if (res.data.insertedId) {
 
 
-        navigate('/dashboard/address', { state: { orderId } })
+
+            navigate('/dashboard/address', { state: { orderId } })
+
+
+        }
+
+
+
+
 
 
     }
