@@ -12,14 +12,17 @@ const AllOrders = () => {
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
     const navigate = useNavigate()
+    const [search, setSearch] = useState('')
+
 
 
     const { data: allOrders = [], refetch } = useQuery({
-        queryKey: ['all-orders'],
+        queryKey: ['all-orders', search],
         queryFn: async () => {
-            const res = await axiosSecure.get('/all-orders')
-            return res.data
-        }
+            const res = await axiosSecure.get(`/all-orders?search=${search}`);
+            return res.data;
+        },
+        enabled: !!search || search === '',
     })
 
     const handleView = () => {
@@ -54,12 +57,28 @@ const AllOrders = () => {
 
     }
 
+    //handleChange
+    const inputText = (e) => {
+        setSearch(e.target.value)
+
+    }
+
+
 
     return (
         <div className="flex flex-col mt-4 px-4 md:p-8">
             <div className="flex items-center justify-between mb-2">
-                <h4 className="text-lg font-semibold">All Orders</h4>
+
                 <h4 className="text-lg font-semibold">Total Orders: <span>{allOrders.length}</span></h4>
+                <div className="join mr-5">
+                    <div>
+
+                        <input onChange={inputText} className="input input-bordered join-item " placeholder="Search by order id" />
+
+                    </div>
+                    {/* <button className="btn join-item bg-orange-600 text-white">Search</button> */}
+
+                </div>
             </div>
             <div className="overflow-x-auto">
                 <table className="table">
@@ -69,9 +88,9 @@ const AllOrders = () => {
 
 
                             <th>Name</th>
-                            <th>OrderId</th>
+                            <th>Order Id</th>
                             <th>Date</th>
-                            <th>Details</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -93,22 +112,11 @@ const AllOrders = () => {
                                         </Link>
 
                                     </td>
-                                    {/* <td>
-                                        <Link to={`/dashboard/view-order/${order._id}`}>View</Link>
-                                    </td> */}
+
                                     <td>
                                         <button onClick={() => handleOrderDelete(order._id)} className="btn btn-ghost btn-xs text-white bg-red-600 ">Delete</button>
                                     </td>
-                                    {/* <td>
-                                        {user.role === 'admin' ? <button onClick={() => handleChangeRole(user)}>
-                                            Admin
-                                        </button> : <button onClick={() => handleChangeRole(user)} className="btn btn-ghost btn-xs text-white bg-green-600 ">
-                                            <FaUsers className="text-lg" />
-                                        </button>}
-                                    </td>
-                                    <th>
-                                        <button onClick={() => handleDelete(user.email)} className="btn btn-ghost btn-xs text-white bg-red-600 ">Delete</button>
-                                    </th> */}
+
                                 </tr>)
                         }
 
