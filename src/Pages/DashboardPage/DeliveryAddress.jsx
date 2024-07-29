@@ -11,7 +11,8 @@ const DeliveryAddress = () => {
     const axiosPublic = useAxiosPublic()
     const { user } = useAuth()
     const location = useLocation()
-    const { orderId } = location.state || {}
+    const { orderId, orderInfo } = location.state || {}
+
     const navigate = useNavigate()
 
     const { data: userData = [] } = useQuery({
@@ -21,6 +22,7 @@ const DeliveryAddress = () => {
             return res.data
         }
     })
+
 
 
     const handleAddress = async (e) => {
@@ -47,16 +49,24 @@ const DeliveryAddress = () => {
             orderDate: new Date().toLocaleDateString(),
             orderTime: new Date().toLocaleTimeString()
         }
+        const orderPost = await axiosPublic.post('/orders', orderInfo)
+        if (orderPost.data.insertedId) {
 
-        const res = await axiosPublic.put(`/orders/${orderId}`, allAddress)
-        if (res.data.modifiedCount === 1) {
-            toast('Order Confirmed')
 
-            await axiosPublic.post('/orderStatus', orderStatus)
-            await axiosPublic.delete(`/mycarts-delete/${user.email}`)
+            const res = await axiosPublic.put(`/orders/${orderId}`, allAddress)
+            if (res.data.modifiedCount === 1) {
+                toast('Order Confirmed')
 
-            navigate('/')
+                await axiosPublic.post('/orderStatus', orderStatus)
+                await axiosPublic.delete(`/mycarts-delete/${user.email}`)
+
+                navigate('/')
+            }
+
+
+
         }
+
 
     }
 

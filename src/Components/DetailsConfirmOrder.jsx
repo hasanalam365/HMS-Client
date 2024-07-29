@@ -18,62 +18,62 @@ const DetailsConfirmOrder = () => {
                         <div className="col-span-2 sm:col-span-3">
                             <label htmlFor="firstname" className="font-medium">Name</label>
                             <input id="firstname" name="name" type="text"
-                                value={detailsData.customerInfo.name} placeholder="First name" className="w-full rounded-md p-[6px]" />
+                                value={detailsData.customerInfo.name} placeholder="First name" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">
                             <label htmlFor="orderId" className="font-medium">OrderId</label>
                             <input id="firstname" name="orderId" type="text"
-                                value={detailsData.customerInfo.orderId} placeholder="OrderId" className="w-full rounded-md p-[6px]" />
+                                value={detailsData.customerInfo.orderId} placeholder="OrderId" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">
                             <label htmlFor="email" className="font-medium">Email</label>
                             <input id="email" name="email" type="text"
-                                value={detailsData.customerInfo.email} placeholder="Email" className="w-full rounded-md p-[6px]" />
+                                value={detailsData.customerInfo.email} placeholder="Email" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">
                             <label htmlFor="phone" className="font-medium">Phone</label>
                             <input id="phone" name="phone" type="text"
-                                value={detailsData.customerInfo.phone} placeholder="Phone" className="w-full rounded-md p-[6px]" />
+                                value={detailsData.customerInfo.phone} placeholder="Phone" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">
                             <label htmlFor="Second Phone" className="font-medium">Second Phone</label>
                             <input id="secondPhone" name="secondPhone" type="text"
-                                value={detailsData.customerInfo.secondPhone} placeholder="Second Phone" className="w-full rounded-md p-[6px]" />
+                                value={detailsData.customerInfo.secondPhone} placeholder="Second Phone" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">
-                            <label htmlFor="firstname" className="font-medium">Division</label>
-                            <input id="firstname" name="division" type="text"
-                                value={detailsData.customerInfo.division} placeholder="Division" className="w-full rounded-md p-[6px]" />
+                            <label htmlFor="division" className="font-medium">Division</label>
+                            <input id="division" name="division" type="text"
+                                value={detailsData.customerInfo.division} placeholder="Division" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">
-                            <label htmlFor="firstname" className="font-medium">District</label>
-                            <input id="firstname" name="district" type="text"
-                                value={detailsData.customerInfo.district} placeholder="District" className="w-full rounded-md p-[6px]" />
+                            <label htmlFor="district" className="font-medium">District</label>
+                            <input id="district" name="district" type="text"
+                                value={detailsData.customerInfo.district} placeholder="District" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">
-                            <label htmlFor="firstname" className="font-medium">Thana</label>
-                            <input id="firstname" name="thana" type="text"
-                                value={detailsData.customerInfo.thana} placeholder="Thana" className="w-full rounded-md p-[6px]" />
+                            <label htmlFor="thana" className="font-medium">Thana</label>
+                            <input id="thana" name="thana" type="text"
+                                value={detailsData.customerInfo.thana} placeholder="Thana" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">
-                            <label htmlFor="firstname" className="font-medium">Full Address</label>
+                            <label htmlFor="fullAddress" className="font-medium">Full Address</label>
                             <input id="fullAddress" name="fullAddress" type="text"
-                                value={detailsData.customerInfo.address} placeholder="Thana" className="w-full rounded-md p-[6px]" />
+                                value={detailsData.customerInfo.address} placeholder="Full Address" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">
-                            <label htmlFor="firstname" className="font-medium">Current Delivery</label>
-                            <input id="firstname" name="currentDelivery" type="text"
-                                value={detailsData.customerInfo.currentLocation} placeholder="Current" className="w-full rounded-md p-[6px]" />
+                            <label htmlFor="currentDelivery" className="font-medium">Current Location</label>
+                            <input id="currentDelivery" name="currentDelivery" type="text"
+                                value={detailsData.customerInfo.currentLocation} placeholder="Current Location" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">
                             <label htmlFor="orderTimeDate" className="font-medium">Time & Date</label>
                             <input id="orderTimeDate" name="orderTimeDate" type="text"
-                                value={detailsData.customerInfo.time + ' ,  ' + detailsData.customerInfo.date} placeholder="Date & Time" className="w-full rounded-md p-[6px]" />
+                                value={detailsData.customerInfo.time + ' ,  ' + detailsData.customerInfo.date} placeholder="Date & Time" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">
                             <label htmlFor="paymentType" className="font-medium">Payment Type</label>
                             <input id="paymentType" name="paymentType" type="text"
-                                value={detailsData.customerInfo.paymentType} placeholder="Payment Type" className="w-full rounded-md p-[6px]" />
+                                value={detailsData.customerInfo.paymentType} placeholder="Payment Type" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         {/* <div className="col-span-2 sm:col-span-3">
                             <label htmlFor="totalPrices" className="font-medium">Total Price</label>

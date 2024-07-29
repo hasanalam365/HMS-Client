@@ -11,7 +11,7 @@ const CheckOutBOxCart = ({ setOpenCart, openCart }) => {
     const [data, refetch] = useCartList()
     const axiosPublic = useAxiosPublic()
 
-    const totalPrices = data.reduce((total, product) => total + product.productData.price, 0)
+    const totalPrices = data.reduce((total, product) => total + (product.productData.price * product.quantity), 0)
 
     const handleDelete = async (_id) => {
 
@@ -26,7 +26,7 @@ const CheckOutBOxCart = ({ setOpenCart, openCart }) => {
     }
 
     return (
-        <div className={`absolute right-0 top-0  z-30  `}>
+        <div className={` right-0 top-0  z-30  md:fixed`}>
             <div className="flex  flex-col  p-3  bg-white h-[550px] w-[425px]">
                 <div className="flex items-center justify-end ">
                     <button onClick={() => setOpenCart(false)} className="btn">
@@ -38,9 +38,19 @@ const CheckOutBOxCart = ({ setOpenCart, openCart }) => {
                     <h5 className="text-orange-500">Items: {data.length}</h5>
                 </div>
                 <div className="divider"></div>
+
                 <div className="overflow-x-auto">
-                    <table className="table">
-                        {/* head */}
+                    <table className="table table-zebra">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Photo</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
 
                         <tbody className="mb-1">
                             {/* row 1 */}
@@ -71,6 +81,8 @@ const CheckOutBOxCart = ({ setOpenCart, openCart }) => {
                         </tbody>
                     </table>
                 </div>
+
+
                 {/* <div className="divider divide-dashed"></div> */}
                 <div className="text-center font-semibold boder border-2 mt-1 mb-1 border-dashed p-2">
                     <h4>Total: $ {totalPrices} </h4>

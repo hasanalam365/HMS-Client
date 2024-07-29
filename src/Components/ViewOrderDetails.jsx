@@ -135,6 +135,7 @@ const ViewOrderDetails = () => {
         const customerInfo = { name, orderId, email, phone, secondPhone, division, district, thana, fullAddress, currentDelivery, orderTimeDate, paymentType }
 
         const orderAllDetails = {
+            orderId,
             orderProducts,
             customerInfo,
             totalPrices,
@@ -330,67 +331,67 @@ const ViewOrderDetails = () => {
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="firstname" className="font-medium">Name</label>
                                 <input id="firstname" name="name" type="text"
-                                    value={LoaderData.name} placeholder="First name" className="w-full rounded-md p-[6px]" />
+                                    value={LoaderData.name} placeholder="First name" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="orderId" className="font-medium">OrderId</label>
-                                <input id="firstname" name="orderId" type="text"
-                                    value={LoaderData.orderId} placeholder="OrderId" className="w-full rounded-md p-[6px]" />
+                                <input id="orderId" name="orderId" type="text"
+                                    value={LoaderData.orderId} placeholder="OrderId" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="email" className="font-medium">Email</label>
                                 <input id="email" name="email" type="text"
-                                    value={LoaderData.email} placeholder="Email" className="w-full rounded-md p-[6px]" />
+                                    value={LoaderData.email} placeholder="Email" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="phone" className="font-medium">Phone</label>
                                 <input id="phone" name="phone" type="text"
-                                    value={LoaderData.phone} placeholder="Phone" className="w-full rounded-md p-[6px]" />
+                                    value={LoaderData.phone} placeholder="Phone" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="Second Phone" className="font-medium">Second Phone</label>
                                 <input id="secondPhone" name="secondPhone" type="text"
-                                    value={LoaderData.secondPhone} placeholder="Second Phone" className="w-full rounded-md p-[6px]" />
+                                    value={LoaderData.secondPhone} placeholder="Second Phone" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
-                                <label htmlFor="firstname" className="font-medium">Division</label>
-                                <input id="firstname" name="division" type="text"
-                                    value={LoaderData.division} placeholder="Division" className="w-full rounded-md p-[6px]" />
+                                <label htmlFor="division" className="font-medium">Division</label>
+                                <input id="division" name="division" type="text"
+                                    value={LoaderData.division} placeholder="Division" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
-                                <label htmlFor="firstname" className="font-medium">District</label>
-                                <input id="firstname" name="district" type="text"
-                                    value={LoaderData.district} placeholder="District" className="w-full rounded-md p-[6px]" />
+                                <label htmlFor="district" className="font-medium">District</label>
+                                <input id="district" name="district" type="text"
+                                    value={LoaderData.district} placeholder="District" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
-                                <label htmlFor="firstname" className="font-medium">Thana</label>
-                                <input id="firstname" name="thana" type="text"
-                                    value={LoaderData.thana} placeholder="Thana" className="w-full rounded-md p-[6px]" />
+                                <label htmlFor="thana" className="font-medium">Thana</label>
+                                <input id="thana" name="thana" type="text"
+                                    value={LoaderData.thana} placeholder="Thana" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
-                                <label htmlFor="firstname" className="font-medium">Full Address</label>
+                                <label htmlFor="fullAddress" className="font-medium">Full Address</label>
                                 <input id="fullAddress" name="fullAddress" type="text"
-                                    value={LoaderData.address} placeholder="Thana" className="w-full rounded-md p-[6px]" />
+                                    value={LoaderData.address} placeholder="Full Address" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
-                                <label htmlFor="firstname" className="font-medium">Current Delivery</label>
-                                <input id="firstname" name="currentDelivery" type="text"
-                                    value={LoaderData.currentLocation} placeholder="Current" className="w-full rounded-md p-[6px]" />
+                                <label htmlFor="currentDelivery" className="font-medium">Current Location</label>
+                                <input id="currentDelivery" name="currentDelivery" type="text"
+                                    value={LoaderData.currentLocation} placeholder="Current Location" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="orderTimeDate" className="font-medium">Time & Date</label>
                                 <input id="orderTimeDate" name="orderTimeDate" type="text"
-                                    value={LoaderData.time + ' ,  ' + LoaderData.date} placeholder="Date & Time" className="w-full rounded-md p-[6px]" />
+                                    value={LoaderData.time + ' ,  ' + LoaderData.date} placeholder="Date & Time" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="paymentType" className="font-medium">Payment Type</label>
                                 <input id="paymentType" name="paymentType" type="text"
-                                    value={LoaderData.paymentType} placeholder="Payment Type" className="w-full rounded-md p-[6px]" />
+                                    value={LoaderData.paymentType} placeholder="Payment Type" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="totalPrices" className="font-medium">Total Price</label>
                                 <input id="totalPrices" name="totalPrices" type="text"
-                                    value={totalPrice} placeholder="Total Price" className="w-full rounded-md p-[6px]" />
+                                    value={totalPrice} placeholder="Total Price" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
 
                         </div>

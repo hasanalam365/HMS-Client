@@ -75,16 +75,8 @@ const CheckoutPage = () => {
             allProducts: allProduct,
 
         }
-        const res = await axiosPublic.post('/orders', orderInfo)
-        if (res.data.insertedId) {
 
-
-
-            navigate('/dashboard/address', { state: { orderId } })
-
-
-        }
-
+        navigate('/dashboard/address', { state: { orderId, orderInfo } });
 
 
 

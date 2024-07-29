@@ -224,7 +224,7 @@ const ProductDetail = () => {
                                 <button onClick={handleDiscrease} className="text-xl font-bold btn btn-sm bg-[#FF5722] text-white">-</button>
                                 <input value={quantity} type="text"
                                     id="quantity"
-                                    name="quantity" className="w-[60px] p-[2px]" />
+                                    name="quantity" className="w-[60px] p-[2px]" readOnly />
                                 <button onClick={handleIncrease} className="text-xl font-bold btn btn-sm bg-[#F29120] text-white">+</button>
                             </div>
 
