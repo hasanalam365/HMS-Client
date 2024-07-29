@@ -22,6 +22,7 @@ import AllOrders from "../Dashboard/AdminDashboard.jsx/AllOrders";
 import ViewOrderDetails from "../Components/ViewOrderDetails";
 import OrderStatus from "../Components/OrderStatus";
 import ConfirmOrders from "../Dashboard/AdminDashboard.jsx/ConfirmOrders";
+import DetailsConfirmOrder from "../Components/DetailsConfirmOrder";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -125,6 +126,13 @@ const router = createBrowserRouter([
                     <ConfirmOrders></ConfirmOrders>
                 </AdminRoute>
             },
+            {
+                path: '/dashboard/details-confirm-order/:id',
+                element: <AdminRoute>
+                    <DetailsConfirmOrder></DetailsConfirmOrder>
+                </AdminRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/details-confirm-order/${params.id}`)
+            }
 
         ]
     }

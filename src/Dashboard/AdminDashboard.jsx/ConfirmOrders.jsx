@@ -2,6 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const ConfirmOrders = () => {
 
@@ -19,6 +22,30 @@ const ConfirmOrders = () => {
     const inputText = (e) => {
         setSearch(e.target.value)
         refetch()
+    }
+
+    const handleDelete = (id) => {
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to Delete this order!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#008000",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const res = await axiosSecure.delete(`/confirmOrder/${id}`)
+
+                if (res.data.deletedCount === 1) {
+                    toast('this order has been deleted')
+                    refetch()
+                }
+            }
+        });
+
+
     }
 
     return (
@@ -57,10 +84,12 @@ const ConfirmOrders = () => {
                                 <td>{order.customerInfo.orderId}</td>
 
                                 <td className="text-blue-600 hover:scale-105 hover:text-green-600">
-                                    <span>View</span>
+                                    <Link to={`/dashboard/details-confirm-order/${order._id}`}>View</Link>
                                 </td>
                                 <td>
-                                    <FaTrashAlt className="text-red-400 hover:scale-125 hover:text-red-600" />
+                                    <button onClick={() => handleDelete(order._id)}>
+                                        <FaTrashAlt className="text-red-400 hover:scale-125 hover:text-red-600" />
+                                    </button>
                                 </td>
                             </tr>
                             )
