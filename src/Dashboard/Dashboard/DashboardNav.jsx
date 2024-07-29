@@ -10,6 +10,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import { FaUsers } from "react-icons/fa";
 import useAdmin from "../../hooks/useAdmin";
 import { SiPowerpages } from "react-icons/si";
+import { IoIosCloudDone } from "react-icons/io";
 
 
 const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
@@ -94,7 +95,14 @@ const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
                                 <Link onClick={() => setIsOpenNav(false)} to='/dashboard/all-orders' className="flex items-center p-2 space-x-3 rounded-md">
 
                                     <SiPowerpages className="text-xl" />
-                                    <span>All Orders</span>
+                                    <span>Pending Orders</span>
+                                </Link>
+                            </li>}
+                            {isAdmin && <li>
+                                <Link onClick={() => setIsOpenNav(false)} to='/dashboard/confirm-orders' className="flex items-center p-2 space-x-3 rounded-md">
+
+                                    <IoIosCloudDone className="text-xl" />
+                                    <span>Confirm Orders</span>
                                 </Link>
                             </li>}
                             {isAdmin && <li>
@@ -188,7 +196,14 @@ const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
                             <Link onClick={() => setIsOpenNav(false)} to='/dashboard/all-orders' className="flex items-center p-2 space-x-3 rounded-md">
                                 <SiPowerpages className="text-xl" />
 
-                                <span>All Orders</span>
+                                <span>Pending Orders</span>
+                            </Link>
+                        </li>}
+                        {isAdmin && <li>
+                            <Link onClick={() => setIsOpenNav(false)} to='/dashboard/confirm-orders' className="flex items-center p-2 space-x-3 rounded-md">
+                                <IoIosCloudDone className="text-xl" />
+
+                                <span>Confirm Orders</span>
                             </Link>
                         </li>}
                         {isAdmin && <li>
