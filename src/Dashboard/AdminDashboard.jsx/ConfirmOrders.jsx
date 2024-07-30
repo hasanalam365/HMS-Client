@@ -68,7 +68,7 @@ const ConfirmOrders = () => {
                     <thead>
                         <tr className="bg-orange-600 text-white">
                             <th>No</th>
-                            <th>Name</th>
+                            <th>Customer Name</th>
                             <th>Order Id</th>
                             <th>Details</th>
                             <th>Action</th>

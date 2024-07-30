@@ -1,13 +1,73 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 const DetailsConfirmOrder = () => {
 
     const detailsData = useLoaderData()
+    const navigate = useNavigate()
 
-
+    const handleBack = () => {
+        navigate(-1)
+    }
 
     return (
         <div>
+            <div>
+                <div className="overflow-x-auto">
+                    <table className="table table-zebra">
+                        {/* head */}
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Photo</th>
+                                <th>Title</th>
+                                <th>Product Id</th>
+                                <th>price</th>
+                                <th>Quantity</th>
+                                <th>Total Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                detailsData?.orderProducts.map((product, idx) => <tr key={product._id}>
+                                    <th>{idx + 1}</th>
+                                    <td>
+                                        <div className="flex items-center gap-3">
+                                            <div className="avatar">
+                                                <div className="mask mask-squircle h-12 w-12">
+                                                    <img
+                                                        src={product.product
+                                                            .imgUrl}
+                                                        alt="Avatar Tailwind CSS Component" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td>{product.product
+                                        .title}</td>
+                                    <td>{product.product
+                                        .productId}</td>
+                                    <td>${product.product
+                                        .price}</td>
+                                    <td>{product.product
+                                        .quantity}</td>
+                                    <td>${product.price}</td>
+
+                                </tr>)
+
+                            }
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+                <div className="bg-orange-600 text-center text-white">
+                    <h4>Total Prices: <span className="font-medium">${detailsData.totalPrices
+                    }</span></h4>
+                </div>
+            </div>
             <div>
                 <form >
                     <div className="text-center mb-5">
@@ -58,32 +118,33 @@ const DetailsConfirmOrder = () => {
                         <div className="col-span-2 sm:col-span-3">
                             <label htmlFor="fullAddress" className="font-medium">Full Address</label>
                             <input id="fullAddress" name="fullAddress" type="text"
-                                value={detailsData.customerInfo.address} placeholder="Full Address" className="w-full rounded-md p-[6px]" readOnly />
+                                value={detailsData.customerInfo.fullAddress} placeholder="Full Address" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">
                             <label htmlFor="currentDelivery" className="font-medium">Current Location</label>
                             <input id="currentDelivery" name="currentDelivery" type="text"
-                                value={detailsData.customerInfo.currentLocation} placeholder="Current Location" className="w-full rounded-md p-[6px]" readOnly />
+                                value={detailsData.customerInfo.currentDelivery} placeholder="Current Location" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">
                             <label htmlFor="orderTimeDate" className="font-medium">Time & Date</label>
                             <input id="orderTimeDate" name="orderTimeDate" type="text"
-                                value={detailsData.customerInfo.time + ' ,  ' + detailsData.customerInfo.date} placeholder="Date & Time" className="w-full rounded-md p-[6px]" readOnly />
+                                value={detailsData.customerInfo.
+                                    orderTimeDate
+                                } placeholder="Date & Time" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">
                             <label htmlFor="paymentType" className="font-medium">Payment Type</label>
                             <input id="paymentType" name="paymentType" type="text"
                                 value={detailsData.customerInfo.paymentType} placeholder="Payment Type" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
-                        {/* <div className="col-span-2 sm:col-span-3">
-                            <label htmlFor="totalPrices" className="font-medium">Total Price</label>
-                            <input id="totalPrices" name="totalPrices" type="text"
-                                value={totalPrice} placeholder="Total Price" className="w-full rounded-md p-[6px]" />
-                        </div> */}
+
 
                     </div>
 
                 </form>
+                <div className="text-center">
+                    <button onClick={handleBack} className="btn btn-secondary">Go Back</button>
+                </div>
             </div>
         </div>
     );
