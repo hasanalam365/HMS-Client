@@ -45,6 +45,7 @@ const CheckOutBOxCart = ({ setOpenCart, openCart }) => {
                             <tr>
                                 <th>No</th>
                                 <th>Photo</th>
+                                <th>Name</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Total</th>
@@ -66,6 +67,12 @@ const CheckOutBOxCart = ({ setOpenCart, openCart }) => {
                                     </td>
                                     <td>{product.productData.title}</td>
                                     <td>$ {product.productData.price}</td>
+                                    <td>
+                                        {product.quantity}
+                                    </td>
+                                    <td>
+                                        ${product.quantity * product.productData.price}
+                                    </td>
                                     <td>
                                         <button onClick={() => handleDelete(product._id)}>
                                             <FaTrash className="text-orange-600 hover:scale-125"></FaTrash>
