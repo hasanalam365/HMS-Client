@@ -84,25 +84,28 @@ const ViewOrderDetails = () => {
 
         }
 
-
-        const res = await axiosSecure.post('/selectedOrder', selectedOrders)
-        if (res.data.insertedId) {
-
-            const res = await axiosSecure.delete(`/view-order-delete/${LoaderData.
-                orderId}/${index}`)
-
-            if (res.data.modifiedCount === 1) {
-
-                setData((prevData) => ({
-                    ...prevData,
-                    allProducts: prevData.allProducts.filter((_, idx) => idx !== index),
-                }));
-                refetch()
-                toast('selected this product')
-            }
+        const stockDiscrease = quantities[product.productId]
 
 
-        }
+
+        // const res = await axiosSecure.post('/selectedOrder', selectedOrders)
+        // if (res.data.insertedId) {
+
+        //     const res = await axiosSecure.delete(`/view-order-delete/${LoaderData.
+        //         orderId}/${index}`)
+
+        //     if (res.data.modifiedCount === 1) {
+
+        //         setData((prevData) => ({
+        //             ...prevData,
+        //             allProducts: prevData.allProducts.filter((_, idx) => idx !== index),
+        //         }));
+        //         refetch()
+        //         toast('selected this product')
+        //     }
+
+
+        // }
     }
 
 
