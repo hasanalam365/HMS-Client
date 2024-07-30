@@ -15,7 +15,16 @@ const ViewOrderDetails = () => {
     const axiosSecure = useAxiosSecure()
     const [data, setData] = useState(LoaderData);
 
+
+
     const navigate = useNavigate()
+
+    const [quantities, setQuantities] = useState(
+        data.allProducts.reduce((acc, product) => {
+            acc[product.productId] = product.quantity;
+            return acc;
+        }, {})
+    );
 
     useEffect(() => {
         setData(LoaderData);
@@ -46,7 +55,7 @@ const ViewOrderDetails = () => {
             return res.data
         }
     })
-    const totalPrice = selectedOrders?.reduce((sum, product) => sum + product.price, 0);
+    const totalPrice = selectedOrders?.reduce((sum, product) => sum + product.totalPrices, 0);
 
 
 
@@ -58,8 +67,20 @@ const ViewOrderDetails = () => {
 
         const selectedOrders = {
             orderId: LoaderData.orderId,
-            product: product,
-            price: product.price * product.quantity
+            product: {
+                _id: product._id,
+                category: product.category,
+                features: product.features,
+                imgUrl: product.imgUrl,
+                price: product.price,
+                productId: product.productId,
+                quantity: quantities[product.productId],
+                rating: product.rating,
+                stock: product.stock,
+                title: product.title,
+
+            },
+            totalPrices: product.price * quantities[product.productId]
 
         }
 
@@ -164,6 +185,13 @@ const ViewOrderDetails = () => {
     }
 
 
+    const handleQuantityChange = (productId, newQuantity) => {
+        setQuantities(prevQuantities => ({
+            ...prevQuantities,
+            [productId]: newQuantity
+        }));
+
+    };
 
     return (
         <div>
@@ -218,12 +246,22 @@ const ViewOrderDetails = () => {
                                                 <td>
                                                     ${product.price}
                                                 </td>
+                                                {/* <td>
+                                                    <span onClick={() => handleDiscrease(product.quantity)} className="font-medium text-lg">  - </span>
+                                                    <span>   {product.quantity} </span>
+                                                    <span onClick={() => handleIncrease(product.quantity)} className="font-medium text-lg">  + </span>
+                                                </td> */}
                                                 <td>
-                                                    {product.quantity}
+                                                    <input
+                                                        type="number"
+                                                        value={isNaN(quantities[product.productId]) ? 0 : quantities[product.productId]}
+                                                        className="w-[40px] bg-gray-200 p-1"
+                                                        onChange={(e) =>
+                                                            handleQuantityChange(product.productId, parseInt(e.target.value))
+                                                        }
+                                                    />
                                                 </td>
-                                                <td>
-                                                    {product.price * product.quantity}
-                                                </td>
+                                                <td>${product.price * quantities[product.productId]}</td>
                                                 <td>
                                                     {stockCount ? (
                                                         stockCount.find(stock => stock.productId === product.productId)?.stock ?? 'N/A'
@@ -305,7 +343,7 @@ const ViewOrderDetails = () => {
                                                         {product.product.quantity}
                                                     </td>
                                                     <td>
-                                                        {product.price}
+                                                        ${product.totalPrices}
                                                     </td>
 
 
@@ -331,74 +369,74 @@ const ViewOrderDetails = () => {
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="firstname" className="font-medium">Name</label>
                                 <input id="firstname" name="name" type="text"
-                                    value={LoaderData.name} placeholder="First name" className="w-full rounded-md p-[6px]" readOnly />
+                                    defaultValue={LoaderData.name} placeholder="First name" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="orderId" className="font-medium">OrderId</label>
                                 <input id="orderId" name="orderId" type="text"
-                                    value={LoaderData.orderId} placeholder="OrderId" className="w-full rounded-md p-[6px]" readOnly />
+                                    defaultValue={LoaderData.orderId} placeholder="OrderId" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="email" className="font-medium">Email</label>
                                 <input id="email" name="email" type="text"
-                                    value={LoaderData.email} placeholder="Email" className="w-full rounded-md p-[6px]" readOnly />
+                                    defaultValue={LoaderData.email} placeholder="Email" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="phone" className="font-medium">Phone</label>
                                 <input id="phone" name="phone" type="text"
-                                    value={LoaderData.phone} placeholder="Phone" className="w-full rounded-md p-[6px]" readOnly />
+                                    defaultValue={LoaderData.phone} placeholder="Phone" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
-                                <label htmlFor="Second Phone" className="font-medium">Second Phone</label>
+                                <label htmlFor="secondPhone" className="font-medium">Second Phone</label>
                                 <input id="secondPhone" name="secondPhone" type="text"
-                                    value={LoaderData.secondPhone} placeholder="Second Phone" className="w-full rounded-md p-[6px]" readOnly />
+                                    defaultValue={LoaderData.secondPhone} placeholder="Second Phone" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="division" className="font-medium">Division</label>
                                 <input id="division" name="division" type="text"
-                                    value={LoaderData.division} placeholder="Division" className="w-full rounded-md p-[6px]" readOnly />
+                                    defaultValue={LoaderData.division} placeholder="Division" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="district" className="font-medium">District</label>
                                 <input id="district" name="district" type="text"
-                                    value={LoaderData.district} placeholder="District" className="w-full rounded-md p-[6px]" readOnly />
+                                    defaultValue={LoaderData.district} placeholder="District" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="thana" className="font-medium">Thana</label>
                                 <input id="thana" name="thana" type="text"
-                                    value={LoaderData.thana} placeholder="Thana" className="w-full rounded-md p-[6px]" readOnly />
+                                    defaultValue={LoaderData.thana} placeholder="Thana" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="fullAddress" className="font-medium">Full Address</label>
                                 <input id="fullAddress" name="fullAddress" type="text"
-                                    value={LoaderData.address} placeholder="Full Address" className="w-full rounded-md p-[6px]" readOnly />
+                                    defaultValue={LoaderData.address} placeholder="Full Address" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="currentDelivery" className="font-medium">Current Location</label>
                                 <input id="currentDelivery" name="currentDelivery" type="text"
-                                    value={LoaderData.currentLocation} placeholder="Current Location" className="w-full rounded-md p-[6px]" readOnly />
+                                    defaultValue={LoaderData.currentLocation} placeholder="Current Location" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="orderTimeDate" className="font-medium">Time & Date</label>
                                 <input id="orderTimeDate" name="orderTimeDate" type="text"
-                                    value={LoaderData.time + ' ,  ' + LoaderData.date} placeholder="Date & Time" className="w-full rounded-md p-[6px]" readOnly />
+                                    defaultValue={`${LoaderData.time} ,  ${LoaderData.date}`} placeholder="Date & Time" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="paymentType" className="font-medium">Payment Type</label>
                                 <input id="paymentType" name="paymentType" type="text"
-                                    value={LoaderData.paymentType} placeholder="Payment Type" className="w-full rounded-md p-[6px]" readOnly />
+                                    defaultValue={LoaderData.paymentType} placeholder="Payment Type" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
                             <div className="col-span-2 sm:col-span-3">
                                 <label htmlFor="totalPrices" className="font-medium">Total Price</label>
                                 <input id="totalPrices" name="totalPrices" type="text"
-                                    value={totalPrice} placeholder="Total Price" className="w-full rounded-md p-[6px]" readOnly />
+                                    defaultValue={totalPrice} placeholder="Total Price" className="w-full rounded-md p-[6px]" readOnly />
                             </div>
-
                         </div>
-                        <div className="mb-5 ">
-                            <button className="btn btn-secondary w-full">Confirm Order</button>
+                        <div className="mb-5">
+                            <button type="submit" className="btn btn-secondary w-full">Confirm Order</button>
                         </div>
                     </form>
+
 
 
                 </div>

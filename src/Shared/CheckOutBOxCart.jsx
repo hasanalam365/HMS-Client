@@ -26,7 +26,7 @@ const CheckOutBOxCart = ({ setOpenCart, openCart }) => {
     }
 
     return (
-        <div className={` right-0 top-0  z-30  md:fixed`}>
+        <div className={`absolute right-0 top-0  z-30  md:fixed`}>
             <div className="flex  flex-col  p-3  bg-white h-[550px] w-[425px]">
                 <div className="flex items-center justify-end ">
                     <button onClick={() => setOpenCart(false)} className="btn">

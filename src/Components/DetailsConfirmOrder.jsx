@@ -12,6 +12,9 @@ const DetailsConfirmOrder = () => {
     return (
         <div>
             <div>
+                <div className="text-center mb-5">
+                    <h4 className="text-3xl font-semibold">Orders Information</h4>
+                </div>
                 <div className="overflow-x-auto">
                     <table className="table table-zebra">
                         {/* head */}
@@ -51,7 +54,7 @@ const DetailsConfirmOrder = () => {
                                         .price}</td>
                                     <td>{product.product
                                         .quantity}</td>
-                                    <td>${product.price}</td>
+                                    <td>${product.totalPrices}</td>
 
                                 </tr>)
 
