@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import { IoBagCheckOutline } from "react-icons/io5";
-import { MdHomeWork } from "react-icons/md";
+import { MdChangeCircle, MdHomeWork } from "react-icons/md";
 import useUser from "../../hooks/useUser";
 import { BiMenuAltRight } from "react-icons/bi";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -10,7 +10,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import { FaUsers } from "react-icons/fa";
 import useAdmin from "../../hooks/useAdmin";
 import { SiPowerpages } from "react-icons/si";
-import { IoIosCloudDone } from "react-icons/io";
+import { IoIosAddCircle, IoIosCloudDone } from "react-icons/io";
 
 
 const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
@@ -37,7 +37,7 @@ const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
                 </button>
             </div>
             {/* small device */}
-            <div>
+            <div className="z-30">
                 {isOpenNav && <div className="h-screen block md:hidden lg:hidden p-3 space-y-2 w-60 dark:bg-gray-50 dark:text-gray-800">
                     <div className="flex items-center p-2 space-x-4">
                         <img src={user.photoURL ? user.photoURL : userData.photoURL} alt="" className="w-12 h-12 rounded-full dark:bg-gray-500" />
@@ -110,6 +110,20 @@ const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
 
                                     <FaUsers className="text-xl"></FaUsers >
                                     <span>All Users</span>
+                                </Link>
+                            </li>}
+                            {isAdmin && <li>
+                                <Link onClick={() => setIsOpenNav(false)} to='/dashboard/add-product' className="flex items-center p-2 space-x-3 rounded-md">
+
+                                    <IoIosAddCircle className="text-xl"></IoIosAddCircle>
+                                    <span>Add Product</span>
+                                </Link>
+                            </li>}
+                            {isAdmin && <li>
+                                <Link onClick={() => setIsOpenNav(false)} to='/dashboard/update-product' className="flex items-center p-2 space-x-3 rounded-md">
+
+                                    <MdChangeCircle className="text-xl"></MdChangeCircle>
+                                    <span>Update Product</span>
                                 </Link>
                             </li>}
                         </ul>
@@ -211,6 +225,20 @@ const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
                                 <FaUsers className="text-xl"></FaUsers >
 
                                 <span>All Users</span>
+                            </Link>
+                        </li>}
+                        {isAdmin && <li>
+                            <Link onClick={() => setIsOpenNav(false)} to='/dashboard/add-product' className="flex items-center p-2 space-x-3 rounded-md">
+
+                                <IoIosAddCircle className="text-xl"></IoIosAddCircle>
+                                <span>Add Product</span>
+                            </Link>
+                        </li>}
+                        {isAdmin && <li>
+                            <Link onClick={() => setIsOpenNav(false)} to='/dashboard/update-product' className="flex items-center p-2 space-x-3 rounded-md">
+
+                                <MdChangeCircle className="text-xl"></MdChangeCircle>
+                                <span>Update Product</span>
                             </Link>
                         </li>}
                     </ul>

@@ -54,7 +54,7 @@ const UpdatedProfile = () => {
 
 
         const resPut = await axiosPublic.put(`/users-updated/${email}`, updatedAddress)
-        console.log(resPut.data)
+
         if (resPut.data.modifiedCount === 1) {
             toast('Profile Updated')
 

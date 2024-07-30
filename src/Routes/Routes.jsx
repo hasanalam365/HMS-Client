@@ -23,6 +23,8 @@ import ViewOrderDetails from "../Components/ViewOrderDetails";
 import OrderStatus from "../Components/OrderStatus";
 import ConfirmOrders from "../Dashboard/AdminDashboard.jsx/ConfirmOrders";
 import DetailsConfirmOrder from "../Components/DetailsConfirmOrder";
+import AddProduct from "../Dashboard/Dashboard/AddProduct";
+import UpdateProduct from "../Dashboard/Dashboard/UpdateProduct";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -132,7 +134,19 @@ const router = createBrowserRouter([
                     <DetailsConfirmOrder></DetailsConfirmOrder>
                 </AdminRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/details-confirm-order/${params.id}`)
-            }
+            },
+            {
+                path: '/dashboard/add-product',
+                element: <AdminRoute>
+                    <AddProduct></AddProduct>
+                </AdminRoute>
+            },
+            {
+                path: '/dashboard/update-product',
+                element: <AdminRoute>
+                    <UpdateProduct></UpdateProduct>
+                </AdminRoute>
+            },
 
         ]
     }
