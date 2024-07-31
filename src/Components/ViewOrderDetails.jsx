@@ -26,6 +26,7 @@ const ViewOrderDetails = () => {
         }, {})
     );
 
+
     useEffect(() => {
         setData(LoaderData);
     }, [LoaderData]);

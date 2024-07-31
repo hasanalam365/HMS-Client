@@ -44,34 +44,36 @@ const DeliveryAddress = () => {
         const allAddress = { name, phone, email, secondPhone, division, district, thana, address, currentLocation, orderId }
         const orderStatus = {
             orderId: orderId,
-            email: user.email,
+            email: email,
             status: 'pending',
             orderDate: new Date().toLocaleDateString(),
             orderTime: new Date().toLocaleTimeString()
         }
 
 
-        try {
-            const orderPost = await axiosPublic.post('/orders', orderInfo)
 
-            if (orderPost.data.insertedId) {
+        const orderPost = await axiosPublic.post('/orders', orderInfo)
+
+        if (orderPost.data.insertedId) {
 
 
-                const res = await axiosPublic.put(`/orders/${orderId}`, allAddress)
-                if (res.data.modifiedCount === 1) {
-                    toast('Order Confirmed')
+            const res = await axiosPublic.put(`/orders/${orderId}`, allAddress)
 
-                    await axiosPublic.post('/orderStatus', orderStatus)
-                    await axiosPublic.delete(`/mycarts-delete/${user.email}`)
+            if (res.data.modifiedCount === 1) {
+                toast('Order Confirmed')
 
-                    navigate('/')
-                }
+                await axiosPublic.post('/orderStatus', orderStatus)
+
+                await axiosPublic.delete(`/mycarts-delete/${user.email}`)
+
+                navigate('/')
 
 
 
             }
-        } catch (error) {
-            console.log(error.message)
+
+
+
         }
 
 

@@ -20,8 +20,6 @@ const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
     const [isAdmin] = useAdmin()
 
 
-    console.log('isAdmin:', isAdmin)
-    // console.log('userData:', userData)
 
     const handleLogOut = () => {
         signOutUser()

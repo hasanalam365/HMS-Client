@@ -15,7 +15,9 @@ const MyWishlist = () => {
 
     const handleDeleteWishlist = async (id) => {
 
-        const res = await axiosPublic.delete(`/wishlist/${user.email}/${id}`)
+        const res = await axiosPublic.delete(`/wishlist/${id}`)
+
+
 
         if (res.data.deletedCount === 1) {
             toast.error('This item has been delete from wishlist')
@@ -24,18 +26,20 @@ const MyWishlist = () => {
 
     }
 
-    const handleAddCart = async (productData) => {
+    const handleAddCart = async (product) => {
 
         const addCartInfo = {
             email: user?.email,
-            productId: productData._id,
-            productData: productData
+            productId: product.product._id,
+            productData: product.product,
+            quantity: product.quantity
         }
 
         const res = await axiosPublic.post('/addToCart', addCartInfo)
+        console.log(res.data)
         if (res.data.insertedId) {
             toast('added cart')
-            await axiosPublic.delete(`/wishlist/${user.email}/${productData._id}`)
+            await axiosPublic.delete(`/wishlist/${product._id}`)
             refetch()
 
         }
@@ -80,10 +84,10 @@ const MyWishlist = () => {
                                     $ {product.product.price}
                                 </td>
                                 <th className="flex gap-2 mt-4">
-                                    <button onClick={() => handleAddCart(product.product)}>
+                                    <button onClick={() => handleAddCart(product)}>
                                         <FiShoppingCart className="text-lg hover:scale-125 hover:text-[#FF5722]"></FiShoppingCart>
                                     </button>
-                                    <button onClick={() => handleDeleteWishlist(product.product._id)}>
+                                    <button onClick={() => handleDeleteWishlist(product._id)}>
                                         <MdDeleteForever className="text-lg hover:scale-125 hover:text-[#FF5722]" />
                                     </button>
                                 </th>

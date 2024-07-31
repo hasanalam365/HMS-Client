@@ -38,11 +38,13 @@ const ProductDetail = () => {
             const wishlistAddInfo = {
                 email: user?.email,
                 productId: productData._id,
-                product: productData
+                product: productData,
+                quantity: quantity
             }
 
             const res = await axiosSecure.put('/wishlist', wishlistAddInfo)
-            console.log(res.data)
+
+
             if (res.data.upsertedCount === 1) {
                 toast('added wishlist')
 
@@ -65,11 +67,6 @@ const ProductDetail = () => {
                 }
             });
         }
-
-
-
-
-
 
     }
 
