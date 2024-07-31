@@ -25,11 +25,13 @@ const useAxiosSecure = () => {
 
     //intercepts 401 abd 403 status
     axiosSecure.interceptors.response.use(function (response) {
+        // console.log('api responce:', response)
         return response
+
     }, async (error) => {
 
         // console.log('status error:', error)
-
+        // console.log('api error::', error.response.status)
         const status = error.response.status
         // console.log('status error:', status)
 

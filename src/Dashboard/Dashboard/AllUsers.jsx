@@ -85,67 +85,71 @@ const AllUsers = () => {
 
 
     return (
-        <div className="flex flex-col mt-4 px-4 md:p-8">
-            <div className="flex items-center justify-between mb-2">
+        <div>
+            {
+                users.length > 0 && <div className="flex flex-col mt-4 px-4 md:p-8">
+                    <div className="flex items-center justify-between mb-2">
 
-                <h4 className="text-lg font-semibold">Total Users: <span>{users.length}</span></h4>
-                <div className="join mr-5">
-                    <div>
+                        <h4 className="text-lg font-semibold">Total Users: <span>{users.length}</span></h4>
+                        <div className="join mr-5">
+                            <div>
 
-                        <input onChange={inputText} className="input input-bordered join-item " placeholder="Search by email" />
+                                <input onChange={inputText} className="input input-bordered join-item " placeholder="Search by email" />
 
+                            </div>
+
+                        </div>
                     </div>
+                    <div className="overflow-x-auto">
+                        <table className="table">
+                            {/* head */}
+                            <thead>
+                                <tr>
 
-                </div>
-            </div>
-            <div className="overflow-x-auto">
-                <table className="table">
-                    {/* head */}
-                    <thead>
-                        <tr>
+                                    <th>Photo</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    users.map((user, idx) =>
+                                        <tr key={idx}>
 
-                            <th>Photo</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            users.map((user, idx) =>
-                                <tr key={idx}>
+                                            <td>
+                                                <div className="flex items-center gap-3">
+                                                    <div className="avatar">
+                                                        <div className="mask mask-squircle h-12 w-12">
+                                                            <img src={user.photoURL} alt='user photo' />
+                                                        </div>
+                                                    </div>
 
-                                    <td>
-                                        <div className="flex items-center gap-3">
-                                            <div className="avatar">
-                                                <div className="mask mask-squircle h-12 w-12">
-                                                    <img src={user.photoURL} alt='user photo' />
                                                 </div>
-                                            </div>
+                                            </td>
 
-                                        </div>
-                                    </td>
+                                            <td>{user.displayName}</td>
+                                            <td>{user.email}</td>
+                                            <td>
+                                                {user.role === 'admin' ? <button onClick={() => handleChangeRole(user)}>
+                                                    Admin
+                                                </button> : <button onClick={() => handleChangeRole(user)} className="btn btn-ghost btn-xs text-white bg-green-600 ">
+                                                    <FaUsers className="text-lg" />
+                                                </button>}
+                                            </td>
+                                            <th>
+                                                <button onClick={() => handleDelete(user.email)} className="btn btn-ghost btn-xs text-white bg-red-600 ">Delete</button>
+                                            </th>
+                                        </tr>)
+                                }
 
-                                    <td>{user.displayName}</td>
-                                    <td>{user.email}</td>
-                                    <td>
-                                        {user.role === 'admin' ? <button onClick={() => handleChangeRole(user)}>
-                                            Admin
-                                        </button> : <button onClick={() => handleChangeRole(user)} className="btn btn-ghost btn-xs text-white bg-green-600 ">
-                                            <FaUsers className="text-lg" />
-                                        </button>}
-                                    </td>
-                                    <th>
-                                        <button onClick={() => handleDelete(user.email)} className="btn btn-ghost btn-xs text-white bg-red-600 ">Delete</button>
-                                    </th>
-                                </tr>)
-                        }
+                            </tbody>
 
-                    </tbody>
-
-                </table>
-            </div>
+                        </table>
+                    </div>
+                </div>
+            }
         </div>
     );
 };
