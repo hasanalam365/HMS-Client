@@ -13,17 +13,17 @@ const DeliveryAddress = () => {
     const location = useLocation()
     const { orderId, orderInfo } = location.state || {}
 
+
+
     const navigate = useNavigate()
 
-    const { data: userData = [] } = useQuery({
+    const { data: userData } = useQuery({
         queryKey: ['user'],
         queryFn: async () => {
             const res = await axiosPublic.get(`/user/${user.email}`)
             return res.data
         }
     })
-
-
 
     const handleAddress = async (e) => {
         e.preventDefault()
@@ -44,28 +44,36 @@ const DeliveryAddress = () => {
         const allAddress = { name, phone, email, secondPhone, division, district, thana, address, currentLocation, orderId }
         const orderStatus = {
             orderId: orderId,
-            email: userData.email,
+            email: user.email,
             status: 'pending',
             orderDate: new Date().toLocaleDateString(),
             orderTime: new Date().toLocaleTimeString()
         }
-        const orderPost = await axiosPublic.post('/orders', orderInfo)
-        if (orderPost.data.insertedId) {
 
 
-            const res = await axiosPublic.put(`/orders/${orderId}`, allAddress)
-            if (res.data.modifiedCount === 1) {
-                toast('Order Confirmed')
+        try {
+            const orderPost = await axiosPublic.post('/orders', orderInfo)
 
-                await axiosPublic.post('/orderStatus', orderStatus)
-                await axiosPublic.delete(`/mycarts-delete/${user.email}`)
+            if (orderPost.data.insertedId) {
 
-                navigate('/')
+
+                const res = await axiosPublic.put(`/orders/${orderId}`, allAddress)
+                if (res.data.modifiedCount === 1) {
+                    toast('Order Confirmed')
+
+                    await axiosPublic.post('/orderStatus', orderStatus)
+                    await axiosPublic.delete(`/mycarts-delete/${user.email}`)
+
+                    navigate('/')
+                }
+
+
+
             }
-
-
-
+        } catch (error) {
+            console.log(error.message)
         }
+
 
 
     }
@@ -109,7 +117,7 @@ const DeliveryAddress = () => {
                             </div>
                             <div className="col-span-full ">
                                 <label htmlFor="fullname" className="font-medium">Email</label>
-                                <input id="fullName" name="email" type="text" value={userData.email} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
+                                <input id="fullName" name="email" type="text" value={userData?.email} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" />
                             </div>
                             <div className="col-span-full">
                                 <label htmlFor="address" className="font-medium">Address</label>
