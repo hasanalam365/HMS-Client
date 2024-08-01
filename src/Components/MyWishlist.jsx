@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const MyWishlist = () => {
 
-    const [wishlistData, refetch] = useWishlist()
+    const [wishlistData, refetch, isLoading] = useWishlist()
     const { user } = useAuth()
     const axiosPublic = useAxiosPublic()
 
@@ -51,7 +51,11 @@ const MyWishlist = () => {
 
     return (
         <div className="md:w-full mx-auto mt-8">
-            <div className="overflow-x-auto">
+            {isLoading ? (
+                <div className="flex items-center justify-center ">
+                    <div className="w-16 h-16 border-4 border-dashed border-orange-500 rounded-full animate-spin dark:border-default-600 text-orange-600"></div>
+                </div>
+            ) : wishlistData.length === 0 ? <div className="mt-10 text-center text-2xl font-medium">Your wishlists is empty!</div> : <div className="overflow-x-auto">
                 <table className="table ">
                     {/* head */}
                     <thead>
@@ -98,7 +102,7 @@ const MyWishlist = () => {
 
 
                 </table>
-            </div>
+            </div>}
         </div>
     );
 };

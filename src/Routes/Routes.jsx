@@ -25,6 +25,7 @@ import ConfirmOrders from "../Dashboard/AdminDashboard.jsx/ConfirmOrders";
 import DetailsConfirmOrder from "../Components/DetailsConfirmOrder";
 import AddProduct from "../Dashboard/Dashboard/AddProduct";
 import UpdateProduct from "../Dashboard/Dashboard/UpdateProduct";
+import Categories from "../Pages/Categories/Categories";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -59,7 +60,10 @@ const router = createBrowserRouter([
             //     path: '/checkout',
             //     element: <CheckoutPage></CheckoutPage>
             // },
-
+            {
+                path: '/categories',
+                element: <Categories></Categories>
+            }
         ]
     },
 

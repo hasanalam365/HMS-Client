@@ -6,7 +6,7 @@ const useProductsData = () => {
     const axiosPublic = useAxiosPublic()
 
 
-    const { data: products = [] } = useQuery({
+    const { data: products = [], isLoading } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
             const res = await axiosPublic('/products')
@@ -14,7 +14,7 @@ const useProductsData = () => {
         }
     })
 
-    return [products]
+    return [products, isLoading]
 };
 
 export default useProductsData;

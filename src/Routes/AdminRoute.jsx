@@ -10,7 +10,9 @@ const AdminRoute = ({ children }) => {
 
 
     if (loading || isAdminLoading) {
-        return <span className="loading loading-spinner text-secondary"></span>
+        return <div className="flex items-center justify-center min-h-screen">
+            <div className="w-16 h-16 border-4 border-dashed border-orange-500 rounded-full animate-spin dark:border-default-600 text-orange-600"></div>
+        </div>
     }
 
     if (user || isAdmin) {

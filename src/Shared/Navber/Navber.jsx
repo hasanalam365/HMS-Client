@@ -41,6 +41,9 @@ const Navber = ({ setOpenCart, openCart }) => {
         <NavLink onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
             <li>Blogs</li>
         </NavLink>
+        <NavLink to='/categories' onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
+            <li>Categories</li>
+        </NavLink>
     </>
 
     const hangleLogOut = () => {

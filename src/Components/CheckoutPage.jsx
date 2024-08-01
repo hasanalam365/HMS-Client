@@ -10,7 +10,7 @@ const CheckoutPage = () => {
 
     const [selectedCheckbox, setSelectedCheckbox] = useState(null);
     const [orderId, setOrderId] = useState('');
-    const [data, refetch] = useCartList()
+    const [data, refetch, isLoading] = useCartList()
     const navigate = useNavigate()
     const totalPrices = data.reduce((total, product) => total + (product.productData.price * product.quantity), 0)
 
@@ -39,12 +39,12 @@ const CheckoutPage = () => {
     };
 
 
-    const handleIncrease = (productId) => {
-        // console.log(productId)
-    }
-    const handleDiscrease = (productId) => {
-        // console.log(productId)
-    }
+    // const handleIncrease = (productId) => {
+    //     // console.log(productId)
+    // }
+    // const handleDiscrease = (productId) => {
+    //     // console.log(productId)
+    // }
 
 
     const handleDelete = async (_id) => {
@@ -93,7 +93,13 @@ const CheckoutPage = () => {
                     <h3 className="text-lg font-semibold text-white p-2">Shopping Cart</h3>
                 </div>
                 {
-                    data.length === 0 ? <div className="mt-10 text-center text-2xl font-medium">Your Cart is Empty!!!!!</div>
+                    isLoading ? (
+                        <div className="flex items-center justify-center mt-5">
+                            <div className="w-12 h-12 border-4 border-dashed border-orange-500 rounded-full animate-spin dark:border-default-600 text-orange-600"></div>
+                        </div>
+                    ) : data.length === 0 ? (
+                        <div className="mt-10 text-center text-xl font-medium">Your cart is empty!!!!!</div>
+                    )
                         :
                         <div className="overflow-x-auto">
                             <table className="table">
@@ -125,15 +131,17 @@ const CheckoutPage = () => {
                                                 </td>
                                                 <td>{product.productData.title}</td>
                                                 <td>{product.productData.price}</td>
-                                                <td className="flex items-center justify-center gap-2 h-[49px]">
-                                                    <p onClick={() => handleDiscrease(product.
+                                                {/* <td className="flex items-center justify-center gap-2 h-[49px]"> */}
+                                                {/* <p onClick={() => handleDiscrease(product.
                                                         productId
-                                                    )} className="hover:text-white p-1 hover:bg-orange-600 rounded-xl">-</p>
-                                                    <input type="text" value={product.quantity} className="w-[30px] pl-1" />
-                                                    <p onClick={() => handleIncrease(product.
+                                                    )} className="hover:text-white p-1 hover:bg-orange-600 rounded-xl">-</p> */}
+                                                {/* <input type="text" value={product.quantity} className="w-[30px] pl-1" /> */}
+                                                {/* <p onClick={() => handleIncrease(product.
                                                         productId
-                                                    )} className="hover:text-white p-1 hover:bg-orange-600 rounded-xl">+</p>
-                                                </td>
+                                                    )} className="hover:text-white p-1 hover:bg-orange-600 rounded-xl">+</p> */}
+
+                                                {/* </td> */}
+                                                <td> {product.quantity}</td>
                                                 <td>$ {product.productData.price * product.quantity}</td>
                                                 <td>
                                                     <button onClick={() => handleDelete(product._id)}>

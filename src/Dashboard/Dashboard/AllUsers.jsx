@@ -10,7 +10,7 @@ const AllUsers = () => {
     const axiosSecure = useAxiosSecure()
     const [search, setSearch] = useState('')
 
-    const { data: users = [], refetch } = useQuery({
+    const { data: users = [], refetch, isLoading } = useQuery({
         queryKey: ['users', search],
         queryFn: async () => {
             const res = await axiosSecure.get(`/users?search=${search}`)
@@ -98,7 +98,9 @@ const AllUsers = () => {
 
                 </div>
             </div>
-            <div className="overflow-x-auto">
+            {isLoading ? <div className="flex items-center justify-center ">
+                <div className="w-16 h-16 border-4 border-dashed border-orange-500 rounded-full animate-spin dark:border-default-600 text-orange-600"></div>
+            </div> : users.length === 0 ? <span className="flex items-center justify-center mt-5">No user found!</span> : <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
                     <thead>
@@ -145,7 +147,7 @@ const AllUsers = () => {
                     </tbody>
 
                 </table>
-            </div>
+            </div>}
         </div>
 
     );

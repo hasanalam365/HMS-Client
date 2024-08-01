@@ -7,7 +7,7 @@ const useWishlist = () => {
     const { user } = useAuth()
     const axiosPublic = useAxiosPublic()
 
-    const { data: wishlistData = [], refetch } = useQuery({
+    const { data: wishlistData = [], refetch, isLoading } = useQuery({
         queryKey: ['wishlistData'],
         queryFn: async () => {
             const res = await axiosPublic.get(`/wishlist/${user.email}`)
@@ -15,7 +15,7 @@ const useWishlist = () => {
         }
     })
 
-    return [wishlistData, refetch]
+    return [wishlistData, refetch, isLoading]
 };
 
 export default useWishlist;

@@ -16,7 +16,7 @@ const AllOrders = () => {
 
 
 
-    const { data: allOrders = [], refetch } = useQuery({
+    const { data: allOrders = [], refetch, isLoading } = useQuery({
         queryKey: ['all-orders', search],
         queryFn: async () => {
             const res = await axiosSecure.get(`/all-orders?search=${search}`);
@@ -25,10 +25,7 @@ const AllOrders = () => {
         enabled: !!search || search === '',
     })
 
-    const handleView = () => {
-        navigate({ state: orderId });
 
-    }
 
 
     const handleOrderDelete = (id) => {
@@ -79,7 +76,9 @@ const AllOrders = () => {
 
                 </div>
             </div>
-            <div className="overflow-x-auto">
+            {isLoading ? <div className="flex items-center justify-center ">
+                <div className="w-16 h-16 border-4 border-dashed border-orange-500 rounded-full animate-spin dark:border-default-600 text-orange-600"></div>
+            </div> : allOrders.length === 0 ? <span className="flex items-center justify-center mt-5">No order found!</span> : <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
                     <thead>
@@ -122,7 +121,7 @@ const AllOrders = () => {
                     </tbody>
 
                 </table>
-            </div>
+            </div>}
         </div>
     );
 };

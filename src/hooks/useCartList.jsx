@@ -7,7 +7,7 @@ const useCartList = () => {
     const axiosPublic = useAxiosPublic()
     const { user } = useAuth()
 
-    const { data = [], refetch } = useQuery({
+    const { data = [], refetch, isLoading } = useQuery({
         queryKey: ['cardList'],
         queryFn: async () => {
             const res = await axiosPublic(`/addToCart/${user.email}`)
@@ -15,7 +15,7 @@ const useCartList = () => {
         }
     })
 
-    return [data, refetch]
+    return [data, refetch, isLoading]
 };
 
 export default useCartList;

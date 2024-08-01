@@ -11,7 +11,7 @@ const ConfirmOrders = () => {
     const [search, setSearch] = useState('')
     const axiosSecure = useAxiosSecure()
 
-    const { data: confirmOrders = [], refetch } = useQuery({
+    const { data: confirmOrders = [], refetch, isLoading } = useQuery({
         queryKey: ['confirm-orders', search],
         queryFn: async () => {
             const res = await axiosSecure.get(`/confirmOrder?search=${search}`)
@@ -19,7 +19,7 @@ const ConfirmOrders = () => {
         }
     })
 
-    console.log(confirmOrders)
+
 
     const inputText = (e) => {
         setSearch(e.target.value)
@@ -64,7 +64,9 @@ const ConfirmOrders = () => {
 
                 </div>
             </div>
-            <div className="overflow-x-auto">
+            {isLoading ? <div className="flex items-center justify-center ">
+                <div className="w-16 h-16 border-4 border-dashed border-orange-500 rounded-full animate-spin dark:border-default-600 text-orange-600"></div>
+            </div> : confirmOrders.length === 0 ? <span className="flex items-center justify-center mt-5">No data found!</span> : <div className="overflow-x-auto">
                 <table className="table table-zebra">
                     {/* head */}
                     <thead>
@@ -98,7 +100,7 @@ const ConfirmOrders = () => {
                         }
                     </tbody>
                 </table>
-            </div>
+            </div>}
         </div >
     );
 };
