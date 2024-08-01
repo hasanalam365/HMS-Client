@@ -62,14 +62,14 @@ const Register = () => {
 
 
         const resUser = await axiosPublic.post(`/newUser`, userInfo)
-        console.log(resUser.data)
+        // console.log(resUser.data)
 
         if (resUser.data.insertedId) {
             signUpUser(email, confirmPassword)
                 .then((result) => {
 
                     if (result.user) {
-                        console.log(result.user)
+                        // console.log(result.user)
                         toast("Register Successfully!")
 
 

@@ -62,7 +62,7 @@ const Login = () => {
 
 
                 if (result.user) {
-                    console.log(result.user)
+                    // console.log(result.user)
                     const userInfo = {
                         email: result.user.email,
                         photoURL: result.user.photoURL,

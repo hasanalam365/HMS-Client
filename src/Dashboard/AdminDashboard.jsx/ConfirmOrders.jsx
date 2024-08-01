@@ -19,6 +19,8 @@ const ConfirmOrders = () => {
         }
     })
 
+    console.log(confirmOrders)
+
     const inputText = (e) => {
         setSearch(e.target.value)
         refetch()

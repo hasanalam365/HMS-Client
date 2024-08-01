@@ -128,7 +128,7 @@ const ViewOrderDetails = () => {
             if (result.isConfirmed) {
                 const res = await axiosSecure.delete(`/view-order-delete/${LoaderData.
                     orderId}/${index}`)
-                console.log('delete Count', res.data)
+
                 if (res.data.modifiedCount === 1) {
                     toast.error('Order has been deleted')
                     setData((prevData) => ({

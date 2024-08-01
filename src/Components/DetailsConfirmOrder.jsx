@@ -9,6 +9,8 @@ const DetailsConfirmOrder = () => {
         navigate(-1)
     }
 
+
+
     return (
         <div>
             <div>
@@ -85,7 +87,7 @@ const DetailsConfirmOrder = () => {
                         </div>
                         <div className="col-span-2 sm:col-span-3">
                             <label htmlFor="orderId" className="font-medium">OrderId</label>
-                            <input id="firstname" name="orderId" type="text"
+                            <input id="orderId" name="orderId" type="text"
                                 value={detailsData.customerInfo.orderId} placeholder="OrderId" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
                         <div className="col-span-2 sm:col-span-3">

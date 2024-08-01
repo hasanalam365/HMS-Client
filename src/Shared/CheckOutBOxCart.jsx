@@ -16,7 +16,7 @@ const CheckOutBOxCart = ({ setOpenCart, openCart }) => {
     const handleDelete = async (_id) => {
 
         const res = await axiosPublic.delete(`/addToCart/${_id}`)
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.deletedCount === 1) {
             toast.error('This item has been deleted')
             refetch()

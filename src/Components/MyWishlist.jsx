@@ -36,7 +36,7 @@ const MyWishlist = () => {
         }
 
         const res = await axiosPublic.post('/addToCart', addCartInfo)
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.insertedId) {
             toast('added cart')
             await axiosPublic.delete(`/wishlist/${product._id}`)

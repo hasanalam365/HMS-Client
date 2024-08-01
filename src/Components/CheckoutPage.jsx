@@ -40,10 +40,10 @@ const CheckoutPage = () => {
 
 
     const handleIncrease = (productId) => {
-        console.log(productId)
+        // console.log(productId)
     }
     const handleDiscrease = (productId) => {
-        console.log(productId)
+        // console.log(productId)
     }
 
 

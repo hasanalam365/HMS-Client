@@ -1,9 +1,46 @@
+import { toast } from "react-toastify";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const UpdateProduct = () => {
+
+    const axiosSecure = useAxiosSecure()
+
+    const handleStockUpdate = async (e) => {
+        e.preventDefault()
+        const form = e.target;
+        const productId = form.productId.value;
+        const stockAmmounts = form.stockAmmounts.value
+
+        const updateProduct = { stockAmmounts }
+
+        const res = await axiosSecure.put(`/stockAdded/${productId}`, updateProduct)
+
+        if (res.data.modifiedCount === 1) {
+            toast('Stock Updated')
+        }
+
+    }
+
     return (
-        <div>
-            update product
-        </div>
+        <form onSubmit={handleStockUpdate}>
+
+            <div className="flex flex-col md:flex-row gap-5 w-[90%] mx-auto">
+                <div className="">
+                    <label htmlFor="productId" className="font-medium">Product Id</label>
+                    <input id="productId" name="productId" type="number"
+                        placeholder="productId" className="w-full rounded-md p-[6px] bg-gray-100" />
+                </div>
+                <div className="">
+                    <label htmlFor="stockAmmounts" className="font-medium">Stock Ammounts</label>
+                    <input id="stockAmmounts" name="stockAmmounts" type="number"
+                        placeholder="stockAmmounts" className="w-full rounded-md p-[6px] bg-gray-100" />
+                </div>
+
+            </div>
+            <div className="text-center mt-5">
+                <button type="submit" className="btn btn-secondary">Update Stock</button>
+            </div>
+        </form>
     );
 };
 
