@@ -9,14 +9,16 @@ const UpdateProduct = () => {
         e.preventDefault()
         const form = e.target;
         const productId = form.productId.value;
-        const stockAmmounts = form.stockAmmounts.value
+        const stockAmounts = form.stockAmounts.value
 
-        const updateProduct = { stockAmmounts }
+        const updateProduct = { stockAmounts }
 
         const res = await axiosSecure.put(`/stockAdded/${productId}`, updateProduct)
 
         if (res.data.modifiedCount === 1) {
             toast('Stock Updated')
+            form.productId.value = '';
+            form.stockAmounts.value = ''
         }
 
     }
@@ -28,12 +30,12 @@ const UpdateProduct = () => {
                 <div className="">
                     <label htmlFor="productId" className="font-medium">Product Id</label>
                     <input id="productId" name="productId" type="number"
-                        placeholder="productId" className="w-full rounded-md p-[6px] bg-gray-100" />
+                        placeholder="product Id" className="w-full rounded-md p-[6px] bg-gray-100" />
                 </div>
                 <div className="">
-                    <label htmlFor="stockAmmounts" className="font-medium">Stock Ammounts</label>
-                    <input id="stockAmmounts" name="stockAmmounts" type="number"
-                        placeholder="stockAmmounts" className="w-full rounded-md p-[6px] bg-gray-100" />
+                    <label htmlFor="stockAmounts" className="font-medium">Stock Amounts</label>
+                    <input id="stockAmounts" name="stockAmmounts" type="number"
+                        placeholder="stock Amounts" className="w-full rounded-md p-[6px] bg-gray-100" />
                 </div>
 
             </div>
