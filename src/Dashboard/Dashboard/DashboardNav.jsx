@@ -59,7 +59,7 @@ const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
                                 </Link>
                             </li>
 
-                            <li className={({ isActive }) => isActive ? 'text-orange-600' : 'dark:bg-gray-100 dark:text-gray-900'}>
+                            <li>
 
                                 <NavLink to='/dashboard' onClick={() => setIsOpenNav(false)} className="flex items-center p-2 space-x-3 rounded-md">
                                     <MdDashboard className="text-lg" />

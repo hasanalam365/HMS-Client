@@ -17,6 +17,8 @@ const Navber = ({ setOpenCart, openCart }) => {
     const [data] = useCartList()
     const axiosPublic = useAxiosPublic()
     const { signOutUser, user } = useAuth()
+    const [navOpen, setNavOpen] = useState(false)
+
 
     const { data: userData = [] } = useQuery({
         queryKey: ['user'],
@@ -27,29 +29,17 @@ const Navber = ({ setOpenCart, openCart }) => {
     })
 
     const navLinks = <>
-        <NavLink>
-            <li>Smart Watches</li>
+        <NavLink onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
+            <li>Trending</li>
         </NavLink>
-
-        <NavLink>
-            <li>Smart Phones</li>
+        <NavLink onClick={() => setNavOpen(false)} to='/brands' className='hover:text-orange-600'>
+            <li>Brands</li>
         </NavLink>
-
-        <NavLink>
-            <li>Headphones</li>
+        <NavLink onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
+            <li>Service Center</li>
         </NavLink>
-
-        <NavLink>
-            <li>Smart TV & Accessories</li>
-        </NavLink>
-        <NavLink>
-            <li>Computer & Accessories</li>
-        </NavLink>
-        <NavLink>
-            <li>Wireless Speakers</li>
-        </NavLink>
-        <NavLink>
-            <li>Security Cameras</li>
+        <NavLink onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
+            <li>Blogs</li>
         </NavLink>
     </>
 
@@ -60,26 +50,28 @@ const Navber = ({ setOpenCart, openCart }) => {
 
 
     return (
-        <div className="navbar bg-base-100 container mx-auto h-[66px] z-40 md:z-10 lg:z-10 fixed ">
-            <div className="navbar-start">
+        <div className="navbar bg-base-100 container mx-auto h-[66px] z-40 md:z-10 lg:z-10 fixed top-0">
+            <div className="navbar-start ">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4 6h16M4 12h8m-8 6h16" />
-                        </svg>
+                        <button onClick={() => setNavOpen(!navOpen)}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4 6h16M4 12h8m-8 6h16" />
+                            </svg>
+                        </button>
                     </div>
-                    <ul
+                    {navOpen && <ul
                         tabIndex={0}
-                        className="menu  dropdown-content bg-base-100 rounded-box z-10 mt-3 w-80 p-2 shadow text-lg space-y-2  font-medium ">
+                        className="menu  dropdown-content bg-base-100  z-10 mt-2 w-80 p-2 shadow text-lg space-y-2  font-medium ">
                         {navLinks}
 
                         <div className="divider"></div>
@@ -87,7 +79,7 @@ const Navber = ({ setOpenCart, openCart }) => {
                             <li>Dashboard</li>
                         </NavLink>
 
-                    </ul>
+                    </ul>}
                 </div>
                 <Link to='/' className="hover:scale-105">
                     <img src="https://i.ibb.co/1LSTmBy/logo.png" className="w-[60px] h-[50px]" alt="" />
@@ -97,18 +89,7 @@ const Navber = ({ setOpenCart, openCart }) => {
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 gap-5 text-lg font-medium">
-                    <NavLink className='hover:text-orange-600'>
-                        <li>Trending</li>
-                    </NavLink>
-                    <NavLink to='/brands' className='hover:text-orange-600'>
-                        <li>Brands</li>
-                    </NavLink>
-                    <NavLink className='hover:text-orange-600'>
-                        <li>Service Center</li>
-                    </NavLink>
-                    <NavLink className='hover:text-orange-600'>
-                        <li>Blogs</li>
-                    </NavLink>
+                    {navLinks}
                 </ul>
                 <label className="input input-bordered flex items-center gap-2 ml-5">
                     <input type="text" className="grow" placeholder="Search Products" />

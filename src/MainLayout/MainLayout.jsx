@@ -16,6 +16,7 @@ const MainLayout = () => {
     return (
 
         <div className="container mx-auto relative">
+
             <div className="">
                 <Navber setOpenCart={setOpenCart} openCart={openCart}></Navber>
             </div>
