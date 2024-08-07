@@ -13,11 +13,11 @@ const NewArrival = () => {
 
     const [products, isLoading] = useProductsData()
 
-    const newArrivals = products.filter(product => product.category === 'newArrival')
+    const newArrivals = products.filter(product => product.category === 'New Arrival')
 
 
     return (
-        <div className="bg-gray-100 rounded-lg p-4 mt-10">
+        <div className="bg-gray-100 rounded-lg p-4 mt-10" id="New Arrival">
             {isLoading ? <div className="flex items-center justify-center ">
                 <div className="w-16 h-16 border-4 border-dashed border-orange-500 rounded-full animate-spin dark:border-default-600 text-orange-600"></div>
             </div>

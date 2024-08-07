@@ -14,10 +14,10 @@ const SecurityCamera = () => {
 
     const [products, isLoading] = useProductsData()
 
-    const securityCameras = products.filter(product => product.category === 'SecurityCamera')
+    const securityCameras = products.filter(product => product.category === 'Security Camera')
 
     return (
-        <div className="bg-gray-100 rounded-lg p-4 mt-10">
+        <div className="bg-gray-100 rounded-lg p-4 mt-10" id="Security Camera">
             {isLoading ? <div className="flex items-center justify-center ">
                 <div className="w-16 h-16 border-4 border-dashed border-orange-500 rounded-full animate-spin dark:border-default-600 text-orange-600"></div>
             </div>

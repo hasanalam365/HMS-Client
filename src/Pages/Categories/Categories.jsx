@@ -1,3 +1,4 @@
+import CategoryProduct from "../../Components/CategoryProduct";
 import SecurityCamera from "../../Components/SecurityCameras/SecurityCamera";
 import useProductsData from "../../hooks/useProductsData";
 import NewArrival from "../Home/NewArrival/NewArrival";
@@ -12,6 +13,17 @@ const Categories = () => {
     const handleCategory = (category) => {
         console.log('click and jump this category')
     }
+    const gadgetDeals = products.filter(product => product.category === 'Gadget Deals')
+    const SmartHome = products.filter(product => product.category === 'Smart Home')
+    const techEssentials = products.filter(product => product.category === 'Tech Essentials')
+    const bestSellers = products.filter(product => product.category === 'Best Sellers')
+    const trendingGadgets = products.filter(product => product.category === 'Trending Gadgets')
+    const innovativeTech = products.filter(product => product.category === 'Innovative Tech')
+    const topRated = products.filter(product => product.category === 'Top Rated')
+    const wearableTech = products.filter(product => product.category === 'Wearable Tech')
+    const homeAutomation = products.filter(product => product.category === 'Home Automation')
+    const portableDevices = products.filter(product => product.category === 'Portable Devices')
+
 
     return (
         <div className="pt-5 flex flex-col-reverse md:flex-row lg:flex-row ">
@@ -21,15 +33,26 @@ const Categories = () => {
                 <NewArrival></NewArrival>
                 <PopularProducts></PopularProducts>
                 <SecurityCamera></SecurityCamera>
+                <CategoryProduct categoryProducts={gadgetDeals} categoryName="Gadget Deals"></CategoryProduct>
+                <CategoryProduct categoryProducts={SmartHome} categoryName="Smart Home"></CategoryProduct>
+                <CategoryProduct categoryProducts={techEssentials} categoryName="Tech Essentials"></CategoryProduct>
+                <CategoryProduct categoryProducts={bestSellers} categoryName="Best Sellers"></CategoryProduct>
+                <CategoryProduct categoryProducts={trendingGadgets} categoryName="Trending Gadgets"></CategoryProduct>
+                <CategoryProduct categoryProducts={innovativeTech} categoryName="Innovative Tech"></CategoryProduct>
+                <CategoryProduct categoryProducts={topRated} categoryName="Top Rated"></CategoryProduct>
+                <CategoryProduct categoryProducts={wearableTech} categoryName="Wearable Tech"></CategoryProduct>
+                <CategoryProduct categoryProducts={homeAutomation} categoryName="Home Automation"></CategoryProduct>
+                <CategoryProduct categoryProducts={portableDevices} categoryName="Portable Devices"></CategoryProduct>
             </div>
-            <div className="mt-20 ml-10 w-[23%] ">
+            <div className="mt-5 ml-10 w-[23%] p-4 md:fixed md:right-1 md:top-10 lg:fixed lg:right-1 lg:top-10">
                 {/* Categpries Right Side */}
-                <h5 className="text-center text-2xl font-semibold mb-5">All Category </h5>
+                <h5 className="text-center text-2xl font-semibold ">All Category </h5>
+                <div className="divider"></div>
                 <ul className="pl-4 font-medium">
 
                     {
                         categories.map((category, idx) => <li key={idx}
-                            onClick={() => handleCategory(category)} className="list-disc hover:text-orange-600 hover:cursor-pointer">{category}</li>)
+                            className="list-disc hover:text-orange-600 hover:cursor-pointer"> <a href={`#${category}`}> {category}</a></li>)
                     }
                 </ul>
 

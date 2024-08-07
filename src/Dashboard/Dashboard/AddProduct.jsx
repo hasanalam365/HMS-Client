@@ -104,17 +104,17 @@ const AddProduct = () => {
                         >
                             <option disabled value="">Pick your category</option>
                             <option value="Popular">Popular</option>
-                            <option value="NewArrival">NewArrival</option>
-                            <option value="BestSellers">BestSellers</option>
-                            <option value="TrendingGadgets">TrendingGadgets</option>
-                            <option value="SmartHome">SmartHome</option>
-                            <option value="TechEssentials">TechEssentials</option>
-                            <option value="InnovativeTech">InnovativeTech</option>
-                            <option value="GadgetDeals">GadgetDeals</option>
-                            <option value="TopRated">TopRated</option>
-                            <option value="WearableTech">WearableTech</option>
-                            <option value="HomeAutomation">HomeAutomation</option>
-                            <option value="PortableDevices">PortableDevices</option>
+                            <option value="New Arrival">New Arrival</option>
+                            <option value="Best Sellers">Best Sellers</option>
+                            <option value="Trending Gadgets">Trending Gadgets</option>
+                            <option value="Smart Home">Smart Home</option>
+                            <option value="Tech Essentials">Tech Essentials</option>
+                            <option value="Innovative Tech">Innovative Tech</option>
+                            <option value="Gadget Deals">Gadget Deals</option>
+                            <option value="Top Rated">Top Rated</option>
+                            <option value="Wearable Tech">Wearable Tech</option>
+                            <option value="Home Automation">Home Automation</option>
+                            <option value="Portable Devices">Portable Devices</option>
                         </select>
                         {/* <label htmlFor="category" className="font-medium">Category</label>
                         <input id="category" name="category" type="text"
