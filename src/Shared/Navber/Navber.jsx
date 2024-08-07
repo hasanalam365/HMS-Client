@@ -11,14 +11,25 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 
-const Navber = ({ setOpenCart, openCart }) => {
+const Navber = ({ setOpenCart, openCart, setSearch }) => {
 
     const [isOpenProfile, setIsOpenProfile] = useState(false)
     const [data] = useCartList()
     const axiosPublic = useAxiosPublic()
     const { signOutUser, user } = useAuth()
     const [navOpen, setNavOpen] = useState(false)
+    // const [search, setSearch] = useState('')
 
+    // const { data: allProducts = [], refetch, isLoading } = useQuery({
+    //     queryKey: ['users', search],
+    //     queryFn: async () => {
+    //         const res = await axiosPublic.get(`/all-products?search=${search}`)
+    //         return res.data
+    //     },
+    //     enabled: !!search || search === '',
+    // })
+
+    // console.log(allProducts)
 
     const { data: userData = [] } = useQuery({
         queryKey: ['user'],
@@ -50,6 +61,10 @@ const Navber = ({ setOpenCart, openCart }) => {
         signOutUser()
     }
 
+    // const inputText = (e) => {
+    //     setSearch(e.target.value)
+    //     refetch()
+    // }
 
 
     return (
@@ -95,7 +110,8 @@ const Navber = ({ setOpenCart, openCart }) => {
                     {navLinks}
                 </ul>
                 <label className="input input-bordered flex items-center gap-2 ml-5">
-                    <input type="text" className="grow" placeholder="Search Products" />
+                    {/* <input onChange={inputText} type="text" className="grow" placeholder="Search Products" /> */}
+                    <input onChange={(e) => setSearch(e.target.value)} type="text" className="grow" placeholder="Search Products" />
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 16 16"
@@ -157,6 +173,11 @@ const Navber = ({ setOpenCart, openCart }) => {
                 </div>
 
             </div>
+            {/* <div>
+                {
+                    allProducts.map(product => <span key={product._id}>product.title</span>)
+                }
+            </div> */}
         </div>
     );
 };
