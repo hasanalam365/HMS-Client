@@ -24,9 +24,7 @@ const MainLayout = () => {
         enabled: search !== '',
     })
 
-    console.log('mainlayour', allProducts)
 
-    // console.log('mainlayout:', search)
 
     return (
 

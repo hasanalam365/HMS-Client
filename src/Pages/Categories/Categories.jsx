@@ -28,7 +28,7 @@ const Categories = () => {
     return (
         <div className="pt-5 flex flex-col-reverse md:flex-row lg:flex-row ">
 
-            <div className="w-[77%]">
+            <div className="w-full md:w-[77%] lg:w-[77%]">
                 {/* Categories Left Side */}
                 <NewArrival></NewArrival>
                 <PopularProducts></PopularProducts>
@@ -44,7 +44,7 @@ const Categories = () => {
                 <CategoryProduct categoryProducts={homeAutomation} categoryName="Home Automation"></CategoryProduct>
                 <CategoryProduct categoryProducts={portableDevices} categoryName="Portable Devices"></CategoryProduct>
             </div>
-            <div className="mt-5 ml-10 w-[23%] p-4 md:fixed md:right-1 md:top-10 lg:fixed lg:right-1 lg:top-10">
+            <div className="mt-10 md:mt-5 lg:mt-5 ml-10 md:w-[23%] p-4 md:fixed md:right-1 md:top-10 lg:fixed lg:right-1 lg:top-10">
                 {/* Categpries Right Side */}
                 <h5 className="text-center text-2xl font-semibold ">All Category </h5>
                 <div className="divider"></div>
