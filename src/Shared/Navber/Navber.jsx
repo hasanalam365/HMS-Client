@@ -9,6 +9,7 @@ import useCartList from "../../hooks/useCartList";
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { IoSearch } from "react-icons/io5";
 
 
 const Navber = ({ setOpenCart, openCart, setSearch }) => {
@@ -18,18 +19,7 @@ const Navber = ({ setOpenCart, openCart, setSearch }) => {
     const axiosPublic = useAxiosPublic()
     const { signOutUser, user } = useAuth()
     const [navOpen, setNavOpen] = useState(false)
-    // const [search, setSearch] = useState('')
 
-    // const { data: allProducts = [], refetch, isLoading } = useQuery({
-    //     queryKey: ['users', search],
-    //     queryFn: async () => {
-    //         const res = await axiosPublic.get(`/all-products?search=${search}`)
-    //         return res.data
-    //     },
-    //     enabled: !!search || search === '',
-    // })
-
-    // console.log(allProducts)
 
     const { data: userData = [] } = useQuery({
         queryKey: ['user'],
@@ -61,10 +51,6 @@ const Navber = ({ setOpenCart, openCart, setSearch }) => {
         signOutUser()
     }
 
-    // const inputText = (e) => {
-    //     setSearch(e.target.value)
-    //     refetch()
-    // }
 
 
     return (
@@ -97,6 +83,15 @@ const Navber = ({ setOpenCart, openCart, setSearch }) => {
                             <li>Dashboard</li>
                         </NavLink>
 
+                        {user?.email ? <NavLink className="hover:text-orange-600">
+                            <button onClick={hangleLogOut}>Logout</button>
+                        </NavLink>
+                            :
+                            <NavLink className="hover:text-orange-600" onClick={() => setNavOpen(false)}>
+                                <Link to="/login" >Login</Link>
+                            </NavLink>}
+
+
                     </ul>}
                 </div>
                 <Link to='/' className="hover:scale-105">
@@ -105,23 +100,21 @@ const Navber = ({ setOpenCart, openCart, setSearch }) => {
                 </Link>
 
             </div>
+            <div className="hidden md:block lg:hidden">
+                <label className="input input-bordered flex items-center gap-2 ">
+
+                    <input onChange={(e) => setSearch(e.target.value)} type="text" className="w-[115px] md:w-[250px]" placeholder="Search Products" />
+                    <IoSearch />
+                </label>
+            </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 gap-5 text-lg font-medium">
                     {navLinks}
                 </ul>
                 <label className="input input-bordered flex items-center gap-2 ml-5">
-                    {/* <input onChange={inputText} type="text" className="grow" placeholder="Search Products" /> */}
+
                     <input onChange={(e) => setSearch(e.target.value)} type="text" className="grow" placeholder="Search Products" />
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        fill="currentColor"
-                        className="h-4 w-4 opacity-70">
-                        <path
-                            fillRule="evenodd"
-                            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                            clipRule="evenodd" />
-                    </svg>
+                    <IoSearch />
                 </label>
             </div>
 
@@ -129,8 +122,15 @@ const Navber = ({ setOpenCart, openCart, setSearch }) => {
 
                 <div className="">
                     <div className="flex items-center justify-center gap-4 ml-5 mr-5">
+                        <div className="block md:hidden lg:hidden">
+                            <label className="input input-bordered flex items-center gap-2 ">
 
-                        <button onClick={() => setIsOpenProfile(!isOpenProfile)}>
+                                <input onChange={(e) => setSearch(e.target.value)} type="text" className="w-[115px] md:w-[250px]" placeholder="Search Products" />
+                                <IoSearch />
+                            </label>
+                        </div>
+
+                        <button onClick={() => setIsOpenProfile(!isOpenProfile)} className="hidden md:block lg:block">
                             {
                                 user?.email ? <img className="w-[40px] h-[40px] rounded-full" src={user.photoURL || userData.photoURL} alt="user profile photo" />
                                     :
@@ -152,6 +152,7 @@ const Navber = ({ setOpenCart, openCart, setSearch }) => {
 
                             </div>
                         </button>
+
                     </div>
 
                     {

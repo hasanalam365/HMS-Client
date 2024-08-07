@@ -1,7 +1,7 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import Navber from "../Shared/Navber/Navber";
 import Footer from "../Shared/Footer/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import 'animate.css/animate.css'
 
 import CheckOutBOxCart from "../Shared/CheckOutBOxCart";
@@ -15,6 +15,7 @@ const MainLayout = () => {
 
     const [search, setSearch] = useState('')
 
+
     const { data: allProducts = [], refetch, isLoading } = useQuery({
         queryKey: ['users', search],
         queryFn: async () => {
@@ -26,6 +27,10 @@ const MainLayout = () => {
 
 
 
+    const handleSearchOff = () => {
+        setSearch('')
+    }
+
     return (
 
         <div className="container mx-auto relative">
@@ -34,33 +39,42 @@ const MainLayout = () => {
                 <Navber setOpenCart={setOpenCart} openCart={openCart} setSearch={setSearch}></Navber>
             </div>
             <div>
-                {
-                    allProducts.map(product => <div key={product._id} className="overflow-x-auto fixed top-10 z-50 bg-gray-300 ">
+                {allProducts.length > 0 &&
+                    <div className="overflow-x-auto fixed top-16 z-50 bg-gray-300 h-full">
                         <table className="table table-zebra">
                             {/* head */}
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th>Name</th>
-                                    <th>Job</th>
-                                    <th>Favorite Color</th>
+                                    <th>No</th>
+                                    <th>Photo</th>
+                                    <th>Title</th>
+                                    <th>Price</th>
+                                    <th>Details</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* row 1 */}
-                                <tr>
-                                    <th>1</th>
-                                    <td>Cy Ganderton</td>
-                                    <td>Quality Control Specialist</td>
-                                    <td>Blue</td>
-                                </tr>
-
+                                {allProducts.map((product, idx) => (
+                                    <tr key={product._id}>
+                                        <th>{idx + 1}</th>
+                                        <td>
+                                            <div className="avatar">
+                                                <div className="mask mask-squircle h-12 w-12">
+                                                    <img src={product.imgUrl} alt="Avatar Tailwind CSS Component" />
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{product.title}</td>
+                                        <td>${product.price}</td>
+                                        <td>
+                                            <Link to={`/product/${product._id}`} onClick={handleSearchOff}>View</Link>
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
-                    </div>
-                    )
-                }
+                    </div>}
             </div>
+
             <div className="  ">
                 {openCart && <CheckOutBOxCart setOpenCart={setOpenCart} openCart={openCart}></CheckOutBOxCart>}
             </div>
