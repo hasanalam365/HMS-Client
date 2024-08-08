@@ -30,7 +30,7 @@ const Mycarts = () => {
                 </div>
                 <div className="overflow-x-auto">
                     <table className="table">
-                        {/* head */}
+
                         <thead>
                             <tr>
 
@@ -42,7 +42,7 @@ const Mycarts = () => {
                             </tr>
                         </thead>
                         <tbody className="mb-1">
-                            {/* row 1 */}
+
                             {
                                 data.map((product, idx) =>
                                     <tr key={idx} className="bg-base-200">

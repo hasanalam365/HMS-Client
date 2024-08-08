@@ -25,6 +25,8 @@ const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
         signOutUser()
     }
 
+
+
     return (
         <div className="flex flex-row-reverse  justify-between ">
             <div className="md:hidden lg:hidden">
@@ -153,11 +155,11 @@ const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
 
             {/* medium and larger device */}
 
-            <div className="hidden md:block lg:block h-full p-3 space-y-2 w-60 dark:bg-gray-50 dark:text-gray-800">
-                <div className="flex items-center p-2 space-x-4">
+            <div className="hidden md:block lg:block h-full p-3 space-y-2 w-60 md:w-[180px] lg:w-60 dark:bg-gray-50 dark:text-gray-800">
+                <div className="flex flex-col  items-center justify-center p-2 space-x-4">
                     <img src={user.photoURL ? user.photoURL : userData.photoURL} alt="" className="w-12 h-12 rounded-full dark:bg-gray-500" />
                     <div>
-                        <h2 className="text-lg font-semibold">{userData.displayName}</h2>
+                        <h2 className=" font-medium text-center">{userData.displayName}</h2>
                         <span className="flex items-center space-x-1">
                             <a rel="noopener noreferrer" href="#" className="text-xs hover:underline dark:text-gray-600">{userData.email}</a>
                         </span>

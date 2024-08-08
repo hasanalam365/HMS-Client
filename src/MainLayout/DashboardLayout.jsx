@@ -11,7 +11,7 @@ const DashboardLayout = () => {
                 <DashboardNav isOpenNav={isOpenNav} setIsOpenNav={setIsOpenNav}></DashboardNav>
             </div>
             {/* <Outlet></Outlet> */}
-            <div className={`${isOpenNav && 'hidden'}  w-full px-0 md:px-12`}>
+            <div className={`${isOpenNav && 'hidden'}  w-full px-0 md:px-5`}>
                 <Outlet></Outlet>
             </div>
 

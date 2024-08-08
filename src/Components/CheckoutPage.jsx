@@ -5,11 +5,18 @@ import useAxiosPublic from "../hooks/useAxiosPublic";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { FiTrash } from "react-icons/fi";
+import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
+import useQuantityCheck from "../hooks/useQuantityCheck";
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "../hooks/useAuth";
 
 const CheckoutPage = () => {
 
     const [selectedCheckbox, setSelectedCheckbox] = useState(null);
     const [orderId, setOrderId] = useState('');
+    const [sentProductId, setSentProductId] = useState(null)
+    const { user } = useAuth()
     const [data, refetch, isLoading] = useCartList()
     const navigate = useNavigate()
     const totalPrices = data.reduce((total, product) => total + (product.productData.price * product.quantity), 0)
@@ -17,6 +24,23 @@ const CheckoutPage = () => {
     const date = new Date().toLocaleDateString()
     const time = new Date().toLocaleTimeString()
     const axiosPublic = useAxiosPublic()
+
+
+    const { data: productsQuantity } = useQuery({
+        queryKey: ['product-quantity', sentProductId],
+        queryFn: async () => {
+            if (!sentProductId) {
+                return null;
+            }
+            const res = await axiosPublic.get(`/quantity/check/${sentProductId}`);
+            return res.data;
+        },
+        enabled: !!sentProductId,
+    });
+
+    // const customQuantity = productsQuantity.quantity
+
+    console.log('data', data)
 
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let createId = ''
@@ -39,19 +63,28 @@ const CheckoutPage = () => {
     };
 
 
-    // const handleIncrease = (productId) => {
-    //     // console.log(productId)
-    // }
-    // const handleDiscrease = (productId) => {
-    //     // console.log(productId)
-    // }
+    const handleIncrease = async (productId) => {
+        setSentProductId(productId)
+
+        const res = await axiosPublic.put(`/quantity-plus/${productId}`)
+        if (res.data.modifiedCount === 1) {
+            refetch()
+        }
+    }
+    const handleDiscrease = async (productId) => {
+        setSentProductId(productId)
+        const res = await axiosPublic.put(`/quantity-minus/${productId}`)
+        if (res.data.modifiedCount === 1) {
+            refetch()
+        }
+    }
 
 
     const handleDelete = async (_id) => {
 
-        const res = await axiosPublic.delete(`/addToCart/${_id}`)
+        const res = await axiosPublic.delete(`/addToCart/${_id}/${user.email}`)
         if (res.data.deletedCount === 1) {
-            toast.error('This item has been deleted')
+            toast('Deleted from cart')
             refetch()
         }
 
@@ -64,12 +97,10 @@ const CheckoutPage = () => {
             quantity: product.quantity,
         }));
 
-
-
         const orderInfo = {
             paymentType: selectedCheckbox,
             orderId: orderId,
-            totalPrices: totalPrices,
+            totalPrices: totalPrices + 20,
             date: date,
             time: time,
             allProducts: allProduct,
@@ -77,9 +108,6 @@ const CheckoutPage = () => {
         }
 
         navigate('/dashboard/address', { state: { orderId, orderInfo } });
-
-
-
 
 
     }
@@ -101,64 +129,32 @@ const CheckoutPage = () => {
                         <div className="mt-10 text-center text-xl font-medium">Your cart is empty!!!!!</div>
                     )
                         :
-                        <div className="overflow-x-auto">
-                            <table className="table">
-                                {/* head */}
-                                <thead>
-                                    <tr>
 
-                                        <th>No.</th>
-                                        <th>Photo</th>
-                                        <th>Product Title</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total Price</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="mb-1">
-                                    {/* row 1 */}
-                                    {
-                                        data.map((product, idx) =>
-                                            <tr key={idx} className="bg-base-200">
-                                                <th>{idx + 1}</th>
-                                                <td>
-                                                    <div className="mask mask-squircle h-12 w-12">
-                                                        <img
-                                                            src={product.productData.imgUrl}
-                                                            alt="Avatar Tailwind CSS Component" />
-                                                    </div>
-                                                </td>
-                                                <td>{product.productData.title}</td>
-                                                <td>{product.productData.price}</td>
-                                                {/* <td className="flex items-center justify-center gap-2 h-[49px]"> */}
-                                                {/* <p onClick={() => handleDiscrease(product.
-                                                        productId
-                                                    )} className="hover:text-white p-1 hover:bg-orange-600 rounded-xl">-</p> */}
-                                                {/* <input type="text" value={product.quantity} className="w-[30px] pl-1" /> */}
-                                                {/* <p onClick={() => handleIncrease(product.
-                                                        productId
-                                                    )} className="hover:text-white p-1 hover:bg-orange-600 rounded-xl">+</p> */}
+                        <div className="flex flex-col gap-3 mt-2 p-2">
+                            {
+                                data.map(cart => <div key={cart._id} className="flex items-center justify-center  gap-2  border-2 border-gray-100 p-2">
 
-                                                {/* </td> */}
-                                                <td> {product.quantity}</td>
-                                                <td>$ {product.productData.price * product.quantity}</td>
-                                                <td>
-                                                    <button onClick={() => handleDelete(product._id)}>
-                                                        <FaTrash className="text-red-600 hover:scale-125"></FaTrash>
-                                                    </button>
+                                    <div className="">
+                                        <img src={cart.productData.imgUrl} className="w-[70px] h-[70px] rounded-lg" alt="" />
+                                    </div>
+                                    <div className="flex flex-col justify-between w-[75%]">
+                                        <div className="flex justify-between">
+                                            <h4 className="font-medium w-[85%]">{cart.productData.title}</h4>
+                                            <FiTrash onClick={() => handleDelete(cart._id)} className="text-xl md:text-2xl" />
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <h5 className="text-[#40BFFF]">${cart.productData.price * cart.quantity}</h5>
+                                            <div className="flex items-center justify-center gap-2 ">
+                                                <CiSquareMinus onClick={() => handleDiscrease(cart._id)} className="text-2xl" />
+                                                <h5>{cart.quantity}</h5>
+                                                <CiSquarePlus onClick={() => handleIncrease(cart._id)} className="text-2xl" />
 
-                                                </td>
-                                            </tr>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                        )
-
-
-                                    }
-
-
-                                </tbody>
-                            </table>
+                                </div>)
+                            }
                         </div>
                 }
 
@@ -237,8 +233,12 @@ const CheckoutPage = () => {
                     </div>
 
                 </div>
-                <div className="text-center font-semibold boder border-2 border-white mt-1 mb-1 border-dashed p-2">
-                    <h4>Total Orders: $ {totalPrices} </h4>
+                <div className=" border-2 border-white mt-1 mb-1 border-dashed p-2">
+                    <h4 className="flex items-center justify-between">Sub total:  <span>${totalPrices}</span> </h4>
+                    <h4 className="flex items-center justify-between">Shipping fee:<span>$20</span> </h4>
+
+                    <hr />
+                    <h4 className="flex items-center justify-between font-medium">Total:  <span>${totalPrices + 20}</span> </h4>
                 </div>
                 <div onClick={handleConfirm} className="mt-4 text-center ">
                     <button className="btn bg-orange-600 p-2 rounded-xl w-full text-white font-medium ">Confirm Order</button>
