@@ -88,7 +88,7 @@ const ProductDetail = () => {
 
 
     const handleWishlistRemove = async (id) => {
-        const res = await axiosPublic.delete(`/wishlist/delete/${id}/${user?.email}`)
+        const res = await axiosPublic.delete(`/wishlist/remove/${id}/${user?.email}`)
         if (res.data.deletedCount === 1) {
             toast.warning('remove from wishlist')
             refetch()
