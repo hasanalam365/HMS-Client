@@ -28,7 +28,7 @@ const ProductDetail = () => {
     // const [products, isLoading] = useProductsData()
 
     // const [data, refetch] = useCartList()
-    const { imgUrl, title, price, rating, features, _id, category } = productData
+    const { imgUrl, title, price, rating, stock, features, productId, _id, category } = productData
 
 
 
