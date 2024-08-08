@@ -3,6 +3,7 @@ import { HiOutlineShoppingCart } from "react-icons/hi";
 
 import { Link } from "react-router-dom";
 import useProductsData from "../hooks/useProductsData";
+import { Rating } from "@smastrom/react-rating";
 
 
 
@@ -35,17 +36,17 @@ const CategoryProduct = ({ categoryProducts, categoryName }) => {
                             <div className="divider mt-0"></div>
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
                                 {
-                                    categoryProducts.map(securityCamera => <Link to={`/product/${securityCamera._id}`} key={securityCamera._id} className="card card-compact bg-base-100 shadow-xl mt-5 ">
+                                    categoryProducts.map(product => <Link to={`/product/${product._id}`} key={product._id} className="card card-compact bg-base-100 shadow-xl mt-5 ">
                                         <figure>
 
-                                            <img className='w-full h-[150px] hover:scale-110' src={securityCamera.imgUrl} alt="" />
+                                            <img className='w-full h-[150px] hover:scale-110' src={product.imgUrl} alt="" />
                                         </figure>
                                         <div className="card-body">
-                                            <h2 className="text-lg font-medium">{securityCamera.title}</h2>
-                                            <p className="font-medium">$ <span className="">{securityCamera.price}</span></p>
+                                            <h2 className="text-lg font-medium">{product.title}</h2>
+                                            <p className="font-medium">$ <span className="">{product.price}</span></p>
 
                                             <div className="flex justify-between">
-                                                <p className="font-medium flex gap-1 items-center text-orange-600"> <span> <FaStar></FaStar> </span> {securityCamera.rating}</p>
+                                                <p className="font-medium flex gap-1 items-center text-orange-600">  <Rating style={{ maxWidth: 100 }} value={product.rating} readOnly /></p>
                                                 <div className="flex gap-4">
                                                     {/* <FaRegHeart className="text-lg text-orange-600"></FaRegHeart>
                                   <HiOutlineShoppingCart className="text-lg text-orange-600"></HiOutlineShoppingCart> */}

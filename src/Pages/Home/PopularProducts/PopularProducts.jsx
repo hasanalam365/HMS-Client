@@ -2,6 +2,7 @@ import { FaArrowRight, FaRegHeart, FaStar } from "react-icons/fa";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import useProductsData from "../../../hooks/useProductsData";
 import { Link } from "react-router-dom";
+import { Rating } from "@smastrom/react-rating";
 
 const PopularProducts = () => {
 
@@ -34,7 +35,7 @@ const PopularProducts = () => {
                                     <p className="font-medium">$ <span className="">{popular.price}</span></p>
 
                                     <div className="flex justify-between">
-                                        <p className="font-medium flex gap-1 items-center text-orange-600"> <span> <FaStar></FaStar> </span> {popular.rating}</p>
+                                        <p className="font-medium flex gap-1 items-center text-orange-600">  <Rating style={{ maxWidth: 100 }} value={popular.rating} readOnly /></p>
                                         <div className="flex gap-4">
                                             {/* <FaRegHeart className="text-lg text-orange-600"></FaRegHeart>
                                         <HiOutlineShoppingCart className="text-lg text-orange-600"></HiOutlineShoppingCart> */}

@@ -1,8 +1,8 @@
 import { Rating } from "@smastrom/react-rating";
 import { useEffect, useState } from "react";
-import { FaRegHeart } from "react-icons/fa6";
+import { FaArrowRight, FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
-import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import '@smastrom/react-rating/style.css'
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import useAuth from "../hooks/useAuth";
@@ -265,15 +265,30 @@ const ProductDetail = () => {
                     <h2 className="text-3xl font-bold mb-4">Related Products</h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                         {isRelatedLoading ? (
-                            <p>Loading...</p>
+                            <div className="flex items-center justify-center ">
+                                <div className="w-16 h-16 border-4 border-dashed border-orange-500 rounded-full animate-spin dark:border-default-600 text-orange-600"></div>
+                            </div>
                         ) : (
                             shuffleArray(randomProductsData).map((product) => (
-                                <div key={product._id} className="flex-1 p-4 bg-white rounded-lg shadow-lg">
-                                    <img src={product.imgUrl} alt={product.title} className="h-40 w-full object-cover rounded-lg" />
-                                    <h3 className="text-xl font-bold mt-2">{product.title}</h3>
-                                    <p className="text-[#FF5722] font-medium">${product.price}</p>
-                                    <Rating style={{ maxWidth: 100 }} value={product.rating} readOnly />
-                                </div>
+                                <Link to={`/product/${product._id}`} key={product._id} className="card card-compact bg-base-100 shadow-xl mt-5 ">
+                                    <figure>
+
+                                        <img className='w-full h-[150px] hover:scale-110' src={product.imgUrl} alt="" />
+                                    </figure>
+                                    <div className="card-body">
+                                        <h2 className="text-lg font-medium">{product.title}</h2>
+                                        <p className="font-medium">$ <span className="">{product.price}</span></p>
+
+                                        <div className="flex justify-between">
+                                            <p className="font-medium flex gap-1 items-center text-orange-600">  <Rating style={{ maxWidth: 100 }} value={product.rating} readOnly /></p>
+                                            <div className="flex gap-4">
+                                                {/* <FaRegHeart className="text-lg text-orange-600"></FaRegHeart>
+                                        <HiOutlineShoppingCart className="text-lg text-orange-600"></HiOutlineShoppingCart> */}
+                                                <FaArrowRight className="text-lg text-orange-600 hover:text-xl"></FaArrowRight>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
                             ))
                         )}
                     </div>
