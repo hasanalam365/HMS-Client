@@ -42,7 +42,7 @@ const SecurityCamera = () => {
                                     <p className="font-medium">$ <span className="">{securityCamera.price}</span></p>
 
                                     <div className="flex justify-between">
-                                        <p className="font-medium flex gap-1 items-center text-orange-600">  <Rating style={{ maxWidth: 100 }} value={securityCamera.rating} readOnly /></p>
+                                        <Rating style={{ maxWidth: 100 }} value={securityCamera.rating} readOnly />
                                         <div className="flex gap-4">
                                             {/* <FaRegHeart className="text-lg text-orange-600"></FaRegHeart>
                                         <HiOutlineShoppingCart className="text-lg text-orange-600"></HiOutlineShoppingCart> */}

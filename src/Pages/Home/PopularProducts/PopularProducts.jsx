@@ -35,7 +35,7 @@ const PopularProducts = () => {
                                     <p className="font-medium">$ <span className="">{popular.price}</span></p>
 
                                     <div className="flex justify-between">
-                                        <p className="font-medium flex gap-1 items-center text-orange-600">  <Rating style={{ maxWidth: 100 }} value={popular.rating} readOnly /></p>
+                                        <Rating style={{ maxWidth: 100 }} value={popular.rating} readOnly />
                                         <div className="flex gap-4">
                                             {/* <FaRegHeart className="text-lg text-orange-600"></FaRegHeart>
                                         <HiOutlineShoppingCart className="text-lg text-orange-600"></HiOutlineShoppingCart> */}

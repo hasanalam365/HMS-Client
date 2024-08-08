@@ -25,7 +25,7 @@ const ProductDetail = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const [quantity, setQuantity] = useState(1)
-    const [products, isLoading] = useProductsData()
+    // const [products, isLoading] = useProductsData()
 
     const [data, refetch] = useCartList()
     const { imgUrl, title, price, rating, stock, features, productId, _id, category } = productData
@@ -33,6 +33,19 @@ const ProductDetail = () => {
 
 
     const [randomProductsData, isRelatedLoading] = useRandomProductShow(category)
+
+
+    const { data: wishlistCheck } = useQuery({
+        queryKey: ['wishlist-check', _id],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/wishlist/check/${_id}`);
+            return res.data;
+        }
+    });
+
+    useEffect(() => {
+        refetch();
+    }, [refetch]);
 
     const handleWishlistAdd = async (productData) => {
 
@@ -174,6 +187,7 @@ const ProductDetail = () => {
 
     }
 
+    //random related product show 
     const shuffleArray = (array) => {
         return array.sort(() => Math.random() - 0.5)
     }
@@ -212,7 +226,7 @@ const ProductDetail = () => {
                                 readOnly
 
                             />
-                            <button
+                            {wishlistCheck ? <button
                                 onClick={() =>
                                     handleWishlistAdd(productData)
 
@@ -222,6 +236,19 @@ const ProductDetail = () => {
                             >
                                 <FaHeart className="text-[#FF5722] text-xl "></FaHeart>
                             </button>
+                                :
+                                <button
+                                    onClick={() =>
+                                        handleWishlistAdd(productData)
+
+                                    }
+                                    className="hover:scale-110 tooltip tooltip-right"
+                                    data-tip="add to wishlist"
+                                >
+                                    <FaRegHeart className="text-[#FF5722] text-xl " />
+                                    {/* <FaHeart className="text-[#FF5722] text-xl "></FaHeart> */}
+                                </button>
+                            }
                             <div className="flex items-center justify-center">
                                 <button onClick={handleDiscrease} className="text-xl font-bold btn btn-sm bg-[#FF5722] text-white">-</button>
                                 <input value={quantity} type="text"
@@ -230,30 +257,12 @@ const ProductDetail = () => {
                                 <button onClick={handleIncrease} className="text-xl font-bold btn btn-sm bg-[#F29120] text-white">+</button>
                             </div>
 
-                            {/* <button
-                                onClick={() =>
-                                    handleWishlistDelete(productData._id)
 
-                                }
-                                className="hover:scale-110 tooltip tooltip-right"
-                                data-tip="add to wishlist"
-                            >Delete */}
-                            {/* <FaRegHeart className="text-[#FF5722] text-xl "></FaRegHeart> */}
-                            {/* </button> */}
 
 
                         </div>
 
-                        {/* <div className="flex gap-5">
-                            <p className="font-medium">
-                                Availabe:    <span className="text-[#FF5722]">{stock} pieces</span>
 
-                            </p>
-                            <p className="font-medium">
-                                ProductId: <span className="text-[#FF5722]">{productId}</span>
-
-                            </p>
-                        </div> */}
                         <div className="flex gap-5 items-center ">
                             <button onClick={() => handleAddtoCart(productData)} className="btn text-white bg-[#F29120] hover:bg-[#d68324] mt-3">Add to Cart</button>
                             <button onClick={() => handleBuyAddtoCart(productData)} className="btn text-white bg-[#FF5722] hover:bg-[#ec5527] mt-3">Buy Now</button>
@@ -280,7 +289,7 @@ const ProductDetail = () => {
                                         <p className="font-medium">$ <span className="">{product.price}</span></p>
 
                                         <div className="flex justify-between">
-                                            <p className="font-medium flex gap-1 items-center text-orange-600">  <Rating style={{ maxWidth: 100 }} value={product.rating} readOnly /></p>
+                                            <Rating style={{ maxWidth: 100 }} value={product.rating} readOnly />
                                             <div className="flex gap-4">
                                                 {/* <FaRegHeart className="text-lg text-orange-600"></FaRegHeart>
                                         <HiOutlineShoppingCart className="text-lg text-orange-600"></HiOutlineShoppingCart> */}
