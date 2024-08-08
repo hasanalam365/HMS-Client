@@ -27,18 +27,18 @@ const ProductDetail = () => {
     const [quantity, setQuantity] = useState(1)
     // const [products, isLoading] = useProductsData()
 
-    const [data, refetch] = useCartList()
-    const { imgUrl, title, price, rating, stock, features, productId, _id, category } = productData
+    // const [data, refetch] = useCartList()
+    const { imgUrl, title, price, rating, features, _id, category } = productData
 
 
 
     const [randomProductsData, isRelatedLoading] = useRandomProductShow(category)
 
 
-    const { data: wishlistCheck } = useQuery({
+    const { data: wishlistCheck, refetch } = useQuery({
         queryKey: ['wishlist-check', _id],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/wishlist/check/${_id}`);
+            const res = await axiosPublic.get(`/wishlist/check/${_id}/${user?.email}`);
             return res.data;
         }
     });
@@ -62,6 +62,7 @@ const ProductDetail = () => {
 
             if (res.data.upsertedCount === 1) {
                 toast('added wishlist')
+                refetch()
 
             }
         }
@@ -86,7 +87,13 @@ const ProductDetail = () => {
     }
 
 
-
+    const handleWishlistRemove = async (id) => {
+        const res = await axiosPublic.delete(`/wishlist/delete/${id}/${user?.email}`)
+        if (res.data.deletedCount === 1) {
+            toast.warning('remove from wishlist')
+            refetch()
+        }
+    }
 
 
 
@@ -227,10 +234,7 @@ const ProductDetail = () => {
 
                             />
                             {wishlistCheck ? <button
-                                onClick={() =>
-                                    handleWishlistAdd(productData)
-
-                                }
+                                onClick={() => handleWishlistRemove(productData._id)}
                                 className="hover:scale-110 tooltip tooltip-right"
                                 data-tip="add to wishlist"
                             >
