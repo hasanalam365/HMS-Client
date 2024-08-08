@@ -1,21 +1,20 @@
-import { FaTrash } from "react-icons/fa";
+
 import useCartList from "../hooks/useCartList";
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { toast } from "react-toastify";
-import Swal from "sweetalert2";
+
 import { useNavigate } from "react-router-dom";
 import { FiTrash } from "react-icons/fi";
 import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
-import useQuantityCheck from "../hooks/useQuantityCheck";
-import { useQuery } from "@tanstack/react-query";
+
 import useAuth from "../hooks/useAuth";
 
 const CheckoutPage = () => {
 
     const [selectedCheckbox, setSelectedCheckbox] = useState(null);
     const [orderId, setOrderId] = useState('');
-    const [sentProductId, setSentProductId] = useState(null)
+
     const { user } = useAuth()
     const [data, refetch, isLoading] = useCartList()
     const navigate = useNavigate()
@@ -26,21 +25,7 @@ const CheckoutPage = () => {
     const axiosPublic = useAxiosPublic()
 
 
-    const { data: productsQuantity } = useQuery({
-        queryKey: ['product-quantity', sentProductId],
-        queryFn: async () => {
-            if (!sentProductId) {
-                return null;
-            }
-            const res = await axiosPublic.get(`/quantity/check/${sentProductId}`);
-            return res.data;
-        },
-        enabled: !!sentProductId,
-    });
 
-    // const customQuantity = productsQuantity.quantity
-
-    console.log('data', data)
 
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let createId = ''
@@ -64,7 +49,7 @@ const CheckoutPage = () => {
 
 
     const handleIncrease = async (productId) => {
-        setSentProductId(productId)
+
 
         const res = await axiosPublic.put(`/quantity-plus/${productId}`)
         if (res.data.modifiedCount === 1) {
@@ -72,7 +57,7 @@ const CheckoutPage = () => {
         }
     }
     const handleDiscrease = async (productId) => {
-        setSentProductId(productId)
+
         const res = await axiosPublic.put(`/quantity-minus/${productId}`)
         if (res.data.modifiedCount === 1) {
             refetch()
@@ -140,7 +125,7 @@ const CheckoutPage = () => {
                                     <div className="flex flex-col justify-between w-[75%]">
                                         <div className="flex justify-between">
                                             <h4 className="font-medium w-[85%]">{cart.productData.title}</h4>
-                                            <FiTrash onClick={() => handleDelete(cart._id)} className="text-xl md:text-2xl" />
+                                            <FiTrash onClick={() => handleDelete(cart._id)} className="text-xl md:text-2xl hover:text-red-600 hover:scale-110" />
                                         </div>
                                         <div className="flex items-center justify-between">
                                             <h5 className="text-[#40BFFF]">${cart.productData.price * cart.quantity}</h5>

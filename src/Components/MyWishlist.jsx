@@ -15,7 +15,7 @@ const MyWishlist = () => {
 
     const handleDeleteWishlist = async (id) => {
 
-        const res = await axiosPublic.delete(`/wishlist/${id}`)
+        const res = await axiosPublic.delete(`/wishlist/delete/${id}`)
 
 
 
@@ -39,13 +39,10 @@ const MyWishlist = () => {
         // console.log(res.data)
         if (res.data.insertedId) {
             toast('added cart')
-            await axiosPublic.delete(`/wishlist/${product._id}`)
+            await axiosPublic.delete(`/wishlist/delete/${product._id}`)
             refetch()
 
         }
-
-
-
 
     }
 
