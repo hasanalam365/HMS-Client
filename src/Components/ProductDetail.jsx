@@ -12,6 +12,8 @@ import useWishlist from "../hooks/useWishlist";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import useProductsData from "../hooks/useProductsData";
+import useRandomProductShow from "../hooks/useRandomProductShow";
 
 
 const ProductDetail = () => {
@@ -23,14 +25,14 @@ const ProductDetail = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const [quantity, setQuantity] = useState(1)
-
+    const [products, isLoading] = useProductsData()
 
     const [data, refetch] = useCartList()
-    const { imgUrl, title, price, rating, stock, features, productId, _id } = productData
+    const { imgUrl, title, price, rating, stock, features, productId, _id, category } = productData
 
 
 
-
+    const [randomProductsData, isRelatedLoading] = useRandomProductShow(category)
 
     const handleWishlistAdd = async (productData) => {
 
@@ -172,6 +174,9 @@ const ProductDetail = () => {
 
     }
 
+    const shuffleArray = (array) => {
+        return array.sort(() => Math.random() - 0.5)
+    }
 
     return (
         <div>
@@ -253,6 +258,24 @@ const ProductDetail = () => {
                             <button onClick={() => handleAddtoCart(productData)} className="btn text-white bg-[#F29120] hover:bg-[#d68324] mt-3">Add to Cart</button>
                             <button onClick={() => handleBuyAddtoCart(productData)} className="btn text-white bg-[#FF5722] hover:bg-[#ec5527] mt-3">Buy Now</button>
                         </div>
+                    </div>
+                </div>
+                {/* Related Products Section */}
+                <div className="bg-base-200  pt-10">
+                    <h2 className="text-3xl font-bold mb-4">Related Products</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {isRelatedLoading ? (
+                            <p>Loading...</p>
+                        ) : (
+                            shuffleArray(randomProductsData).map((product) => (
+                                <div key={product._id} className="flex-1 p-4 bg-white rounded-lg shadow-lg">
+                                    <img src={product.imgUrl} alt={product.title} className="h-40 w-full object-cover rounded-lg" />
+                                    <h3 className="text-xl font-bold mt-2">{product.title}</h3>
+                                    <p className="text-[#FF5722] font-medium">${product.price}</p>
+                                    <Rating style={{ maxWidth: 100 }} value={product.rating} readOnly />
+                                </div>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>

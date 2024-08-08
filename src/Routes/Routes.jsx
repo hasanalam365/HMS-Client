@@ -54,7 +54,11 @@ const router = createBrowserRouter([
             {
                 path: '/product/:id',
                 element: <ProductDetail></ProductDetail>,
-                loader: ({ params }) => fetch(`http://localhost:5000/product/${params.id}`)
+                // loader: ({ params }) => fetch(`https://hms-server-five.vercel.app/product/${params.id}`)
+                loader: ({ params }) => {
+                    const apiUrl = import.meta.env.VITE_API_URL;
+                    return fetch(`${apiUrl}/product/${params.id}`);
+                }
             },
             // {
             //     path: '/checkout',
@@ -123,7 +127,11 @@ const router = createBrowserRouter([
                 element: <AdminRoute>
                     <ViewOrderDetails></ViewOrderDetails>
                 </AdminRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/view-order/${params.id}`)
+                // loader: ({ params }) => fetch(`https://hms-server-five.vercel.app/view-order/${params.id}`),
+                loader: ({ params }) => {
+                    const apiUrl = import.meta.env.VITE_API_URL;
+                    return fetch(`${apiUrl}/view-order/${params.id}`);
+                }
 
             },
             {
@@ -137,7 +145,11 @@ const router = createBrowserRouter([
                 element: <AdminRoute>
                     <DetailsConfirmOrder></DetailsConfirmOrder>
                 </AdminRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/details-confirm-order/${params.id}`)
+                // loader: ({ params }) => fetch(`https://hms-server-five.vercel.app/details-confirm-order/${params.id}`)
+                loader: ({ params }) => {
+                    const apiUrl = import.meta.env.VITE_API_URL;
+                    return fetch(`${apiUrl}/details-confirm-order/${params.id}`);
+                }
             },
             {
                 path: '/dashboard/add-product',
