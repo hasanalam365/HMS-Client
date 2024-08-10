@@ -24,25 +24,27 @@ const UpdateProduct = () => {
     }
 
     return (
-        <form onSubmit={handleStockUpdate}>
+        <div className="flex items-center justify-center mt-10">
+            <form onSubmit={handleStockUpdate}>
 
-            <div className="flex flex-col md:flex-row gap-5 w-[90%] mx-auto">
-                <div className="">
-                    <label htmlFor="productId" className="font-medium">Product Id</label>
-                    <input id="productId" name="productId" type="number"
-                        placeholder="product Id" className="w-full rounded-md p-[6px] bg-gray-100" />
-                </div>
-                <div className="">
-                    <label htmlFor="stockAmounts" className="font-medium">Stock Amounts</label>
-                    <input id="stockAmounts" name="stockAmmounts" type="number"
-                        placeholder="stock Amounts" className="w-full rounded-md p-[6px] bg-gray-100" />
-                </div>
+                <div className="flex flex-col md:flex-row gap-5 w-[90%] mx-auto">
+                    <div className="">
+                        <label htmlFor="productId" className="font-medium">Product Id</label>
+                        <input id="productId" name="productId" type="number"
+                            placeholder="product Id" className="w-full rounded-md p-[6px] bg-gray-100" />
+                    </div>
+                    <div className="">
+                        <label htmlFor="stockAmounts" className="font-medium">Stock Amounts</label>
+                        <input id="stockAmounts" name="stockAmmounts" type="number"
+                            placeholder="stock Amounts" className="w-full rounded-md p-[6px] bg-gray-100" />
+                    </div>
 
-            </div>
-            <div className="text-center mt-5">
-                <button type="submit" className="btn btn-secondary">Update Stock</button>
-            </div>
-        </form>
+                </div>
+                <div className="text-center mt-5">
+                    <button type="submit" className="btn btn-secondary">Update Stock</button>
+                </div>
+            </form>
+        </div>
     );
 };
 
