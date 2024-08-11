@@ -3,6 +3,7 @@ import useCartList from "../hooks/useCartList";
 import { Link } from "react-router-dom";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const Mycarts = () => {
 
@@ -11,26 +12,24 @@ const Mycarts = () => {
     const totalPrices = data.reduce((total, product) => total + product.productData.price, 0)
 
     const handleDelete = async (_id) => {
-
         const res = await axiosPublic.delete(`/addToCart/${_id}`)
-
         if (res.data.deletedCount === 1) {
             toast.error('This item has been deleted')
             refetch()
         }
-
-
     }
 
     return (
         <div className="md:mt-8 lg:mt-0">
+            <Helmet>
+                <title>My Cart | HMS </title>
+            </Helmet>
             <div className="w-full">
                 <div className="bg-orange-600 text-center rounded-xl ">
                     <h3 className="text-lg font-semibold text-white p-2">Shopping Cart</h3>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="table">
-
                         <thead>
                             <tr>
 

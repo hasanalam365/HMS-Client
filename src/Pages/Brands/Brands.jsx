@@ -1,8 +1,12 @@
+import { Helmet } from "react-helmet-async";
 
 
 const Brands = () => {
     return (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 mb-10 mt-5">
+            <Helmet>
+                <title>Brands | HMS </title>
+            </Helmet>
             <div className="card card-compact bg-base-200  shadow-xl p-16 hover:scale-105">
                 <figure>
                     <img

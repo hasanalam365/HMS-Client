@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { GiConfirmed } from "react-icons/gi";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 const ViewOrderDetails = () => {
 
@@ -14,9 +15,6 @@ const ViewOrderDetails = () => {
     const LoaderData = useLoaderData()
     const axiosSecure = useAxiosSecure()
     const [data, setData] = useState(LoaderData);
-
-
-
     const navigate = useNavigate()
 
     const [quantities, setQuantities] = useState(
@@ -39,7 +37,6 @@ const ViewOrderDetails = () => {
     }, [data]);
 
 
-
     const { data: stockCount } = useQuery({
         queryKey: ['stock-count'],
         queryFn: async () => {
@@ -57,12 +54,6 @@ const ViewOrderDetails = () => {
         }
     })
     const totalPrice = selectedOrders?.reduce((sum, product) => sum + product.totalPrices, 0);
-
-
-
-
-
-
 
     const handleSelectOrder = async (product, index) => {
 
@@ -87,9 +78,7 @@ const ViewOrderDetails = () => {
 
         const stockDiscrease = quantities[product.productId]
 
-
         try {
-
 
             const res = await axiosSecure.post('/selectedOrder', selectedOrders)
             if (res.data.insertedId) {
@@ -107,13 +96,11 @@ const ViewOrderDetails = () => {
                     toast('selected this product')
                 }
 
-
             }
         } catch (error) {
             console.log(error.message)
         }
     }
-
 
     const handleOrderDelete = (index) => {
         Swal.fire({
@@ -144,7 +131,6 @@ const ViewOrderDetails = () => {
     const handleOrderConfirm = async (e) => {
         e.preventDefault()
         const orderProducts = selectedOrders?.map(order => order)
-
         const form = e.target;
         const name = form.name.value;
         const orderId = form.orderId.value;
@@ -180,8 +166,6 @@ const ViewOrderDetails = () => {
                 await axiosSecure.delete(`/selectedOrders/${orderId}`)
                 await axiosSecure.patch(`/orderStatus/${orderId}`)
                 toast('Order Confirmed')
-
-
                 navigate('/dashboard/all-orders')
 
             }
@@ -189,7 +173,6 @@ const ViewOrderDetails = () => {
         catch (error) {
             console.log(error.message)
         }
-
 
     }
 
@@ -204,7 +187,9 @@ const ViewOrderDetails = () => {
 
     return (
         <div>
-
+            <Helmet>
+                <title>View Order Details | Admin | HMS </title>
+            </Helmet>
             <section className=" mt-2 md:mt-10">
                 <div action="" className="container flex flex-col md:flex-row gap-7 mx-auto ">
                     <div>
@@ -213,13 +198,11 @@ const ViewOrderDetails = () => {
 
                             <div className="overflow-x-auto">
                                 <table className="table">
-                                    {/* head */}
+
                                     <thead>
                                         <tr>
-
                                             <th>No</th>
                                             <th>Photo</th>
-
                                             <th>Name</th>
                                             <th>ProductId</th>
                                             <th>Price</th>
@@ -230,7 +213,7 @@ const ViewOrderDetails = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {/* row 1 */}
+
                                         {
                                             data?.allProducts?.map((product, idx) => <tr key={idx}>
                                                 <td>
@@ -255,11 +238,7 @@ const ViewOrderDetails = () => {
                                                 <td>
                                                     ${product.price}
                                                 </td>
-                                                {/* <td>
-                                                    <span onClick={() => handleDiscrease(product.quantity)} className="font-medium text-lg">  - </span>
-                                                    <span>   {product.quantity} </span>
-                                                    <span onClick={() => handleIncrease(product.quantity)} className="font-medium text-lg">  + </span>
-                                                </td> */}
+
                                                 <td>
                                                     <input
                                                         type="number"
@@ -312,7 +291,6 @@ const ViewOrderDetails = () => {
 
                                                 <th>No</th>
                                                 <th>Photo</th>
-
                                                 <th>Name</th>
                                                 <th>ProductId</th>
                                                 <th>Price</th>
@@ -355,8 +333,6 @@ const ViewOrderDetails = () => {
                                                         ${product.totalPrices}
                                                     </td>
 
-
-
                                                 </tr>)
 
                                             }
@@ -365,7 +341,6 @@ const ViewOrderDetails = () => {
 
                                     </table>
                                 </div>
-
                             </div>
                         </div>}
                     </div>
@@ -445,9 +420,6 @@ const ViewOrderDetails = () => {
                             <button type="submit" className="btn btn-secondary w-full">Confirm Order</button>
                         </div>
                     </form>
-
-
-
                 </div>
             </section>
 

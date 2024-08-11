@@ -1,14 +1,12 @@
-
 import useCartList from "../hooks/useCartList";
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { toast } from "react-toastify";
-
 import { useNavigate } from "react-router-dom";
 import { FiTrash } from "react-icons/fi";
 import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
-
 import useAuth from "../hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const CheckoutPage = () => {
 
@@ -23,9 +21,6 @@ const CheckoutPage = () => {
     const date = new Date().toLocaleDateString()
     const time = new Date().toLocaleTimeString()
     const axiosPublic = useAxiosPublic()
-
-
-
 
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let createId = ''
@@ -42,37 +37,30 @@ const CheckoutPage = () => {
     }, []);
 
 
-
     const handleCheckboxChange = (index) => {
         setSelectedCheckbox(index);
     };
 
-
     const handleIncrease = async (productId) => {
-
-
         const res = await axiosPublic.put(`/quantity-plus/${productId}`)
         if (res.data.modifiedCount === 1) {
             refetch()
         }
     }
-    const handleDiscrease = async (productId) => {
 
+    const handleDiscrease = async (productId) => {
         const res = await axiosPublic.put(`/quantity-minus/${productId}`)
         if (res.data.modifiedCount === 1) {
             refetch()
         }
     }
 
-
     const handleDelete = async (_id) => {
-
         const res = await axiosPublic.delete(`/addToCart/${_id}/${user.email}`)
         if (res.data.deletedCount === 1) {
             toast('Deleted from cart')
             refetch()
         }
-
     }
 
 
@@ -91,16 +79,15 @@ const CheckoutPage = () => {
             allProducts: allProduct,
 
         }
-
         navigate('/dashboard/address', { state: { orderId, orderInfo } });
-
-
     }
 
 
     return (
         <div className=" flex flex-col md:flex-row lg:flex-row gap-5 mt-3">
-
+            <Helmet>
+                <title>Checkout | HMS </title>
+            </Helmet>
             <div className="w-full md:w-[60%] lg:w-[60%]  ">
                 <div className="bg-orange-600 text-center rounded-xl ">
                     <h3 className="text-lg font-semibold text-white p-2">Shopping Cart</h3>
@@ -147,10 +134,7 @@ const CheckoutPage = () => {
             <div className="w-full md:w-[40%] lg:w-[40%]  bg-gray-200 mt-4 md:mt-0 p-4">
                 <div className="bg-orange-600 text-center  ">
                     <h3 className="text-lg font-semibold md:font-medium text-white p-2 flex items-center justify-center ">OrderId <span>- {orderId}</span> </h3>
-
                 </div>
-
-
                 <div className="flex items-center justify-between mt-2">
                     <p className=" font-medium">Date:</p>
                     <p>{date}</p>
@@ -162,10 +146,8 @@ const CheckoutPage = () => {
                 <div className="divider"></div>
                 <div>
                     <div>
-
                         <div className="form-control">
                             <label className="flex items-center gap-5 mb-2">
-
                                 <input
                                     type="checkbox"
                                     checked={selectedCheckbox === 'Cash On Delivery'}
@@ -191,20 +173,17 @@ const CheckoutPage = () => {
                         </div>
                         <div className="form-control">
                             <label className="flex items-center gap-5 mb-2">
-
                                 <input
                                     type="checkbox"
                                     checked={selectedCheckbox === 'nagad'}
                                     onChange={() => handleCheckboxChange('nagad')}
                                     className="checkbox checkbox-info"
                                 />
-
                                 <img className="h-[60px] w-[35%]" src="https://i.ibb.co/kyMbzf0/Nagad-Logo-2024-removebg-preview.png" alt="nagad logo" />
                             </label>
                         </div>
                         <div className="form-control">
                             <label className="flex items-center gap-5 mb-2">
-
                                 <input
                                     type="checkbox"
                                     checked={selectedCheckbox === 'stripe'}
@@ -216,19 +195,16 @@ const CheckoutPage = () => {
                             </label>
                         </div>
                     </div>
-
                 </div>
                 <div className=" border-2 border-white mt-1 mb-1 border-dashed p-2">
                     <h4 className="flex items-center justify-between">Sub total:  <span>${totalPrices}</span> </h4>
                     <h4 className="flex items-center justify-between">Shipping fee:<span>$20</span> </h4>
-
                     <hr />
                     <h4 className="flex items-center justify-between font-medium">Total:  <span>${totalPrices + 20}</span> </h4>
                 </div>
                 <div onClick={handleConfirm} className="mt-4 text-center ">
                     <button className="btn bg-orange-600 p-2 rounded-xl w-full text-white font-medium ">Confirm Order</button>
                 </div>
-
             </div>
         </div>
 

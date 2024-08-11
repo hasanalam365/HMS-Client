@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
 const DetailsConfirmOrder = () => {
@@ -9,17 +10,18 @@ const DetailsConfirmOrder = () => {
         navigate(-1)
     }
 
-
-
     return (
         <div>
+            <Helmet>
+                <title>Confirm Order | Admin | HMS </title>
+            </Helmet>
             <div>
                 <div className="text-center mb-5">
                     <h4 className="text-3xl font-semibold">Orders Information</h4>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="table table-zebra">
-                        {/* head */}
+
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -62,11 +64,8 @@ const DetailsConfirmOrder = () => {
 
                             }
 
-
                         </tbody>
-
                     </table>
-
                 </div>
                 <div className="bg-orange-600 text-center text-white">
                     <h4>Total Prices: <span className="font-medium">${detailsData.totalPrices
@@ -142,8 +141,6 @@ const DetailsConfirmOrder = () => {
                             <input id="paymentType" name="paymentType" type="text"
                                 value={detailsData.customerInfo.paymentType} placeholder="Payment Type" className="w-full rounded-md p-[6px]" readOnly />
                         </div>
-
-
                     </div>
 
                 </form>

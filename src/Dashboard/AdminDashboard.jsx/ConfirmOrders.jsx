@@ -5,6 +5,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const ConfirmOrders = () => {
 
@@ -18,8 +19,6 @@ const ConfirmOrders = () => {
             return res.data
         }
     })
-
-
 
     const inputText = (e) => {
         setSearch(e.target.value)
@@ -52,6 +51,9 @@ const ConfirmOrders = () => {
 
     return (
         <div className="flex flex-col mt-4 px-4 md:p-8">
+            <Helmet>
+                <title>Confirm Orders | Admin | HMS </title>
+            </Helmet>
             <div className="flex items-center justify-between mb-2">
 
                 <h4 className="text-lg font-semibold">Confirm Orders: <span>{confirmOrders.length}</span></h4>
@@ -68,7 +70,7 @@ const ConfirmOrders = () => {
                 <div className="w-16 h-16 border-4 border-dashed border-orange-500 rounded-full animate-spin dark:border-default-600 text-orange-600"></div>
             </div> : confirmOrders.length === 0 ? <span className="flex items-center justify-center mt-5">No data found!</span> : <div className="overflow-x-auto">
                 <table className="table table-zebra">
-                    {/* head */}
+
                     <thead>
                         <tr className="bg-orange-600 text-white">
                             <th>No</th>

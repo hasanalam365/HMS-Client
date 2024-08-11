@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { FaUsers } from "react-icons/fa";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const AllUsers = () => {
 
@@ -34,14 +35,14 @@ const AllUsers = () => {
             if (result.isConfirmed) {
                 const role = 'admin'
                 const res = await axiosSecure.patch(`/users/admin/${user._id}`, { role })
-                // console.log(res.data)
+
                 if (res.data.modifiedCount === 1) {
                     toast('Make Admin successfully')
                     refetch()
                 }
             } else if (result.isDenied) {
                 const role = 'user'
-                // console.log(role)
+
                 const res = await axiosSecure.patch(`/users/admin/${user._id}`, { role })
 
                 if (res.data.modifiedCount === 1) {
@@ -86,6 +87,9 @@ const AllUsers = () => {
 
     return (
         <div className="flex flex-col mt-4 px-4 md:p-8">
+            <Helmet>
+                <title>All Users | Admin | HMS </title>
+            </Helmet>
             <div className="flex items-center justify-between mb-2">
 
                 <h4 className="text-lg font-semibold">Total Users: <span>{users.length}</span></h4>
@@ -102,7 +106,7 @@ const AllUsers = () => {
                 <div className="w-16 h-16 border-4 border-dashed border-orange-500 rounded-full animate-spin dark:border-default-600 text-orange-600"></div>
             </div> : users.length === 0 ? <span className="flex items-center justify-center mt-5">No user found!</span> : <div className="overflow-x-auto">
                 <table className="table">
-                    {/* head */}
+
                     <thead>
                         <tr>
 

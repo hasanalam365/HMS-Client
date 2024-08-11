@@ -4,7 +4,8 @@ import useAuth from "../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOST_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -13,6 +14,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 const UpdatedProfile = () => {
 
     const axiosPublic = useAxiosPublic()
+    const axioSecure = useAxiosSecure()
     const { user } = useAuth()
     const [imgPrev, setImgPrev] = useState('')
     const navigate = useNavigate()
@@ -29,7 +31,6 @@ const UpdatedProfile = () => {
     const handleAddress = async (e) => {
 
         e.preventDefault()
-
         const form = e.target;
         const name = form.name.value;
         const phone = form.phone.value;
@@ -40,26 +41,40 @@ const UpdatedProfile = () => {
         const thana = form.thana.value;
         const address = form.address.value;
 
+        try {
+            if (photo) {
+                //image upload 
+                const formData = new FormData();
+                formData.append('image', photo);
+                const res = await axiosPublic.post(image_hosting_api, formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                });
+                const photoURL = res.data.data.display_url;
 
-        //image upload 
-        const formData = new FormData();
-        formData.append('image', photo);
-        const res = await axiosPublic.post(image_hosting_api, formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        });
-        const photoURL = res.data.data.display_url;
-        // console.log(photoURL)
+                const updatedAddress = { name, phone, email, division, district, thana, address, photoURL }
 
-        const updatedAddress = { name, phone, email, division, district, thana, address, photoURL }
+                const resPut = await axioSecure.put(`/users-updated/${email}`, updatedAddress)
 
+                if (resPut.data.modifiedCount === 1) {
+                    toast('Profile Updated')
 
-        const resPut = await axiosPublic.put(`/users-updated/${email}`, updatedAddress)
+                    navigate('/dashboard/profile')
+                }
+            } else {
+                const updatedAddress = { name, phone, email, division, district, thana, address }
 
-        if (resPut.data.modifiedCount === 1) {
-            toast('Profile Updated')
+                const resPut = await axioSecure.put(`/users-updated/${email}`, updatedAddress)
 
-            navigate('/dashboard/profile')
+                if (resPut.data.modifiedCount === 1) {
+                    toast('Profile Updated')
+
+                    navigate('/dashboard/profile')
+                }
+            }
+        } catch (error) {
+            console.log(error.message)
         }
+
 
     }
 
@@ -72,6 +87,9 @@ const UpdatedProfile = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Profile Updated | Dashboard | HMS </title>
+            </Helmet>
             <section className="  dark:text-gray-900 w-[95%] md:mt-5 lg:mt-0 mx-auto bg-gray-200">
                 <form onSubmit={handleAddress} className="container flex flex-col mx-auto space-y-12">
                     <fieldset className=" p-6 rounded-md shadow-sm dark:bg-gray-50">
@@ -83,7 +101,7 @@ const UpdatedProfile = () => {
                             </div>
                             <div className="col-span-full  sm:col-span-3">
                                 <label htmlFor="fullname" className="font-medium">Email</label>
-                                <input id="fullName" name="email" type="text" value={userData.email} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" required />
+                                <input id="fullName" name="email" type="text" value={userData.email} className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" required readOnly />
                             </div>
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="phone" className="font-medium">Phone</label>
@@ -114,9 +132,8 @@ const UpdatedProfile = () => {
                                         id='image'
                                         accept='image/*'
 
-                                        required
-                                    />
 
+                                    />
 
                                     <div className='bg-rose-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-rose-500'>
                                         Upload Image

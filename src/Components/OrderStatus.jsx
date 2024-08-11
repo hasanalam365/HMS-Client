@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useAuth from "../hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const OrderStatus = () => {
 
@@ -18,9 +19,11 @@ const OrderStatus = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Status | Dashboard | HMS </title>
+            </Helmet>
             <div className="overflow-x-auto">
                 <table className="table table-zebra">
-
                     <thead>
                         <tr>
                             <th>No</th>
@@ -45,16 +48,7 @@ const OrderStatus = () => {
                     </tbody>
                 </table>
             </div>
-            {/* <div className="flex flex-col gap-5">
-                {
-                    orderStatus.map(status => <ul key={status._id} className="steps steps-vertical lg:steps-horizontal">
-                        <li data-content="orderId" className="step step-primary">Register</li>
-                        <li className="step step-primary">Choose plan</li>
-                        <li className="step">Purchase</li>
-                        <li className="step">Receive Product</li>
-                    </ul>)
-                }
-            </div> */}
+
         </div>
     );
 };

@@ -8,12 +8,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-
+import { Helmet } from "react-helmet-async";
 
 
 const Login = () => {
 
-    const { signInUser, googleSignIn, user } = useAuth()
+    const { signInUser, googleSignIn } = useAuth()
     const [openPassword, setOpenPassword] = useState(false)
     const navigate = useNavigate()
     const location = useLocation()
@@ -27,9 +27,6 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-
-
-
         signInUser(email, password)
             .then(async (result) => {
                 if (result.user) {
@@ -40,8 +37,8 @@ const Login = () => {
                         role: role
                     }
 
-                    const res = await axiosPublic.post(`/users`, userInfo)
-                    // console.log('user data:', res.data)
+                    await axiosPublic.post(`/users`, userInfo)
+
                 }
 
                 navigate(location?.state || "/")
@@ -51,18 +48,13 @@ const Login = () => {
                 toast.error("Invalid Email/Password!")
             })
 
-
-
-
     }
 
     const handleGoogleLogin = () => {
         googleSignIn()
             .then(async (result) => {
-
-
                 if (result.user) {
-                    // console.log(result.user)
+
                     const userInfo = {
                         email: result.user.email,
                         photoURL: result.user.photoURL,
@@ -70,11 +62,9 @@ const Login = () => {
                         role: role
                     }
                     toast("Login Successfully!")
-                    const res = await axiosPublic.post(`/users`, userInfo)
-                    // console.log('user data:', res.data)
+                    await axiosPublic.post(`/users`, userInfo)
 
                 }
-
 
                 navigate(location?.state || "/")
             })
@@ -91,6 +81,9 @@ const Login = () => {
 
     return (
         <div className=" bg-base-300 min-h-screen p-8 pt-20">
+            <Helmet>
+                <title>Log in | HMS </title>
+            </Helmet>
             <div className="w-[95%] md:w-1/2 lg:w-[40%] mx-auto ">
 
                 <div className="card bg-base-100   ">

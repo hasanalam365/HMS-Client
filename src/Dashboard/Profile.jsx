@@ -3,6 +3,7 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { FaEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Profile = () => {
 
@@ -17,8 +18,13 @@ const Profile = () => {
         }
     })
 
+
+
     return (
         <div className="bg-base-200 shadow-xl p-2 md:p-4 mt-16 md:mt-5 lg:mt-5 w-[98%]  mx-auto">
+            <Helmet>
+                <title>Profile | Dashboard </title>
+            </Helmet>
             <div className="flex items-center justify-between">
                 <h3 className=" text-xl ">Personal Information</h3>
                 <Link to='/dashboard/updatedProfile'>
@@ -29,7 +35,7 @@ const Profile = () => {
 
                 <figure>
                     <img className="w-[100px] h-[100px] rounded-full"
-                        src={user.photoURL ? user.photoURL : userData.photoURL}
+                        src={userData.photoURL ? userData.photoURL : user.photoURL}
                         alt="Movie" />
                 </figure>
                 <div className="w-full flex flex-row gap-3 md:gap-10 lg:gap-16 ">

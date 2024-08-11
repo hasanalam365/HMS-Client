@@ -1,37 +1,26 @@
-import { FaUser } from "react-icons/fa6";
-import { MdKey } from "react-icons/md";
-import { FaRegEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOST_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-
-
 const Register = () => {
 
-    const { signUpUser, signOutUser, user } = useAuth()
-    const [openPassword, setOpenPassword] = useState(false)
+    const { signUpUser, signOutUser } = useAuth()
     const navigate = useNavigate()
     const [correctPass, setCorrectPass] = useState('')
     const [imgPrev, setImgPrev] = useState('')
     const [errorText, setErrorText] = useState('')
     const axiosPublic = useAxiosPublic()
 
-
     const handleAddress = async (e) => {
-
         e.preventDefault()
-
         const form = e.target;
-        const
-            displayName = form.name.value;
+        const displayName = form.name.value;
         const phone = form.phone.value;
         const email = form.email.value;
         const photo = form.photo.files[0];
@@ -40,8 +29,6 @@ const Register = () => {
         const thana = form.thana.value;
         const address = form.address.value;
         const confirmPassword = form.confirmPassword.value
-
-
 
         if (correctPass !== confirmPassword) {
             return setErrorText('Password Not Match')
@@ -54,24 +41,19 @@ const Register = () => {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
         const photoURL = res.data.data.display_url;
-        // // console.log(photoURL)
-
         const userInfo = {
             displayName, phone, email, division, district, thana, address, photoURL
         }
 
 
         const resUser = await axiosPublic.post(`/newUser`, userInfo)
-        // console.log(resUser.data)
 
         if (resUser.data.insertedId) {
             signUpUser(email, confirmPassword)
                 .then((result) => {
 
                     if (result.user) {
-                        // console.log(result.user)
                         toast("Register Successfully!")
-
 
                     }
 
@@ -86,7 +68,6 @@ const Register = () => {
     }
 
     const handleImg = (e) => {
-
         const photo = e.target.files[0];
         setImgPrev(photo.name)
 
@@ -99,6 +80,9 @@ const Register = () => {
 
     return (
         <div className="pt-16 mb-8">
+            <Helmet>
+                <title>Register | HMS </title>
+            </Helmet>
             <section className="  dark:text-gray-900  md:w-3/4 lg:1/2 mx-auto bg-gray-200">
                 <form onSubmit={handleAddress} className="container flex flex-col mx-auto space-y-12">
                     <fieldset className=" p-6 rounded-md shadow-sm dark:bg-gray-50">
@@ -132,10 +116,7 @@ const Register = () => {
                                 <input id="thana" type="text"
                                     name="thana" placeholder="Thana" className="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-gray-50 focus:dark:ring-default-600 dark:border-gray-300 p-2" required />
                             </div>
-                            {/* <div className="col-span-full sm:col-span-3">
-                                <label htmlFor="Thana" className="font-medium">Photo</label>
-                                <input type="file" name="photo" className="file-input file-input-bordered file-input-info w-full max-w-xs" />
-                            </div> */}
+
                             <div className=' col-span-full sm:col-span-3 text-center'>
                                 <label>
                                     <input onChange={handleImg} className='text-sm cursor-pointer w-36 hidden'
@@ -188,6 +169,14 @@ const Register = () => {
                     </fieldset>
 
                 </form>
+                <div className=" w-full mx-auto rounded-lg p-2 mb-3">
+                    <div className="flex gap-1 items-center justify-center ">
+
+                        <h5 className="">Already have an account ?</h5>
+                        <span> Please</span>
+                        <Link to="/login" className="text-blue-600">Log In</Link>
+                    </div>
+                </div>
             </section>
         </div>
     );

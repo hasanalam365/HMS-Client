@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const DeliveryAddress = () => {
 
@@ -12,9 +13,6 @@ const DeliveryAddress = () => {
     const { user } = useAuth()
     const location = useLocation()
     const { orderId, orderInfo } = location.state || {}
-
-
-
     const navigate = useNavigate()
 
     const { data: userData } = useQuery({
@@ -25,11 +23,9 @@ const DeliveryAddress = () => {
         }
     })
 
+
     const handleAddress = async (e) => {
         e.preventDefault()
-
-
-
         const form = e.target;
         const name = form.name.value;
         const phone = form.phone.value;
@@ -49,40 +45,29 @@ const DeliveryAddress = () => {
             orderDate: new Date().toLocaleDateString(),
             orderTime: new Date().toLocaleTimeString()
         }
-
-
-
         const orderPost = await axiosPublic.post('/orders', orderInfo)
 
         if (orderPost.data.insertedId) {
-
-
             const res = await axiosPublic.put(`/orders/${orderId}`, allAddress)
 
             if (res.data.modifiedCount === 1) {
                 toast('Order Confirmed')
 
                 await axiosPublic.post('/orderStatus', orderStatus)
-
                 await axiosPublic.delete(`/mycarts-delete/${user.email}`)
 
                 navigate('/')
 
-
-
             }
-
-
-
         }
-
-
-
     }
 
 
     return (
         <div>
+            <Helmet>
+                <title>Delivery Address | HMS </title>
+            </Helmet>
             <section className="  dark:text-gray-900 w-[95%] md:mt-5 lg:mt-0 mx-auto bg-gray-200">
                 <form onSubmit={handleAddress} className="container flex flex-col mx-auto space-y-12">
                     <fieldset className=" p-6 rounded-md shadow-sm dark:bg-gray-50">

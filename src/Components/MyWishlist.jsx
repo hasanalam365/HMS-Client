@@ -1,34 +1,27 @@
 import { MdDeleteForever } from "react-icons/md";
 import useWishlist from "../hooks/useWishlist";
-import { FiShoppingCart, FiTrash } from "react-icons/fi";
+import { FiShoppingCart } from "react-icons/fi";
 import useAuth from "../hooks/useAuth";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { toast } from "react-toastify";
 import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
+import { Helmet } from "react-helmet-async";
 
 const MyWishlist = () => {
-
     const [wishlistData, refetch, isLoading] = useWishlist()
     const { user } = useAuth()
     const axiosPublic = useAxiosPublic()
 
 
-
     const handleDeleteWishlist = async (id) => {
-
         const res = await axiosPublic.delete(`/wishlist/delete/${id}`)
-
-
-
         if (res.data.deletedCount === 1) {
             toast.error('This item has been delete from wishlist')
             refetch()
         }
-
     }
 
     const handleAddCart = async (product) => {
-
         const addCartInfo = {
             email: user?.email,
             productId: product.product._id,
@@ -37,26 +30,19 @@ const MyWishlist = () => {
         }
 
         await axiosPublic.post('/addToCart', addCartInfo)
-
-
         toast('added cart')
         await axiosPublic.delete(`/wishlist/delete/${product._id}`)
         refetch()
-
-
-
     }
 
     const handleIncrease = async (productId) => {
-
-
         const res = await axiosPublic.put(`/whishlist/quantity-plus/${productId}`)
         if (res.data.modifiedCount === 1) {
             refetch()
         }
     }
-    const handleDiscrease = async (productId) => {
 
+    const handleDiscrease = async (productId) => {
         const res = await axiosPublic.put(`/whishlist/quantity-minus/${productId}`)
         if (res.data.modifiedCount === 1) {
             refetch()
@@ -65,6 +51,9 @@ const MyWishlist = () => {
 
     return (
         <div className="md:w-full mx-auto mt-8">
+            <Helmet>
+                <title>Wishlist | Dashboard | HMS </title>
+            </Helmet>
             <div>
                 <h4 className="text-xl font-medium"> Wishlist:</h4>
             </div>

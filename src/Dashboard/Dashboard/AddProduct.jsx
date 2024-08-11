@@ -2,10 +2,9 @@ import { useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { toast } from "react-toastify";
-
+import { Helmet } from "react-helmet-async";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOST_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
-
 
 
 const AddProduct = () => {
@@ -17,15 +16,10 @@ const AddProduct = () => {
     const [currentFeatures, setCurrentFeatures] = useState('')
     const [selectedCategory, setSelectedCategory] = useState('')
 
-
-
     const handleAddProduct = async (e) => {
-
         e.preventDefault()
-
         const form = e.target;
         const title = form.title.value;
-
         const category = selectedCategory
         const rating = form.rating.value;
         const features = feature;
@@ -41,8 +35,6 @@ const AddProduct = () => {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             const imgUrl = res.data.data.display_url;
-
-
             const productData = { title, category, rating, features, stock, price, description, imgUrl }
 
             const addProduct = await axiosSecure.post('/add-product', productData)
@@ -79,17 +71,16 @@ const AddProduct = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Add Product | Admin | HMS </title>
+            </Helmet>
             <form onSubmit={handleAddProduct}>
                 <div className="text-center mb-5">
                     <h4 className="text-3xl font-semibold">Add Product</h4>
                 </div>
 
                 <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3 bg-gray-200 p-4">
-                    {/* <div className="col-span-2 sm:col-span-3">
-                        <label htmlFor="productdId" className="font-medium">Productd Id</label>
-                        <input id="productdId" name="productId" type="number"
-                            placeholder="productd id" className="w-full rounded-md p-[6px]" />
-                    </div> */}
+
                     <div className="col-span-3 sm:col-span-3">
                         <label htmlFor="title" className="font-medium">Title</label>
                         <input id="title" name="title" type="text"
@@ -116,9 +107,7 @@ const AddProduct = () => {
                             <option value="Home Automation">Home Automation</option>
                             <option value="Portable Devices">Portable Devices</option>
                         </select>
-                        {/* <label htmlFor="category" className="font-medium">Category</label>
-                        <input id="category" name="category" type="text"
-                            placeholder="category" className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" /> */}
+
                     </div>
                     <div className="col-span-3 sm:col-span-3">
                         <label htmlFor="rating" className="font-medium">Rating</label>
@@ -173,8 +162,7 @@ const AddProduct = () => {
                     }
                     <div className="col-span-6 sm:col-span-6">
                         <label htmlFor="description" className="font-medium">Description</label>
-                        {/* <input id="description" name="description" type="textarea"
-                            placeholder="description" className="w-full rounded-md p-[6px]" /> */}
+
                         <textarea
                             name="description"
                             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"

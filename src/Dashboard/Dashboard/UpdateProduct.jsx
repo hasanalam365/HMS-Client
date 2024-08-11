@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const UpdateProduct = () => {
 
@@ -25,6 +26,9 @@ const UpdateProduct = () => {
 
     return (
         <div className="flex items-center justify-center mt-10">
+            <Helmet>
+                <title>Update Product | Admin | HMS </title>
+            </Helmet>
             <form onSubmit={handleStockUpdate}>
 
                 <div className="flex flex-col md:flex-row gap-5 w-[90%] mx-auto">

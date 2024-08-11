@@ -7,13 +7,11 @@ import '@smastrom/react-rating/style.css'
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
-import useCartList from "../hooks/useCartList";
-import useWishlist from "../hooks/useWishlist";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../hooks/useAxiosSecure";
-import useProductsData from "../hooks/useProductsData";
 import useRandomProductShow from "../hooks/useRandomProductShow";
+import { Helmet } from "react-helmet-async";
 
 
 const ProductDetail = () => {
@@ -25,15 +23,10 @@ const ProductDetail = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const [quantity, setQuantity] = useState(1)
-    // const [products, isLoading] = useProductsData()
 
-    // const [data, refetch] = useCartList()
-    const { imgUrl, title, price, rating, stock, features, productId, _id, category } = productData
-
-
+    const { imgUrl, title, price, rating, features, _id, category } = productData
 
     const [randomProductsData, isRelatedLoading] = useRandomProductShow(category)
-
 
     const { data: wishlistCheck, refetch } = useQuery({
         queryKey: ['wishlist-check', _id],
@@ -56,10 +49,7 @@ const ProductDetail = () => {
                 product: productData,
                 quantity: quantity
             }
-
             const res = await axiosSecure.put('/wishlist', wishlistAddInfo)
-
-
             if (res.data.upsertedCount === 1) {
                 toast('added wishlist')
                 refetch()
@@ -134,10 +124,8 @@ const ProductDetail = () => {
             });
         }
 
-
-
-
     }
+
     const handleBuyAddtoCart = async (productData) => {
 
         if (user && user.email) {
@@ -175,10 +163,6 @@ const ProductDetail = () => {
                 }
             });
         }
-
-
-
-
     }
 
     const handleIncrease = () => {
@@ -201,6 +185,9 @@ const ProductDetail = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>{productData.title} | {productData.category} | HMS </title>
+            </Helmet>
             <div className=" bg-base-200 p-8 pt-20">
                 <div className="flex flex-col md:flex-col lg:flex-row gap-5 md:gap-5 ">
                     <div className="flex-1">
@@ -224,9 +211,6 @@ const ProductDetail = () => {
                             </ul>
                         </div>
                         <div className="flex gap-8 items-center">
-
-                            {/* <p className=" font-medium text-[#F29120]">{rating}</p> */}
-
                             <Rating
                                 style={{ maxWidth: 120 }}
                                 value={rating}
@@ -260,13 +244,7 @@ const ProductDetail = () => {
                                     name="quantity" className="w-[60px] p-[2px]" readOnly />
                                 <button onClick={handleIncrease} className="text-xl font-bold btn btn-sm bg-[#F29120] text-white">+</button>
                             </div>
-
-
-
-
                         </div>
-
-
                         <div className="flex gap-5 items-center ">
                             <button onClick={() => handleAddtoCart(productData)} className="btn text-white bg-[#F29120] hover:bg-[#d68324] mt-3">Add to Cart</button>
                             <button onClick={() => handleBuyAddtoCart(productData)} className="btn text-white bg-[#FF5722] hover:bg-[#ec5527] mt-3">Buy Now</button>
@@ -295,8 +273,7 @@ const ProductDetail = () => {
                                         <div className="flex justify-between">
                                             <Rating style={{ maxWidth: 100 }} value={product.rating} readOnly />
                                             <div className="flex gap-4">
-                                                {/* <FaRegHeart className="text-lg text-orange-600"></FaRegHeart>
-                                        <HiOutlineShoppingCart className="text-lg text-orange-600"></HiOutlineShoppingCart> */}
+
                                                 <FaArrowRight className="text-lg text-orange-600 hover:text-xl"></FaArrowRight>
                                             </div>
                                         </div>

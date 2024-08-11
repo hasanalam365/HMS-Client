@@ -1,25 +1,17 @@
-import { FaArrowRight, FaRegHeart, FaStar } from "react-icons/fa";
-import { HiOutlineShoppingCart } from "react-icons/hi";
-
+import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useProductsData from "../hooks/useProductsData";
 import { Rating } from "@smastrom/react-rating";
-
-
-
-
-
-
+import { Helmet } from "react-helmet-async";
 
 const CategoryProduct = ({ categoryProducts, categoryName }) => {
-
-
     const [, isLoading] = useProductsData()
-
-
 
     return (
         <div>
+            <Helmet>
+                <title>Category | HMS</title>
+            </Helmet>
             {
                 categoryProducts.length > 0 &&
                 < div className="bg-gray-100 rounded-lg p-4 mt-10" id={categoryName}>
@@ -47,10 +39,7 @@ const CategoryProduct = ({ categoryProducts, categoryName }) => {
 
                                             <div className="flex justify-between">
                                                 <Rating style={{ maxWidth: 100 }} value={product.rating} readOnly />
-                                                <div className="flex gap-4">
-                                                    {/* <FaRegHeart className="text-lg text-orange-600"></FaRegHeart>
-                                  <HiOutlineShoppingCart className="text-lg text-orange-600"></HiOutlineShoppingCart> */}
-                                                    <FaArrowRight className="text-lg text-orange-600 hover:text-xl"></FaArrowRight>
+                                                <div className="flex gap-4">                                                                                         <FaArrowRight className="text-lg text-orange-600 hover:text-xl"></FaArrowRight>
                                                 </div>
                                             </div>
                                         </div>

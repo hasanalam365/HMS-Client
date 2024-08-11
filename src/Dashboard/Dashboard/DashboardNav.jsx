@@ -11,6 +11,7 @@ import { FaUsers } from "react-icons/fa";
 import useAdmin from "../../hooks/useAdmin";
 import { SiPowerpages } from "react-icons/si";
 import { IoIosAddCircle, IoIosCloudDone } from "react-icons/io";
+import { Helmet } from "react-helmet-async";
 
 
 const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
@@ -19,16 +20,15 @@ const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
     const { user, signOutUser } = useAuth()
     const [isAdmin] = useAdmin()
 
-
-
     const handleLogOut = () => {
         signOutUser()
     }
 
-
-
     return (
         <div className="flex flex-row-reverse  justify-between ">
+            <Helmet>
+                <title>Dashboard | HMS </title>
+            </Helmet>
             <div className="md:hidden lg:hidden">
                 <button onClick={() => { setIsOpenNav(!isOpenNav) }} className="mt-5 mr-5">
                     {
@@ -42,7 +42,7 @@ const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
             <div className="z-30">
                 {isOpenNav && <div className="h-screen block md:hidden lg:hidden p-3 space-y-2 w-60 dark:bg-gray-50 dark:text-gray-800">
                     <div className="flex items-center p-2 space-x-4">
-                        <img src={user.photoURL ? user.photoURL : userData.photoURL} alt="" className="w-12 h-12 rounded-full dark:bg-gray-500" />
+                        <img src={userData.photoURL ? userData.photoURL : user.photoURL} alt="" className="w-12 h-12 rounded-full dark:bg-gray-500" />
                         <div>
                             <h2 className="text-lg font-semibold">{userData.displayName}</h2>
                             <span className="flex items-center space-x-1">
@@ -157,7 +157,7 @@ const DashboardNav = ({ setIsOpenNav, isOpenNav }) => {
 
             <div className="hidden md:block lg:block h-full p-3 space-y-2 w-60 md:w-[180px] lg:w-60 dark:bg-gray-50 dark:text-gray-800">
                 <div className="flex flex-col  items-center justify-center p-2 space-x-4">
-                    <img src={user.photoURL ? user.photoURL : userData.photoURL} alt="" className="w-12 h-12 rounded-full dark:bg-gray-500" />
+                    <img src={userData.photoURL ? userData.photoURL : user.photoURL} alt="" className="w-12 h-12 rounded-full dark:bg-gray-500" />
                     <div>
                         <h2 className=" font-medium text-center">{userData.displayName}</h2>
                         <span className="flex items-center space-x-1">
