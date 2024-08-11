@@ -3,6 +3,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOST_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
@@ -15,6 +16,7 @@ const AddProduct = () => {
     const [feature, setFeature] = useState([])
     const [currentFeatures, setCurrentFeatures] = useState('')
     const [selectedCategory, setSelectedCategory] = useState('')
+
 
     const handleAddProduct = async (e) => {
         e.preventDefault()
@@ -40,6 +42,10 @@ const AddProduct = () => {
             const addProduct = await axiosSecure.post('/add-product', productData)
             if (addProduct.data.modifiedCount === 1) {
                 toast('product added successfully')
+                form.reset();
+                setImgPrev('');
+                setFeature([]);
+                setSelectedCategory('')
             }
 
         } catch (error) {
@@ -125,6 +131,9 @@ const AddProduct = () => {
                         </div>
 
                     </div>
+
+
+
                     <div className="col-span-3 sm:col-span-3">
                         <label htmlFor="stock" className="font-medium">Stock</label>
                         <input id="stock" name="stock" type="number"
@@ -171,10 +180,16 @@ const AddProduct = () => {
                         ></textarea>
                     </div>
                 </div>
+                {feature.length > 0 && <div className="col-span-3 sm:col-span-3 my-4">
+                    <h5 className="font-medium">Current Add Features:</h5>
+                    {feature.map(feat => <li className="list-disc" key={feat}>{feat}</li>)}
+
+                </div>}
                 <div className="mb-5">
                     <button type="submit" className="btn btn-secondary w-full">Add Product</button>
                 </div>
             </form>
+
         </div>
     );
 };
