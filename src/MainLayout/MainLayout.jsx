@@ -31,6 +31,8 @@ const MainLayout = () => {
         setSearch('')
     }
 
+
+
     return (
 
         <div className="container mx-auto relative">

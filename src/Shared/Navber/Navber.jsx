@@ -132,7 +132,7 @@ const Navber = ({ setOpenCart, openCart, setSearch }) => {
 
                         <button onClick={() => setIsOpenProfile(!isOpenProfile)} className="hidden md:block lg:block">
                             {
-                                user?.email ? <img className="w-[40px] h-[40px] rounded-full" src={userData.photoURL || user.photoURL} alt="user profile photo" />
+                                user?.email ? <img className="w-[40px] h-[40px] rounded-full" src={userData.photoURL ? userData.photoURL : user.photoURL} alt="user profile photo" />
                                     :
                                     <CgProfile className="text-xl"></CgProfile>
                             }
