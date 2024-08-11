@@ -26,6 +26,7 @@ import DetailsConfirmOrder from "../Components/DetailsConfirmOrder";
 import AddProduct from "../Dashboard/Dashboard/AddProduct";
 import UpdateProduct from "../Dashboard/Dashboard/UpdateProduct";
 import Categories from "../Pages/Categories/Categories";
+import Category from "../Components/Category";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
             {
                 path: '/categories',
                 element: <Categories></Categories>
+            },
+            {
+                path: '/category',
+                element: <Category></Category>
             }
         ]
     },

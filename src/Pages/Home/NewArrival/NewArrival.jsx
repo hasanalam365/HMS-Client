@@ -26,13 +26,15 @@ const NewArrival = () => {
                     <div className="flex items-center justify-between">
                         <h3 className="text-2xl md:text-3xl font-semibold">New Arrival</h3>
                         {
-                            newArrivals.length > 10 && <h3 className="text-lg md:text-xl font-semibold text-orange-600 hover:scale-105">View All</h3>
+                            newArrivals.length > 5 && <Link to="/category"
+                                state={{ category: 'New Arrival', products: newArrivals, isLoading: isLoading }}
+                                className="text-lg md:text-xl font-medium text-orange-600 hover:scale-105">See more</Link>
                         }
                     </div>
                     <div className="divider mt-0"></div>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
                         {
-                            newArrivals.slice(0, 10).map(product => <Link to={`/product/${product._id}`} key={product._id} className="card card-compact bg-base-100 shadow-xl mt-5 ">
+                            newArrivals.slice(0, 6).map(product => <Link to={`/product/${product._id}`} key={product._id} className="card card-compact bg-base-100 shadow-xl mt-5 ">
                                 <figure>
 
                                     <img className='w-full h-[150px] hover:scale-110' src={product.imgUrl} alt="" />
