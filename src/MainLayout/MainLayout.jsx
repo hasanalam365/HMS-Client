@@ -17,7 +17,7 @@ const MainLayout = () => {
 
 
     const { data: allProducts = [], refetch, isLoading } = useQuery({
-        queryKey: ['users', search],
+        queryKey: ['allProducts-Search', search],
         queryFn: async () => {
             const res = await axiosPublic.get(`/all-products?search=${search}`)
             return res.data
