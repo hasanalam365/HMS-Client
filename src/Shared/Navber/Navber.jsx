@@ -30,21 +30,29 @@ const Navber = ({ setOpenCart, openCart, setSearch }) => {
     })
 
     const navLinks = <>
-        <NavLink onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
-            <li>Trending</li>
+        <NavLink to="/" onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
+            <li>Home</li>
         </NavLink>
         <NavLink onClick={() => setNavOpen(false)} to='/brands' className='hover:text-orange-600'>
             <li>Brands</li>
         </NavLink>
+        <NavLink to='/categories' onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
+            <li>Categories</li>
+        </NavLink>
+        <NavLink to="/blogs" onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
+            <li>Blogs</li>
+        </NavLink>
+
         <NavLink onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
             <li>Service Center</li>
         </NavLink>
         <NavLink onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
-            <li>Blogs</li>
+            <li>Contact</li>
         </NavLink>
-        <NavLink to='/categories' onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
-            <li>Categories</li>
+        <NavLink onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
+            <li>About</li>
         </NavLink>
+
     </>
 
     const hangleLogOut = () => {

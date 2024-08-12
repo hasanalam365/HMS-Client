@@ -30,7 +30,7 @@ const CategoriesList = () => {
                 }}
 
                 modules={[Autoplay, Navigation]}
-                className="mySwiper mt-4 !w-1/2 !px-8"
+                className="mySwiper mt-4 !px-4 md:!w-[60%] md:!px-8 lg:!w-1/2 lg:!px-8"
             >
                 {
                     categories.map(category => <SwiperSlide key={category} className="border-2 border-gray-600 text-center !h-[100px] !flex !items-center !justify-center font-medium">{category}</SwiperSlide>)

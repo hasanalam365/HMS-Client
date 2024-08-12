@@ -27,6 +27,7 @@ import AddProduct from "../Dashboard/Dashboard/AddProduct";
 import UpdateProduct from "../Dashboard/Dashboard/UpdateProduct";
 import Categories from "../Pages/Categories/Categories";
 import Category from "../Components/Category";
+import Blogs from "../Pages/Blogs/Blogs";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -61,10 +62,10 @@ const router = createBrowserRouter([
                     return fetch(`${apiUrl}/product/${params.id}`);
                 }
             },
-            // {
-            //     path: '/checkout',
-            //     element: <CheckoutPage></CheckoutPage>
-            // },
+            {
+                path: '/blogs',
+                element: <Blogs></Blogs>
+            },
             {
                 path: '/categories',
                 element: <Categories></Categories>
