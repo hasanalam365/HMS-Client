@@ -250,10 +250,20 @@ const ProductDetail = () => {
                             <button onClick={() => handleBuyAddtoCart(productData)} className="btn text-white bg-[#FF5722] hover:bg-[#ec5527] mt-3">Buy Now</button>
                         </div>
                     </div>
+
                 </div>
+                {
+                    productData.description && <div className="p-4">
+
+                        <p><span className="font-medium">Descripton:</span> {productData.description ? productData.description : ''}</p>
+
+
+                    </div>
+                }
                 {/* Related Products Section */}
                 <div className="bg-base-200  pt-10">
                     <h2 className="text-3xl font-bold mb-4">Related Products</h2>
+                    <div className="divider"></div>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                         {isRelatedLoading ? (
                             <div className="flex items-center justify-center ">

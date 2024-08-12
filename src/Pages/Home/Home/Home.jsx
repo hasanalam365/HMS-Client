@@ -1,6 +1,7 @@
 import SecurityCamera from "../../../Components/SecurityCameras/SecurityCamera";
 import Banner from "../Banner/Banner";
 import BrandsLogo from "../BrandsLogo/BrandsLogo";
+import CategoriesList from "../CategoriesList/CategoriesList";
 import NewArrival from "../NewArrival/NewArrival";
 import PopularProducts from "../PopularProducts/PopularProducts";
 import ServiceSection from "../ServiceSection";
@@ -9,6 +10,9 @@ const Home = () => {
     return (
         <div>
             <Banner></Banner>
+
+            <CategoriesList />
+
             <NewArrival></NewArrival>
 
 

@@ -11,9 +11,7 @@ const Categories = () => {
 
     const categories = products ? [...new Set(products.map(product => product.category))] : [];
 
-    const handleCategory = (category) => {
-        console.log('click and jump this category')
-    }
+
     const gadgetDeals = products.filter(product => product.category === 'Gadget Deals')
     const SmartHome = products.filter(product => product.category === 'Smart Home')
     const techEssentials = products.filter(product => product.category === 'Tech Essentials')
