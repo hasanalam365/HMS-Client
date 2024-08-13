@@ -46,9 +46,18 @@ const Navber = ({ setOpenCart, openCart, setSearch }) => {
         <NavLink onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
             <li>Service Center</li>
         </NavLink>
-        <NavLink onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
-            <li>Contact</li>
-        </NavLink>
+
+
+        <a
+            href="https://wa.me/+8801645782626"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setNavOpen(false)}
+            className="hover:text-orange-600 block md:hidden lg:hidden"
+        >
+            Support
+        </a>
+
         <NavLink onClick={() => setNavOpen(false)} className='hover:text-orange-600'>
             <li>About</li>
         </NavLink>

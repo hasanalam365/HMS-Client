@@ -1,3 +1,4 @@
+import { FaWhatsappSquare } from "react-icons/fa";
 import SecurityCamera from "../../../Components/SecurityCameras/SecurityCamera";
 import Banner from "../Banner/Banner";
 import BrandsLogo from "../BrandsLogo/BrandsLogo";
@@ -5,11 +6,26 @@ import CategoriesList from "../CategoriesList/CategoriesList";
 import NewArrival from "../NewArrival/NewArrival";
 import PopularProducts from "../PopularProducts/PopularProducts";
 import ServiceSection from "../ServiceSection";
+import { useState } from "react";
 
 const Home = () => {
+    const [isTooltipVisible, setTooltipVisible] = useState(false);
     return (
         <div>
+
             <Banner></Banner>
+            <div className={`tooltip tooltip-left fixed bottom-10 right-5 z-50 ${isTooltipVisible ? 'tooltip-open' : ''}`} data-tip="May I help you,Sir/Madam?">
+                <a
+                    href="https://wa.me/+8801877565156"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={() => setTooltipVisible(true)}
+                    onMouseLeave={() => setTooltipVisible(false)}
+                    className="hover:text-orange-600 hidden md:block lg:block"
+                >
+                    <FaWhatsappSquare className="text-3xl text-green-600 bg-white " />
+                </a>
+            </div>
 
             <CategoriesList />
 
