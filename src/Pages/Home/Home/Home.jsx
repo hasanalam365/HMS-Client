@@ -6,10 +6,46 @@ import CategoriesList from "../CategoriesList/CategoriesList";
 import NewArrival from "../NewArrival/NewArrival";
 import PopularProducts from "../PopularProducts/PopularProducts";
 import ServiceSection from "../ServiceSection";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { FaArrowUp } from "react-icons/fa6";
 
 const Home = () => {
     const [isTooltipVisible, setTooltipVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    // Show or hide the button based on scroll direction
+    const handleScroll = () => {
+        const currentScrollY = window.pageYOffset;
+
+        // Show button when scrolling up (towards the top)
+        if (currentScrollY < lastScrollY) {
+            setIsVisible(true);
+        } else {
+            setIsVisible(false);
+        }
+
+        // Update the last scroll position
+        setLastScrollY(currentScrollY);
+    };
+
+    // Scroll the page to the top smoothly
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
+    useEffect(() => {
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+
+        // Clean up event listener
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [lastScrollY]); // Dependency array includes lastScrollY to update on scroll
+
+
     return (
         <div>
 
@@ -52,6 +88,17 @@ const Home = () => {
             <BrandsLogo></BrandsLogo>
             <div className="divider"></div>
             <ServiceSection></ServiceSection>
+
+            <div className="fixed bottom-5 md:bottom-20 lg:bottom-20 right-5 z-50">
+                {isVisible && (
+                    <button
+                        onClick={scrollToTop}
+                        className="bg-orange-600 text-white p-2 rounded-full shadow-lg hover:bg-orange-800 transition duration-300 "
+                    >
+                        <FaArrowUp className="text-xl" />
+                    </button>
+                )}
+            </div>
         </div>
     );
 };

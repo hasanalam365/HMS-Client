@@ -4,6 +4,8 @@ import SecurityCamera from "../../Components/SecurityCameras/SecurityCamera";
 import useProductsData from "../../hooks/useProductsData";
 import NewArrival from "../Home/NewArrival/NewArrival";
 import PopularProducts from "../Home/PopularProducts/PopularProducts";
+import { useEffect, useState } from "react";
+import { FaArrowUp } from "react-icons/fa6";
 
 const Categories = () => {
 
@@ -24,8 +26,45 @@ const Categories = () => {
     const portableDevices = products.filter(product => product.category === 'Portable Devices')
 
 
+    const [isVisible, setIsVisible] = useState(false);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    // Show or hide the button based on scroll direction
+    const handleScroll = () => {
+        const currentScrollY = window.pageYOffset;
+
+        // Show button when scrolling up (towards the top)
+        if (currentScrollY < lastScrollY) {
+            setIsVisible(true);
+        } else {
+            setIsVisible(false);
+        }
+
+        // Update the last scroll position
+        setLastScrollY(currentScrollY);
+    };
+
+    // Scroll the page to the top smoothly
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
+    useEffect(() => {
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+
+        // Clean up event listener
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [lastScrollY]); // Dependency array includes lastScrollY to update on scroll
+
+
+
+
     return (
-        <div className="pt-5 flex flex-col-reverse md:flex-row lg:flex-row ">
+        <div className="pt-5 flex flex-col-reverse md:flex-row lg:flex-row mb-5">
             <Helmet>
                 <title>Category | HMS </title>
             </Helmet>
@@ -58,7 +97,16 @@ const Categories = () => {
                 </ul>
 
             </div>
-
+            <div className="fixed bottom-5  right-5 z-50">
+                {isVisible && (
+                    <button
+                        onClick={scrollToTop}
+                        className="bg-orange-600 text-white p-2 rounded-full shadow-lg hover:bg-orange-800 transition duration-300"
+                    >
+                        <FaArrowUp className="text-xl" />
+                    </button>
+                )}
+            </div>
         </div>
     );
 };
