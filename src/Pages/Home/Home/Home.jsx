@@ -1,18 +1,22 @@
 import { FaWhatsappSquare } from "react-icons/fa";
-import SecurityCamera from "../../../Components/SecurityCameras/SecurityCamera";
 import Banner from "../Banner/Banner";
 import BrandsLogo from "../BrandsLogo/BrandsLogo";
 import CategoriesList from "../CategoriesList/CategoriesList";
-import NewArrival from "../NewArrival/NewArrival";
-import PopularProducts from "../PopularProducts/PopularProducts";
 import ServiceSection from "../ServiceSection";
 import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa6";
+import CategoryProduct from "../../../Components/CategoryProduct";
+import useProductsData from "../../../hooks/useProductsData";
 
 const Home = () => {
     const [isTooltipVisible, setTooltipVisible] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const [products, isLoading] = useProductsData()
+
+    const populars = products.filter(product => product.category === 'Popular')
+    const newArrivals = products.filter(product => product.category === 'New Arrival')
+    const securityCameras = products.filter(product => product.category === 'Security Camera')
 
     // Show or hide the button based on scroll direction
     const handleScroll = () => {
@@ -65,7 +69,7 @@ const Home = () => {
 
             <CategoriesList />
 
-            <NewArrival></NewArrival>
+            <CategoryProduct categoryProducts={newArrivals} categoryName="New Arrival"></CategoryProduct>
 
 
             <div className="flex flex-col md:flex-row lg:flex-row gap-5 p-4">
@@ -77,12 +81,13 @@ const Home = () => {
                 </div>
             </div>
 
-            <PopularProducts></PopularProducts>
+            <CategoryProduct categoryProducts={populars} categoryName="Popular"></CategoryProduct>
 
             <div className="mt-5">
                 <img className="w-full h-[150px] md:h-[200px] lg:h-[250px]" src="https://i.ibb.co/DkHnKyS/dilwali-offers.jpg" alt="" />
             </div>
-            <SecurityCamera></SecurityCamera>
+
+            <CategoryProduct categoryProducts={securityCameras} categoryName="Security Camera"></CategoryProduct>
 
             <div className="divider"></div>
             <BrandsLogo></BrandsLogo>

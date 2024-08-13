@@ -1,9 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import CategoryProduct from "../../Components/CategoryProduct";
-import SecurityCamera from "../../Components/SecurityCameras/SecurityCamera";
 import useProductsData from "../../hooks/useProductsData";
-import NewArrival from "../Home/NewArrival/NewArrival";
-import PopularProducts from "../Home/PopularProducts/PopularProducts";
 import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa6";
 
@@ -24,6 +21,9 @@ const Categories = () => {
     const wearableTech = products.filter(product => product.category === 'Wearable Tech')
     const homeAutomation = products.filter(product => product.category === 'Home Automation')
     const portableDevices = products.filter(product => product.category === 'Portable Devices')
+    const populars = products.filter(product => product.category === 'Popular')
+    const newArrivals = products.filter(product => product.category === 'New Arrival')
+    const securityCameras = products.filter(product => product.category === 'Security Camera')
 
 
     const [isVisible, setIsVisible] = useState(false);
@@ -70,9 +70,9 @@ const Categories = () => {
             </Helmet>
             <div className="w-full md:w-[77%] lg:w-[77%]">
                 {/* Categories Left Side */}
-                <NewArrival></NewArrival>
-                <PopularProducts></PopularProducts>
-                <SecurityCamera></SecurityCamera>
+                <CategoryProduct categoryProducts={newArrivals} categoryName="New Arrival"></CategoryProduct>
+                <CategoryProduct categoryProducts={populars} categoryName="Popular"></CategoryProduct>
+                <CategoryProduct categoryProducts={securityCameras} categoryName="Security Camera"></CategoryProduct>
                 <CategoryProduct categoryProducts={gadgetDeals} categoryName="Gadget Deals"></CategoryProduct>
                 <CategoryProduct categoryProducts={SmartHome} categoryName="Smart Home"></CategoryProduct>
                 <CategoryProduct categoryProducts={techEssentials} categoryName="Tech Essentials"></CategoryProduct>
