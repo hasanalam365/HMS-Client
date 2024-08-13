@@ -21,7 +21,15 @@ const Footer = () => {
                             <div className="flex gap-5">
                                 <FaFacebook className="text-3xl"></FaFacebook>
                                 <FaInstagram className="text-3xl"></FaInstagram>
-                                <FaWhatsappSquare className="text-3xl"></FaWhatsappSquare>
+                                <a
+                                    href="https://wa.me/+8801877565156"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+
+                                    className="hover:text-orange-600 hidden md:block lg:block"
+                                >
+                                    <FaWhatsappSquare className="text-3xl text-green-600 bg-white " />
+                                </a>
                             </div>
                         </div>
 
@@ -30,10 +38,12 @@ const Footer = () => {
                 <nav className="">
                     <h6 className="footer-title">Services</h6>
                     <div className="flex flex-col gap-2 ">
-                        <a className="link link-hover">Branding</a>
-                        <a className="link link-hover">Design</a>
-                        <a className="link link-hover">Marketing</a>
-                        <a className="link link-hover">Advertisement</a>
+                        <a className="link link-hover">
+                            <Link to='/brands'>Brands</Link>
+                        </a>
+                        <a className="link link-hover">Blogs</a>
+                        <a className="link link-hover">Categories</a>
+                        <a className="link link-hover">Service Center</a>
                     </div>
 
                 </nav>
@@ -41,9 +51,17 @@ const Footer = () => {
                     <h6 className="footer-title">Company</h6>
                     <div className="flex flex-col gap-2 ">
                         <a className="link link-hover">About us</a>
-                        <a className="link link-hover">Contact</a>
+                        <a
+                            href="https://wa.me/+8801877565156"
+                            target="_blank"
+                            rel="noopener noreferrer"
+
+                            className="link link-hover"
+                        >
+                            Support us
+                        </a>
                         <a className="link link-hover">Jobs</a>
-                        <a className="link link-hover">Press kit</a>
+                        <a className="link link-hover">Baby kit</a>
                     </div>
 
                 </nav>
@@ -51,7 +69,7 @@ const Footer = () => {
 
             </footer>
             <div className="text-center mb-[52px] md:mb-0 ">
-                <p>Copyright © ${new Date().getFullYear()} - All right reserved</p>
+                <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
             </div>
         </div>
     );

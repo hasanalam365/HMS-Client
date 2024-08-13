@@ -52,7 +52,7 @@ const CategoriesList = () => {
                     categories.map(category => <SwiperSlide key={category} className="border-2 border-gray-600 text-center !h-[100px] !flex !items-center !justify-center font-medium">
                         <Link to="/category"
                             state={{ category: category, products: categoryProducts[category], isLoading: isLoading }}
-                            className="text-lg md:text-xl font-medium text-orange-600 hover:scale-105">{category}</Link>
+                            className="text-lg md:text-xl font-medium  hover:scale-105">{category}</Link>
                     </SwiperSlide>)
                 }
 
