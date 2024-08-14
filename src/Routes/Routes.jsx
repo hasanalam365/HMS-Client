@@ -28,6 +28,7 @@ import UpdateProduct from "../Dashboard/Dashboard/UpdateProduct";
 import Categories from "../Pages/Categories/Categories";
 import Category from "../Components/Category";
 import Blogs from "../Pages/Blogs/Blogs";
+import ErrorComponent from "../Components/ErrorComponent";
 // import PersonaLinfo from "../Dashboard/UserDashboard/Profile";
 
 
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout></MainLayout>,
+        errorElement: <ErrorComponent></ErrorComponent>,
         children: [
             {
                 path: '/',
