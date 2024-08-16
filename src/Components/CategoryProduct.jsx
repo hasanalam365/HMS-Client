@@ -9,9 +9,7 @@ const CategoryProduct = ({ categoryProducts, categoryName }) => {
 
     return (
         <div>
-            <Helmet>
-                <title>Category | HMS</title>
-            </Helmet>
+
             {
                 categoryProducts.length > 0 &&
                 < div className="bg-gray-100 rounded-lg p-4 mt-10" id={categoryName}>

@@ -66,7 +66,7 @@ const Categories = () => {
     return (
         <div className="pt-5 flex flex-col-reverse md:flex-row lg:flex-row mb-5">
             <Helmet>
-                <title>Category | HMS </title>
+                <title>Category | HMS</title>
             </Helmet>
             <div className="w-full md:w-[77%] lg:w-[77%]">
                 {/* Categories Left Side */}

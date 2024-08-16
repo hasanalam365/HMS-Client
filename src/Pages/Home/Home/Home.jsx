@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa6";
 import CategoryProduct from "../../../Components/CategoryProduct";
 import useProductsData from "../../../hooks/useProductsData";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
     const [isTooltipVisible, setTooltipVisible] = useState(false);
@@ -52,7 +53,9 @@ const Home = () => {
 
     return (
         <div>
-
+            <Helmet>
+                <title>Home | HMS </title>
+            </Helmet>
             <Banner></Banner>
             <div className={`tooltip tooltip-left fixed bottom-10 right-5 z-50 ${isTooltipVisible ? 'tooltip-open' : ''}`} data-tip="May I help you,Sir/Madam?">
                 <a
