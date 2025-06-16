@@ -29,6 +29,7 @@ const Register = () => {
         const thana = form.thana.value;
         const address = form.address.value;
         const confirmPassword = form.confirmPassword.value
+        const role='user'
 
         if (correctPass !== confirmPassword) {
             return setErrorText('Password Not Match')
@@ -42,7 +43,7 @@ const Register = () => {
         });
         const photoURL = res.data.data.display_url;
         const userInfo = {
-            displayName, phone, email, division, district, thana, address, photoURL
+            displayName, phone, email, division, district, thana, address, photoURL,role
         }
 
 

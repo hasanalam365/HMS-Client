@@ -49,7 +49,7 @@ const Navber = ({ setOpenCart, openCart, setSearch }) => {
 
 
         <a
-            href="https://wa.me/+8801645782626"
+            href="https://wa.me/+14036941173"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setNavOpen(false)}
